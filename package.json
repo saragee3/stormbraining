@@ -1,41 +1,29 @@
 {
-  "name": "redux-easy-boilerplate",
-  "version": "2.1.0",
-  "description": "Start your project easy and fast with modern tools",
+  "name": "stormbraining",
+  "version": "1.0.0",
+  "description": "social brainstorming app",
   "scripts": {
-    "clean": "rimraf dist",
-    "build": "webpack --progress --verbose --colors --display-error-details --config webpack/common.config.js",
+    "clean": "rimraf client/dist",
+    "build": "webpack --progress --verbose --colors --display-error-details --config client/webpack/common.config.js",
     "build:production": "npm run clean && npm run build",
     "lint": "eslint src",
-    "start": "node bin/server.js",
+    "start": "node server/bin/server.js",
     "test": "karma start"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/anorudes/redux-easy-boilerplate.git"
+    "url": "git+https://github.com/ghostmoose/stormbraining.git"
   },
-  "homepage": "http://anorudes.github.io/redux-easy-boilerplate/",
-  "bugs": "https://github.com/anorudes/redux-easy-boilerplate/issues",
-  "keywords": [
-    "react",
-    "reactjs",
-    "babel6",
-    "boilerplate",
-    "redux",
-    "hot",
-    "reload",
-    "hmr",
-    "live",
-    "edit",
-    "webpack"
-  ],
+  "homepage": "https://github.com/ghostmoose/stormbraining#readme",
+  "bugs": {
+    "url": "https://github.com/ghostmoose/stormbraining/issues"
+  },
   "license": "MIT",
   "authors": [
-    "Max Anoru (https://github.com/anorudes)",
-    "Andrey Keske (https://github.com/keske)"
-  ],
-  "contributors": [
-    "Ollipekka Jalonen (https://github.com/inertum)"
+    "Kevin Chen (https://github.com/kevn-chn)",
+    "Frances Swiecki-Bernhardt (https://github.com/fswiecki)",
+    "Sara Gee (https://github.com/saragee3)",
+    "David Nguyen (https://github.com/lllNuggetslll)"
   ],
   "devDependencies": {
     "autoprefixer": "6.3.1",

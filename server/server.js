@@ -6,7 +6,7 @@ app.use(require('morgan')('short'));
 
 (function initWebpack() {
   const webpack = require('webpack');
-  const webpackConfig = require('./webpack/common.config');
+  const webpackConfig = require('../client/webpack/common.config');
   const compiler = webpack(webpackConfig);
 
   app.use(require('webpack-dev-middleware')(compiler, {
@@ -17,11 +17,11 @@ app.use(require('morgan')('short'));
     log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000,
   }));
 
-  app.use(express.static(__dirname + '/'));
+  app.use(express.static(__dirname + '/../client'));
 })();
 
 app.get(/.*/, function root(req, res) {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/../client/index.html');
 });
 
 const server = http.createServer(app);

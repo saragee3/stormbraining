@@ -1,6 +1,6 @@
 module.exports = (config) => {
   config.set({
-    basePath: 'src',
+    basePath: 'client/src',
     singleRun: true,
     frameworks: ['mocha'],
     reporters: ['dots'],
@@ -14,7 +14,7 @@ module.exports = (config) => {
     webpack: {
       resolve: {
         extensions: ['', '.js', '.ts'],
-        modulesDirectories: ['node_modules', 'src'],
+        modulesDirectories: ['node_modules', 'client/src'],
       },
       module: {
         loaders: [{
