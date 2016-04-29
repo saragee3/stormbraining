@@ -6,7 +6,7 @@ module.exports = {
   entry: [
     'bootstrap-loader',
     'webpack-hot-middleware/client',
-    './src/index',
+    '../src/index',
   ],
   output: {
     publicPath: 'dist/',
