@@ -20,6 +20,10 @@ app.use(require('morgan')('short'));
   app.use(express.static(__dirname + '/../client'));
 })();
 
+// app.get(/.*/, function root(req, res) {
+//   res.sendFile(__dirname + '/../client/index.html');
+// });
+
 require('./routes')(app, express);
 
 const server = http.createServer(app);
