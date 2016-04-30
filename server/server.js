@@ -24,7 +24,7 @@ app.use(require('morgan')('short'));
 //   res.sendFile(__dirname + '/../client/index.html');
 // });
 
-require('./routes')(app, express);
+require('../server/config/routes.js')(app, express);
 
 const server = http.createServer(app);
 server.listen(process.env.PORT || 3000, function onListen() {

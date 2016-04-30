@@ -39,6 +39,4 @@ module.exports = function(app) {
     .delete(function(req, res) {
 
     })
-
-
 };
