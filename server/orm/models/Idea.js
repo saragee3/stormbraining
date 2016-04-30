@@ -17,3 +17,4 @@ export default Idea;
 // require used instead of import due to same issue (https://github.com/neumino/thinky/issues/399)
 const Board = require('./Board').default;
 Idea.belongsTo(Board, 'board', 'boardId', 'id');
+Idea.ensureIndex('createdAt');
