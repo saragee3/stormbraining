@@ -7,7 +7,7 @@
     "build": "webpack --progress --verbose --colors --display-error-details --config client/webpack/common.config.js",
     "build:production": "npm run clean && npm run build",
     "lint": "eslint src",
-    "start": "node server/bin/server.js",
+    "start": "nodemon server/bin/server.js",
     "test": "karma start"
   },
   "repository": {
