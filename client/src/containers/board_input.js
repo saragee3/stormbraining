@@ -46,10 +46,6 @@ class BoardInput extends Component {
   }
 }
 
-// BoardInput.propTypes = {
-//   newBoard: React.PropTypes.function,
-// };
-
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ newBoard }, dispatch);
 }
