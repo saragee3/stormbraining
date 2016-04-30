@@ -8,7 +8,6 @@ import App from './components/app';
 import Ideas from './components/ideas';
 import Boards from './components/boards';
 import reducers from './reducers';
-// import routes from './routes';
 
 const store = createStore(reducers);
 
