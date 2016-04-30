@@ -21,9 +21,13 @@ export default {
   },
 
   getBoard: (req, res) => {
-    const id = req.params.id;
+    const id = req.params.board_id;
 
-    Board.get(id).getJoin({ ideas: {_order: 'createdAt'} }).run()
+    Board.get(id).getJoin({
+      ideas: {
+        _apply: (sequence) => sequence.orderBy('createdAt')
+      }
+    }).run()
       .then(function(board) {
         res.status(200).json({ board });
       })

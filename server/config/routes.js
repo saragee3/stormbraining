@@ -1,5 +1,6 @@
 import path from 'path';
 import BoardController from '../orm/controllers/BoardController.js';
+import IdeaController from '../orm/controllers/IdeaController.js';
 
 export default function routes(app, express) {
 
@@ -7,7 +8,7 @@ export default function routes(app, express) {
     .get(BoardController.getAllBoards)
     .post(BoardController.addBoard);
 
-  app.route('/api/boards/:id')
+  app.route('/api/boards/:board_id')
     .get(BoardController.getBoard)
     .put(function(req, res) {
 
@@ -16,15 +17,11 @@ export default function routes(app, express) {
 
     })
 
-  app.route('/api/boards/:id/ideas')
-    .post(function(req, res) {
+  app.route('/api/boards/:board_id/ideas')
+    .post(IdeaController.addIdea);
 
-    })
-
-  app.route('/api/boards/:id/ideas/:id')
-    .get(function(req, res) {
-
-    })
+  app.route('/api/boards/:board_id/ideas/:idea_id')
+    .get(IdeaController.getIdea)
     .put(function(req, res) {
 
     })
