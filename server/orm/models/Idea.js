@@ -6,7 +6,7 @@ const type = thinky.type;
 const Idea = thinky.createModel('Idea', {
   id: type.string(),
   content: type.string().required(),
-  upvotes: type.number(),
+  upvotes: type.number().default(() => 0),
   createdAt: type.date().default(r.now),
 });
 
