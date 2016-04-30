@@ -1,10 +1,5 @@
 module.exports = function(app) {
 
-  app.route('.*/')
-    .get(function root(req, res) {
-      res.sendFile(__dirname + '/../client/index.html');
-    });
-
   app.route('/api/boards')
     .get(function(req, res) {
 
@@ -38,5 +33,9 @@ module.exports = function(app) {
     })
     .delete(function(req, res) {
 
+      app.route(/.*/)
+        .get(function root(req, res) {
+          res.sendFile(__dirname + '/../client/index.html');
+        });
     })
 };
