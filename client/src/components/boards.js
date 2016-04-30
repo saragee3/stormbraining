@@ -1,8 +1,12 @@
 import React from 'react';
+import BoardInput from '../containers/board_input';
+import BoardList from '../containers/board_list';
 
 const Boards = () => (
   <div>
-    <h1> boards go here </h1>
+    <h1> Create a brainstorm </h1>
+    <BoardInput />
+    <BoardList />
   </div>
 );
 

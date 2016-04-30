@@ -1,8 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
 
 export default class App extends Component {
+
+  static propTypes = { // this seems to be the preferred set-up
+    children: PropTypes.object,
+  }
+
   constructor(props) {
     super(props);
   }
