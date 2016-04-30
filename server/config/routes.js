@@ -1,6 +1,6 @@
 import path from 'path';
 
-module.exports = function(app,express) {
+export default function routes(app, express) {
 
   app.route('/api/boards')
     .get(function(req, res) {
