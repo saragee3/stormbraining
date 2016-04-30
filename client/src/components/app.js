@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Link } from 'react-router';
 
-import IdeaInput from '../containers/idea_input';
-import IdeaList from '../containers/idea_list';
 
-const App = () => (
-  <div>
-    <h1> Stormbrain </h1>
-    <IdeaInput />
-    <IdeaList />
-  </div>
-);
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-export default App;
+  render() {
+    return (
+      <div>
+        <nav className="navbar">
+          <Link to="/" className="navbar-brand">Stormbraining</Link>
+          <ul className="nav navbar-nav">
+            <li className="nav-item"><Link to="/boards">Boards</Link></li>
+            <li className="nav-item"><Link to="/ideas">Ideas</Link></li>
+          </ul>
+        </nav>
+        {this.props.children}
+      </div>
+    );
+  }
+}
