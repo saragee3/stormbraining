@@ -1,26 +1,12 @@
-const http = require('http');
-const express = require('express');
+import http from 'http';
+import express from 'express';
+import routes from '../server/config/routes.js';
+import middleware from '../server/config/middleware.js';
+
 const app = express();
 
-app.use(require('morgan')('short'));
-
-(function initWebpack() {
-  const webpack = require('webpack');
-  const webpackConfig = require('../client/webpack/common.config');
-  const compiler = webpack(webpackConfig);
-
-  app.use(require('webpack-dev-middleware')(compiler, {
-    noInfo: true, publicPath: webpackConfig.output.publicPath,
-  }));
-
-  app.use(require('webpack-hot-middleware')(compiler, {
-    log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000,
-  }));
-
-  app.use(express.static(__dirname + '/../client'));
-})();
-
-require('../server/config/routes.js')(app, express);
+middleware(app, express);
+routes(app, express);
 
 const server = http.createServer(app);
 server.listen(process.env.PORT || 3000, function onListen() {

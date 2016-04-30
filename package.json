@@ -7,7 +7,7 @@
     "build": "webpack --progress --verbose --colors --display-error-details --config client/webpack/common.config.js",
     "build:production": "npm run clean && npm run build",
     "lint": "eslint src",
-    "start": "node server/bin/server.js",
+    "start": "nodemon server/bin/server.js",
     "test": "karma start"
   },
   "repository": {
@@ -37,6 +37,7 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-react-hmre": "^1.0.1",
     "babel-preset-stage-0": "^6.3.13",
+    "body-parser": "^1.15.0",
     "bootstrap-loader": "^1.0.5",
     "bootstrap-sass": "^3.3.6",
     "classnames": "^2.2.3",
