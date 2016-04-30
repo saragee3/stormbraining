@@ -1,3 +1,4 @@
+const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -6,10 +7,11 @@ module.exports = {
   entry: [
     'bootstrap-loader',
     'webpack-hot-middleware/client',
-    '../src/index',
+    path.join(__dirname, '../src/index'),
   ],
   output: {
-    publicPath: 'dist/',
+    // Make sure to keep / in front of dist for hot reloading to work properly
+    publicPath: '/dist/',
   },
 
   module: {
