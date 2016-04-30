@@ -1,4 +1,5 @@
-module.exports = function(app, express) {
+module.exports = function(app,express) {
+
 
   app.route('/api/boards')
     .get(function(req, res) {
@@ -33,9 +34,10 @@ module.exports = function(app, express) {
     })
     .delete(function(req, res) {
 
-      app.route(/.*/)
-        .get(function root(req, res) {
-          res.sendFile(__dirname + '/../client/index.html');
-        });
     })
+  app.route(/.*/)
+   .get(function root(req, res) {
+     res.sendFile(__dirname + '/../client/index.html');
+   });
+
 };
