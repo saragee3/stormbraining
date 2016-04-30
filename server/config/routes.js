@@ -1,4 +1,4 @@
-module.exports = function(app) {
+module.exports = function(app, express) {
 
   app.route('/api/boards')
     .get(function(req, res) {
