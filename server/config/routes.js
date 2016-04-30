@@ -1,19 +1,14 @@
 import path from 'path';
+import BoardController from '../orm/controllers/BoardController.js';
 
 export default function routes(app, express) {
 
   app.route('/api/boards')
-    .get(function(req, res) {
+    .get(BoardController.getAllBoards)
+    .post(BoardController.addBoard);
 
-    })
-    .post(function(req, res) {
-
-    });
-
-  app.route('/api/boards/:board_id')
-    .get(function(req, res) {
-
-    })
+  app.route('/api/boards/:id')
+    .get(BoardController.getBoard)
     .put(function(req, res) {
 
     })
@@ -21,12 +16,12 @@ export default function routes(app, express) {
 
     })
 
-  app.route('/api/boards/:board_id/ideas')
+  app.route('/api/boards/:id/ideas')
     .post(function(req, res) {
 
     })
 
-  app.route('/api/boards/:board_id/ideas/:idea_id')
+  app.route('/api/boards/:id/ideas/:id')
     .get(function(req, res) {
 
     })

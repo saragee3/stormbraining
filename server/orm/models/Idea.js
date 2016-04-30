@@ -1,9 +1,12 @@
-import thinky, { r, type } from '../thinkyConfig.js';
+import thinky from '../thinkyConfig.js';
+// Object destructuring issue (https://github.com/neumino/thinky/issues/351)
+const r = thinky.r;
+const type = thinky.type;
 
 const Idea = thinky.createModel('Idea', {
   id: type.string(),
-  content: type.string(),
-  upvotes: type.number(),
+  content: type.string().required(),
+  upvotes: type.number().default(() => 0),
   createdAt: type.date().default(r.now),
 });
 
