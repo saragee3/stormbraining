@@ -11,9 +11,9 @@ export function newIdea(idea) {
   };
 }
 
-export function newBoard(boardname) {
+export function newBoard(title) {
   return {
     type: NEW_BOARD,
-    payload: boardname,
+    payload: title,
   };
 }
