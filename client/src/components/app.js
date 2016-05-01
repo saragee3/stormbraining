@@ -19,7 +19,6 @@ export default class App extends Component {
           <Link to="/" className="navbar-brand">Stormbraining</Link>
           <ul className="nav navbar-nav">
             <li className="nav-item"><Link to="/boards">Boards</Link></li>
-            <li className="nav-item"><Link to="/ideas">Ideas</Link></li>
           </ul>
         </nav>
         {this.props.children}
