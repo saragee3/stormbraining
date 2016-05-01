@@ -1,16 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 
 class IdeaList extends Component {
+
+  static propTypes = {
+    params: PropTypes.object.isRequired,
+    ideas: PropTypes.array.isRequired,
+  }
+
   renderIdea(data) {
     return (
-      <tr key={data}>
+      <tr key={data.data.idea.id}>
         <td>
-        {data}
-          <Link to="" className="btn btn-secondary">
-            View
-          </Link>
+          {data.data.idea.content}
         </td>
       </tr>
     );
@@ -22,6 +24,8 @@ class IdeaList extends Component {
         <thead>
           <tr>
             <th>Idea</th>
+            <th>Votes</th>
+            <th></th>
           </tr>
         </thead>
         <tbody clasName="col-xs-12">
@@ -35,9 +39,5 @@ class IdeaList extends Component {
 function mapStateToProps({ ideas }) {
   return { ideas };
 }
-
-IdeaList.propTypes = {
-  ideas: React.PropTypes.string.isRequired,
-};
 
 export default connect(mapStateToProps)(IdeaList);
