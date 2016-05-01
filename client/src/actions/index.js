@@ -7,10 +7,11 @@ export const GET_ONE_BOARD = 'GET_ONE_BOARD';
 
 const ROOT_URL = '/api';
 
-export function newIdea(idea) {
+export function newIdea(idea, id) {
+  const request = axios.post(`${ROOT_URL}/boards/${id}/ideas`, { content: idea });
   return {
     type: NEW_IDEA,
-    payload: idea,
+    payload: request,
   };
 }
 
