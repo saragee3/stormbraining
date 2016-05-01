@@ -10,8 +10,8 @@ export default function routes(app, express) {
 
   app.route('/api/boards/:board_id')
     .get(BoardController.getBoard)
-    .put()
-    .delete();
+    .put(BoardController.updateBoard)
+    .delete(BoardController.deleteBoard);
 
   app.route('/api/boards/:board_id/ideas')
     .post(IdeaController.addIdea);
