@@ -6,7 +6,7 @@ export default {
     const newBoard = new Board(req.body);
 
     newBoard.save()
-      .then(function(board) {
+      .then((board) => {
         res.status(201).json({ board });
       })
       .error(helper.handleError(res));
@@ -14,17 +14,21 @@ export default {
 
   getAllBoards: (req, res) => {
     Board.orderBy({ index: 'createdAt' }).run()
-      .then(function(boards) {
+      .then((boards) => {
         res.status(200).json({ boards });
       })
       .error(helper.handleError(res));
   },
 
   getBoard: (req, res) => {
-    const id = req.params.id;
+    const id = req.params.board_id;
 
-    Board.get(id).getJoin({ ideas: {_order: 'createdAt'} }).run()
-      .then(function(board) {
+    Board.get(id).getJoin({
+      ideas: {
+        _apply: (sequence) => sequence.orderBy('createdAt')
+      }
+    }).run()
+      .then((board) => {
         res.status(200).json({ board });
       })
       .error(helper.handleError(res));
