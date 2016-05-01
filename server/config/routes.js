@@ -15,7 +15,7 @@ export default function routes(app, express) {
     })
     .delete(function(req, res) {
 
-    })
+    });
 
   app.route('/api/boards/:board_id/ideas')
     .post(IdeaController.addIdea);
@@ -27,10 +27,13 @@ export default function routes(app, express) {
     })
     .delete(function(req, res) {
 
-    })
+    });
+
+  app.route('/api/boards/:board_id/ideas/:idea_id/upvotes')
+    .post(IdeaController.upvoteIdea);
 
   app.route(/.*/)
     .get(function root(req, res) {
       res.sendFile(path.join(__dirname, '/../../client/index.html'));
     });
-};
+}

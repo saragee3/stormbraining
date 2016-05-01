@@ -23,4 +23,19 @@ export default {
       })
       .error(helper.handleError(res));
   },
+
+  upvoteIdea: (req, res) => {
+    const id = req.params.idea_id;
+
+    Idea.get(id).run()
+      .then(function(idea) {
+        idea.upvotes++;
+        idea.save()
+          .then(function(idea) {
+            res.status(201).json({ idea });
+          })
+          .error(helper.handleError(res));
+      })
+      .error(helper.handleError(res));
+  },
 };
