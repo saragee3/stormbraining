@@ -20,7 +20,7 @@ class BoardList extends Component {
       <tr key={data.id}>
         <td>
         {data.title}
-          <Link to={'boards/' + data.id } className="btn btn-secondary">
+          <Link to={`boards/${data.id}` } className="btn btn-secondary">
             View
           </Link>
         </td>

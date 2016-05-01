@@ -15,7 +15,7 @@ export function newIdea(idea) {
 }
 
 export function newBoard(title) {
-  const boardRequest = axios.post(ROOT_URL + '/boards', { title });
+  const boardRequest = axios.post(`${ROOT_URL}/boards`, { title });
   return {
     type: NEW_BOARD,
     payload: boardRequest,
@@ -23,7 +23,7 @@ export function newBoard(title) {
 }
 
 export function getBoards() {
-  const request = axios.get(ROOT_URL + '/boards');
+  const request = axios.get(`${ROOT_URL}/boards`);
   return {
     type: GET_BOARDS,
     payload: request,
@@ -31,7 +31,7 @@ export function getBoards() {
 }
 
 export function getOneBoard(id) {
-  const request = axios.get(ROOT_URL + '/boards/' + id);
+  const request = axios.get(`${ROOT_URL}/boards/${id}`);
   return {
     type: GET_ONE_BOARD,
     payload: request,
