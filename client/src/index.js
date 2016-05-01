@@ -16,8 +16,8 @@ render(
   <Provider store={ store(reducers) }>
     <Router history={browserHistory}>
       <Route path="/" component={ App }>
-        <Route path="/ideas" component={ Ideas } />
         <Route path="/boards" component={ Boards } />
+        <Route path="/boards/:board_id" component={ Ideas } />
       </Route>
     </Router>
   </Provider>
