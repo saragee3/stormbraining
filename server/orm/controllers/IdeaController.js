@@ -8,7 +8,7 @@ export default {
     const newIdea = new Idea({ content, boardId });
 
     newIdea.save()
-      .then(function(idea) {
+      .then((idea) => {
         res.status(201).json({ idea });
       })
       .error(helper.handleError(res));
@@ -18,7 +18,7 @@ export default {
     const id = req.params.idea_id;
 
     Idea.get(id).run()
-      .then(function(idea) {
+      .then((idea) => {
         res.status(200).json({ idea });
       })
       .error(helper.handleError(res));
@@ -28,10 +28,10 @@ export default {
     const id = req.params.idea_id;
 
     Idea.get(id).run()
-      .then(function(idea) {
+      .then((idea) => {
         idea.upvotes++;
         idea.save()
-          .then(function(idea) {
+          .then((idea) => {
             res.status(201).json({ idea });
           })
           .error(helper.handleError(res));

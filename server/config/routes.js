@@ -10,24 +10,16 @@ export default function routes(app, express) {
 
   app.route('/api/boards/:board_id')
     .get(BoardController.getBoard)
-    .put(function(req, res) {
-
-    })
-    .delete(function(req, res) {
-
-    });
+    .put()
+    .delete();
 
   app.route('/api/boards/:board_id/ideas')
     .post(IdeaController.addIdea);
 
   app.route('/api/boards/:board_id/ideas/:idea_id')
     .get(IdeaController.getIdea)
-    .put(function(req, res) {
-
-    })
-    .delete(function(req, res) {
-
-    });
+    .put()
+    .delete();
 
   app.route('/api/boards/:board_id/ideas/:idea_id/upvotes')
     .post(IdeaController.upvoteIdea);
