@@ -10,9 +10,9 @@ describe('Brainstorm board interface', () => {
   });
 
   describe('idea things', () => {
-    describe('a function', () => {
-      it('does some things', () => {
-        expect(Idea).to.exist();
+    describe('Idea model', () => {
+      it('should exist', () => {
+        expect(Idea).to.exist;
         //  do things here.
       });
     });

@@ -9,12 +9,10 @@ describe('Brainstorm board interface', () => {
     //  do some set-up here
   });
 
-  describe('/api/boards', () => {
-    describe('GET', () => {
-      it('responds with a 200 (OK)', (done) => {
-        request(app)
-          .get('/api/boards')
-          .expect(200, done);
+  describe('Boards', () => {
+    describe('Board model', () => {
+      it('Should exist', () => {
+        expect(Board).to.exist;
       });
     });
   });

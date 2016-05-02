@@ -8,7 +8,7 @@
     "build:production": "npm run clean && npm run build",
     "lint": "eslint src",
     "start": "nodemon server/bin/server.js",
-    "test": "karma start"
+    "test": "mocha server/test --compilers js:babel-register"
   },
   "repository": {
     "type": "git",
@@ -37,6 +37,7 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-react-hmre": "^1.0.1",
     "babel-preset-stage-0": "^6.3.13",
+    "babel-register": "^6.7.2",
     "body-parser": "^1.15.0",
     "bootstrap-loader": "^1.0.5",
     "bootstrap-sass": "^3.3.6",
