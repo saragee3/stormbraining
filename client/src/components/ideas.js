@@ -26,7 +26,7 @@ class Ideas extends Component {
         <h1>Good ideas go here</h1>
         <h2>Topic: {this.props.board.title}</h2>
         <IdeaInput {...this.props} />
-        <IdeaList />
+        <IdeaList {...this.props} />
       </div>
     );
   }
