@@ -1,9 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { newIdea } from '../actions/index';
+import { newIdea, getOneBoard } from '../actions/index';
 
 class IdeaInput extends Component {
+
+  static propTypes = {
+    params: PropTypes.object.isRequired,
+    newIdea: PropTypes.func.isRequired,
+    getOneBoard: PropTypes.func.isRequired,
+    board: PropTypes.object.isRequired,
+  }
+
   constructor(props) {
     super(props);
 
@@ -17,8 +25,13 @@ class IdeaInput extends Component {
   }
 
   onFormSubmit(event) {
+    console.log('ideainput', this.props.board);
     event.preventDefault();
-    this.props.newIdea(this.state.term);
+    if (this.state.term.length > 2) {
+      this.props.newIdea(this.state.term, this.props.params.board_id);
+      this.props.getOneBoard(this.props.params.board_id);
+    }
+
     this.setState({ term: '' });
   }
 
@@ -26,7 +39,7 @@ class IdeaInput extends Component {
     return (
       <form onSubmit={this.onFormSubmit} className="input-group">
         <input
-          placeholder="Ideazzzzz"
+          placeholder="Great ideas start here..."
           className="form-control"
           value={this.state.term}
           onChange={this.onInputChange}
@@ -44,12 +57,8 @@ class IdeaInput extends Component {
   }
 }
 
-IdeaInput.propTypes = {
-  newIdea: React.PropTypes.string.isRequired,
-};
-
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ newIdea }, dispatch);
+  return bindActionCreators({ newIdea, getOneBoard }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(IdeaInput);
