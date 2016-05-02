@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { upVote, getOneBoard } from '../actions/index';
 
-class Votes extends Component {
+class Idea extends Component {
 
   static propTypes = {
     ideas: PropTypes.array.isRequired,
+    content: PropTypes.string.isRequired,
     upvotes: PropTypes.number.isRequired,
     boardId: PropTypes.string.isRequired,
     getOneBoard: PropTypes.func.isRequired,
@@ -21,17 +22,21 @@ class Votes extends Component {
 
   render() {
     return (
-      <span>
-        {this.props.upvotes}
+      <tr>
+        <td>
+          {this.props.content}
+        </td>
+        <td>
+          {this.props.upvotes}
+        </td>
         <td>
           <button
             onClick={this.renderVotes.bind(this)}
-            className="btn btn-success"
-          >
+            className="btn btn-success">
             Upvote
           </button>
         </td>
-      </span>
+      </tr>
     );
   }
 }
@@ -44,4 +49,4 @@ function mapStateToProps({ ideas }) {
   return { ideas };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Votes);
+export default connect(mapStateToProps, mapDispatchToProps)(Idea);

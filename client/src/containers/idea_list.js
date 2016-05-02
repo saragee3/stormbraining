@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getOneBoard, upVote } from '../actions/index';
-import Votes from './votes';
+import Idea from './idea';
 
 class IdeaList extends Component {
 
@@ -16,14 +16,7 @@ class IdeaList extends Component {
 
   renderIdea(data) {
     return (
-      <tr key={data.content}>
-        <td>
-          {data.content}
-        </td>
-        <td>
-          <Votes {...data} />
-        </td>
-      </tr>
+      <Idea {...data} key={data.id}/>
     );
   }
 
