@@ -1,7 +1,7 @@
 import chai, { expect } from 'chai';
 import request from 'supertest';
 import app from '../server.js';
-import Idea from '../models/Idea.js';
+import Idea from '../orm/models/Idea.js';
 
 describe('Brainstorm board interface', () => {
 
