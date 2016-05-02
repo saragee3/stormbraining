@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 export const NEW_IDEA = 'NEW_IDEA';
+export const GET_ONE_IDEA = 'GET_ONE_IDEA';
+export const UP_VOTE = 'UP_VOTE';
 export const NEW_BOARD = 'NEW_BOARD';
 export const GET_BOARDS = 'GET_BOARDS';
 export const GET_ONE_BOARD = 'GET_ONE_BOARD';
@@ -11,6 +13,22 @@ export function newIdea(idea, id) {
   const request = axios.post(`${ROOT_URL}/boards/${id}/ideas`, { content: idea });
   return {
     type: NEW_IDEA,
+    payload: request,
+  };
+}
+
+export function getOneIdea(id, ideaId) {
+  const request = axios.get(`${ROOT_URL}/boards/${id}/ideas/${ideaId}`);
+  return {
+    type: GET_ONE_IDEA,
+    payload: request,
+  };
+}
+
+export function upVote(id, ideaId) {
+  const request = axios.post(`${ROOT_URL}/boards/${id}/ideas/${ideaId}/upvotes`);
+  return {
+    type: UP_VOTE,
     payload: request,
   };
 }
