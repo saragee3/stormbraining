@@ -18,8 +18,8 @@ export default function routes(app, express) {
 
   app.route('/api/boards/:board_id/ideas/:idea_id')
     .get(IdeaController.getIdea)
-    .put()
-    .delete();
+    .put(IdeaController.updateIdea)
+    .delete(IdeaController.deleteIdea);
 
   app.route('/api/boards/:board_id/ideas/:idea_id/upvotes')
     .post(IdeaController.upvoteIdea);

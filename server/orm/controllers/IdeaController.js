@@ -38,4 +38,30 @@ export default {
       })
       .error(helper.handleError(res));
   },
+
+  deleteIdea: (req, res) => {
+    const id = req.params.idea_id;
+
+    Idea.get(id).run()
+      .then((idea) => {
+        idea.delete()
+          .then((result) => {
+            res.sendStatus(204);
+          })
+      })
+  },
+
+  updateIdea: (req, res) => {
+    const id = req.params.idea_id;
+    const update = req.body;
+
+    Idea.get(id).run()
+      .then((idea) => {
+        idea.merge(update).save()
+          .then((result) => {
+            res.status(200).json({ result });
+          })
+      })
+      .error(helper.handleError(res));
+  },
 };
