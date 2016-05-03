@@ -1,6 +1,5 @@
 import thinky from '../thinkyConfig.js';
 import { io } from '../../server.js';
-import { message } from '../../server.js';
 // Object destructuring issue (https://github.com/neumino/thinky/issues/351)
 const r = thinky.r;
 const type = thinky.type;

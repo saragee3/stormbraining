@@ -23,5 +23,3 @@ io.on('connection', (socket) => {
     console.log('a user disconnected');
   });
 });
-
-export const message = 'Hello world';
