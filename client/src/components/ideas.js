@@ -32,8 +32,8 @@ class Ideas extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { board: state.boards.board };
+function mapStateToProps({ board }) {
+  return { board };
 }
 
 export default connect(mapStateToProps, { getOneBoard })(Ideas);

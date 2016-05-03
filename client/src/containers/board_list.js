@@ -7,7 +7,7 @@ import { getBoards } from '../actions/index';
 class BoardList extends Component {
 
   static propTypes = {
-    boards: PropTypes.object.isRequired,
+    allBoards: PropTypes.array.isRequired,
     getBoards: PropTypes.func.isRequired,
   }
 
@@ -31,7 +31,7 @@ class BoardList extends Component {
     return (
       <table className="table table-hover">
         <tbody clasName="col-xs-12">
-          {this.props.boards.all.map(this.renderBoardListing)}
+          {this.props.allBoards.map(this.renderBoardListing)}
         </tbody>
       </table>
     );
@@ -42,8 +42,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ getBoards }, dispatch);
 }
 
-function mapStateToProps({ boards }) {
-  return { boards };
+function mapStateToProps({ allBoards }) {
+  return { allBoards };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BoardList);

@@ -2,28 +2,20 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getOneBoard, upVote } from '../actions/index';
-import Votes from './votes';
+import Idea from './idea';
 
 class IdeaList extends Component {
 
   static propTypes = {
     params: PropTypes.object.isRequired,
-    ideas: PropTypes.array.isRequired,
     getOneBoard: PropTypes.func,
-    board: PropTypes.object,
+    board: PropTypes.object.isRequired,
     upVote: PropTypes.func.isRequired,
   }
 
   renderIdea(data) {
     return (
-      <tr key={data.content}>
-        <td>
-          {data.content}
-        </td>
-        <td>
-          <Votes {...data} />
-        </td>
-      </tr>
+      <Idea {...data} key={data.id}/>
     );
   }
 
@@ -37,7 +29,7 @@ class IdeaList extends Component {
             <th></th>
           </tr>
         </thead>
-        <tbody clasName="col-xs-12">
+        <tbody>
           {this.props.board.ideas.map(this.renderIdea)}
         </tbody>
       </table>
@@ -49,8 +41,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ getOneBoard, upVote }, dispatch);
 }
 
-function mapStateToProps({ ideas }) {
-  return { ideas };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(IdeaList);
+export default connect(null, mapDispatchToProps)(IdeaList);

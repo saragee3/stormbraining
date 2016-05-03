@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import PostReducer from './idea';
 import BoardReducer from './board';
+import AllBoardsReducer from './all_boards';
 
 const rootReducer = combineReducers({
-  ideas: PostReducer,
-  boards: BoardReducer,
+  board: BoardReducer,
+  allBoards: AllBoardsReducer,
 });
 
 export default rootReducer;
