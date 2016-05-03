@@ -13,3 +13,15 @@ const server = http.createServer(app);
 server.listen(app.get('port'), () => {
   console.log(`Express server listening on port ${app.get('port')}`);
 });
+
+// set up the socket.io connection with the server
+export const io = require('socket.io')(server);
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('disconnect', () => {
+    console.log('a user disconnected');
+  });
+});
+
+export const message = 'Hello world';
