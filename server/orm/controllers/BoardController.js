@@ -25,8 +25,8 @@ export default {
 
     Board.get(id).getJoin({
       ideas: {
-        _apply: (sequence) => sequence.orderBy('createdAt')
-      }
+        _apply: (sequence) => sequence.orderBy('createdAt'),
+      },
     }).run()
       .then((board) => {
         res.status(200).json({ board });
@@ -38,13 +38,13 @@ export default {
     const id = req.params.board_id;
 
     Board.get(id).getJoin({
-      ideas: true
+      ideas: true,
     }).run()
       .then((board) => {
-        board.deleteAll({ideas: true})
+        board.deleteAll({ ideas: true })
           .then((result) => {
             res.sendStatus(204);
-          })
+          });
       })
       .error(helper.handleError(res));
   },
@@ -58,7 +58,7 @@ export default {
         board.merge(update).save()
           .then((result) => {
             res.status(200).json({ result });
-          })
+          });
       })
       .error(helper.handleError(res));
   },
