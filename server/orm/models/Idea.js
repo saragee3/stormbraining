@@ -1,4 +1,5 @@
 import thinky from '../thinkyConfig.js';
+import { io } from '../../server.js';
 // Object destructuring issue (https://github.com/neumino/thinky/issues/351)
 const r = thinky.r;
 const type = thinky.type;
@@ -18,3 +19,26 @@ export default Idea;
 const Board = require('./Board').default;
 Idea.belongsTo(Board, 'board', 'boardId', 'id');
 Idea.ensureIndex('createdAt');
+
+// Initialize change feed on Idea
+Idea.changes().then((feed) => {
+  feed.each((error, doc) => {
+    if (error) {
+      console.log(error);
+      process.exit(1);
+    }
+    if (doc.isSaved() === false) {
+      // The following document was deleted:
+      // console.log(JSON.stringify(doc));
+    } else if (!doc.getOldValue()) {
+      // A new document was inserted:
+      io.sockets.emit('idea', doc);
+    } else {
+      // A document was updated.
+      io.sockets.emit('idea', doc);
+    }
+  });
+}).error((error) => {
+  console.log(error);
+  process.exit(1);
+});
