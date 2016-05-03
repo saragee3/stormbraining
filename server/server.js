@@ -4,13 +4,12 @@ import routes from '../server/config/routes.js';
 import middleware from '../server/config/middleware.js';
 
 const app = express();
+app.set('port', process.env.PORT || 3000);
 
 middleware(app, express);
 routes(app, express);
 
 const server = http.createServer(app);
-server.listen(process.env.PORT || 3000, function onListen() {
-  const address = server.address();
-  console.log('Listening on: %j', address);
-  console.log(' -> that probably means: http://localhost:%d', address.port);
+server.listen(app.get('port'), () => {
+  console.log(`Express server listening on port ${app.get('port')}`);
 });
