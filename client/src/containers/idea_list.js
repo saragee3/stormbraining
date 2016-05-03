@@ -8,9 +8,8 @@ class IdeaList extends Component {
 
   static propTypes = {
     params: PropTypes.object.isRequired,
-    ideas: PropTypes.array.isRequired,
     getOneBoard: PropTypes.func,
-    board: PropTypes.object,
+    board: PropTypes.object.isRequired,
     upVote: PropTypes.func.isRequired,
   }
 
@@ -30,7 +29,7 @@ class IdeaList extends Component {
             <th></th>
           </tr>
         </thead>
-        <tbody clasName="col-xs-12">
+        <tbody>
           {this.props.board.ideas.map(this.renderIdea)}
         </tbody>
       </table>
@@ -42,8 +41,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ getOneBoard, upVote }, dispatch);
 }
 
-function mapStateToProps({ ideas }) {
-  return { ideas };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(IdeaList);
+export default connect(null, mapDispatchToProps)(IdeaList);

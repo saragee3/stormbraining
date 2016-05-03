@@ -6,7 +6,6 @@ import { upVote, getOneBoard } from '../actions/index';
 class Idea extends Component {
 
   static propTypes = {
-    ideas: PropTypes.array.isRequired,
     content: PropTypes.string.isRequired,
     upvotes: PropTypes.number.isRequired,
     boardId: PropTypes.string.isRequired,
@@ -17,7 +16,6 @@ class Idea extends Component {
 
   renderVotes() {
     this.props.upVote(this.props.boardId, this.props.id);
-    this.props.getOneBoard(this.props.boardId);
   }
 
   render() {
@@ -45,8 +43,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ upVote, getOneBoard }, dispatch);
 }
 
-function mapStateToProps({ ideas }) {
-  return { ideas };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Idea);
+export default connect(null, mapDispatchToProps)(Idea);

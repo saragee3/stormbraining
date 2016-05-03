@@ -9,7 +9,6 @@ class IdeaInput extends Component {
     params: PropTypes.object.isRequired,
     newIdea: PropTypes.func.isRequired,
     getOneBoard: PropTypes.func.isRequired,
-    board: PropTypes.object.isRequired,
   }
 
   constructor(props) {
@@ -25,11 +24,9 @@ class IdeaInput extends Component {
   }
 
   onFormSubmit(event) {
-    console.log('ideainput', this.props.board);
     event.preventDefault();
     if (this.state.term.length > 2) {
       this.props.newIdea(this.state.term, this.props.params.board_id);
-      this.props.getOneBoard(this.props.params.board_id);
     }
 
     this.setState({ term: '' });
