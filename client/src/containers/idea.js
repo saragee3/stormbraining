@@ -30,7 +30,8 @@ class Idea extends Component {
         <td>
           <button
             onClick={this.renderVotes.bind(this)}
-            className="btn btn-success">
+            className="btn btn-success"
+          >
             Upvote
           </button>
         </td>
