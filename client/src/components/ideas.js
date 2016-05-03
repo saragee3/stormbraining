@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { getOneBoard } from '../actions/index';
+import io from 'socket.io-client';
 
 import IdeaInput from '../containers/idea_input';
 import IdeaList from '../containers/idea_list';
@@ -15,6 +16,10 @@ class Ideas extends Component {
 
   componentWillMount() {
     this.props.getOneBoard(this.props.params.board_id);
+    this.socket = io();
+    this.socket.on('idea', (ideaDoc) => {
+      console.log('An idea has changed', ideaDoc);
+    });
   }
 
   render() {
