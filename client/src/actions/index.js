@@ -57,3 +57,9 @@ export function refreshBoardView(changedEntry) {
     payload: changedEntry,
   };
 }
+
+export function clearBoardView() {
+  return {
+    type: types.CLEAR_BOARD_VIEW,
+  };
+}

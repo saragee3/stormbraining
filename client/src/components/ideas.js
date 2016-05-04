@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { getOneBoard, refreshBoardView } from '../actions/index';
+import { getOneBoard, refreshBoardView, clearBoardView } from '../actions/index';
 import io from 'socket.io-client';
 
 import IdeaInput from '../containers/idea_input';
@@ -12,6 +12,7 @@ class Ideas extends Component {
     params: PropTypes.object,
     getOneBoard: PropTypes.func,
     refreshBoardView: PropTypes.func,
+    clearBoardView: PropTypes.func,
     board: PropTypes.object,
   }
 
@@ -24,6 +25,10 @@ class Ideas extends Component {
     this.socket.on('idea', (ideaDoc) => {
       this.props.refreshBoardView(ideaDoc);
     });
+  }
+
+  componentWillUnmount() {
+    this.props.clearBoardView();
   }
 
   render() {
@@ -45,4 +50,4 @@ function mapStateToProps({ board }) {
   return { board };
 }
 
-export default connect(mapStateToProps, { getOneBoard, refreshBoardView })(Ideas);
+export default connect(mapStateToProps, { getOneBoard, refreshBoardView, clearBoardView })(Ideas);

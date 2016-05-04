@@ -5,3 +5,4 @@ export const NEW_BOARD = 'NEW_BOARD';
 export const GET_BOARDS = 'GET_BOARDS';
 export const GET_ONE_BOARD = 'GET_ONE_BOARD';
 export const REFRESH_BOARD_VIEW = 'REFRESH_BOARD_VIEW';
+export const CLEAR_BOARD_VIEW = 'CLEAR_BOARD_VIEW';

@@ -1,4 +1,10 @@
-import { NEW_IDEA, GET_ONE_BOARD, UP_VOTE, REFRESH_BOARD_VIEW } from '../actions/action_types';
+import {
+  NEW_IDEA,
+  GET_ONE_BOARD,
+  UP_VOTE,
+  CLEAR_BOARD_VIEW,
+  REFRESH_BOARD_VIEW,
+} from '../actions/action_types';
 
 const INITIAL_STATE = { title: '', ideas: [] };
 
@@ -12,6 +18,9 @@ export default function (state = INITIAL_STATE, action) {
 
     case UP_VOTE:
       return state;
+
+    case CLEAR_BOARD_VIEW:
+      return INITIAL_STATE;
 
     case REFRESH_BOARD_VIEW:
       const changedIdea = action.payload;
