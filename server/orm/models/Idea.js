@@ -32,10 +32,10 @@ Idea.changes().then((feed) => {
       // console.log(JSON.stringify(doc));
     } else if (!doc.getOldValue()) {
       // A new document was inserted:
-      io.sockets.emit('idea', doc);
+      io.sockets.in(doc.boardId).emit('idea', doc);
     } else {
       // A document was updated.
-      io.sockets.emit('idea', doc);
+      io.sockets.in(doc.boardId).emit('idea', doc);
     }
   });
 }).error((error) => {
