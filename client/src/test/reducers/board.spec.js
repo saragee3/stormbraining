@@ -1,6 +1,6 @@
 import expect from 'expect';
 import reducer from '../../reducers/board.js';
-import * as types from '../../actions/index.js'
+import * as types from '../../actions/action_types';
 
 describe('board reducer', () => {  
   const existingIdea = {
