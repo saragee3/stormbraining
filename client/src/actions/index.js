@@ -33,10 +33,9 @@ export function deleteIdea(id, ideaId) {
 }
 
 export function newBoard(title) {
-  const boardRequest = axios.post(`${ROOT_URL}/boards`, { title });
+  axios.post(`${ROOT_URL}/boards`, { title });
   return {
     type: types.NEW_BOARD,
-    payload: boardRequest,
   };
 }
 
@@ -66,5 +65,12 @@ export function refreshBoardView(changedEntry) {
 export function clearBoardView() {
   return {
     type: types.CLEAR_BOARD_VIEW,
+  };
+}
+
+export function refreshAllBoards(changedEntry) {
+  return {
+    type: types.REFRESH_ALL_BOARDS,
+    payload: changedEntry,
   };
 }

@@ -2,17 +2,23 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-import { getBoards } from '../actions/index';
+import { getBoards, refreshAllBoards } from '../actions/index';
+import io from 'socket.io-client';
 
 class BoardList extends Component {
 
   static propTypes = {
     allBoards: PropTypes.array.isRequired,
     getBoards: PropTypes.func.isRequired,
+    refreshAllBoards: PropTypes.func.isRequired,
   }
 
   componentWillMount() {
     this.props.getBoards();
+    this.socket = io();
+    this.socket.on('board', (boardDoc) => {
+      this.props.refreshAllBoards(boardDoc);
+    });
   }
 
   renderBoardListing(data) { // renders a single row of the list table
@@ -39,7 +45,7 @@ class BoardList extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getBoards }, dispatch);
+  return bindActionCreators({ getBoards, refreshAllBoards }, dispatch);
 }
 
 function mapStateToProps({ allBoards }) {
