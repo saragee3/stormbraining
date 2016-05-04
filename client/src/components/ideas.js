@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { getOneBoard } from '../actions/index';
+import { getOneBoard, refreshBoardView } from '../actions/index';
 import io from 'socket.io-client';
 
 import IdeaInput from '../containers/idea_input';
@@ -11,6 +11,7 @@ class Ideas extends Component {
   static propTypes = { // this seems to be the preferred set-up
     params: PropTypes.object,
     getOneBoard: PropTypes.func,
+    refreshBoardView: PropTypes.func,
     board: PropTypes.object,
   }
 
@@ -18,7 +19,7 @@ class Ideas extends Component {
     this.props.getOneBoard(this.props.params.board_id);
     this.socket = io();
     this.socket.on('idea', (ideaDoc) => {
-      console.log('An idea has changed', ideaDoc);
+      this.props.refreshBoardView(ideaDoc);
     });
   }
 
@@ -41,4 +42,4 @@ function mapStateToProps({ board }) {
   return { board };
 }
 
-export default connect(mapStateToProps, { getOneBoard })(Ideas);
+export default connect(mapStateToProps, { getOneBoard, refreshBoardView })(Ideas);
