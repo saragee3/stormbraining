@@ -141,30 +141,4 @@ describe('async actions', () => {
       expect(payload).toEqual(expectedAction.payload);
     });
   });
-
-  it('should create action UP_VOTE when finished upvoting an idea', () => {
-    const upvotedIdea = {
-      id: 7,
-      content: 'This is a new idea!',
-      upvotes: 0,
-      boardId: 2,
-      createdAt: new Date(),
-    };
-    const boardId = 2;
-
-    nock(ROOT_URL)
-      .post(`/boards/${boardId}/ideas/${upvotedIdea.id}/upvotes`)
-      .reply(200, { data: { upvotedIdea } });
-
-    const expectedAction = {
-      type: types.UP_VOTE,
-      payload: { data: { idea: upvotedIdea } },
-    };
-    const upVoteAction = actions.upVote(boardId, upvotedIdea.id);
-
-    expect(upVoteAction.type).toEqual(expectedAction.type);
-    upVoteAction.payload.then(payload => {
-      expect(payload).toEqual(expectedAction.payload);
-    });
-  });
 });
