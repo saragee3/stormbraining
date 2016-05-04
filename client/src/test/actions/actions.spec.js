@@ -88,4 +88,77 @@ describe('async actions', () => {
       expect(payload).toEqual(expectedAction.payload);
     });
   });
+
+  it('should create action GET_ONE_IDEA when finished retrieving an idea', () => {
+    const idea = {
+      id: 3,
+      content: 'This is an idea!',
+      upvotes: 6,
+      boardId: 4,
+      createdAt: new Date(),
+    };
+    const id = 13;
+
+    nock(ROOT_URL)
+      .get(`/boards/${id}/ideas/${idea.id}`)
+      .reply(200, { data: { idea } });
+
+    const expectedAction = {
+      type: types.GET_ONE_IDEA,
+      payload: { data: { idea } },
+    };
+    const getOneIdeaAction = actions.getOneIdea(id, idea.id);
+
+    expect(getOneIdeaAction.type).toEqual(expectedAction.type);
+    getOneIdeaAction.payload.then(payload => {
+      expect(payload).toEqual(expectedAction.payload);
+    });
+  });
+
+  it('should create action NEW_IDEA when finished creating new idea', () => {
+    const newIdea = {
+      id: 3,
+      content: 'This is a new idea!',
+      upvotes: 0,
+      boardId: 1,
+      createdAt: new Date(),
+    };
+    const boardId = 1;
+
+    nock(ROOT_URL)
+      .post(`/boards/${boardId}`, { content: newIdea.content })
+      .reply(201, { data: { idea: newIdea } });
+
+    const expectedAction = {
+      type: types.NEW_IDEA,
+      payload: { data: { idea: newIdea } },
+    };
+    const newIdeaAction = actions.newIdea(newIdea.content, boardId);
+
+    expect(newIdeaAction.type).toEqual(expectedAction.type);
+    newIdeaAction.payload.then(payload => {
+      expect(payload).toEqual(expectedAction.payload);
+    });
+  });
+
+  it('should create action UP_VOTE when finished upvoting an idea', () => {
+    const upvotedIdea = Object.assign({}, board.ideas[0]);
+    upvotedIdea.upvotes++;
+    const boardId = 1;
+
+    nock(ROOT_URL)
+      .post(`/boards/${boardId}/ideas/${upvotedIdea.id}/upvotes`)
+      .reply(200, { data: { upvotedIdea } });
+
+    const expectedAction = {
+      type: types.UP_VOTE,
+      payload: { data: { idea: upvotedIdea } },
+    };
+    const upVoteAction = actions.upVote(boardId, upvotedIdea.id);
+
+    expect(upVoteAction.type).toEqual(expectedAction.type);
+    upVoteAction.payload.then(payload => {
+      expect(payload).toEqual(expectedAction.payload);
+    });
+  });
 });
