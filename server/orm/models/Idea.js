@@ -29,7 +29,8 @@ Idea.changes().then((feed) => {
     }
     if (doc.isSaved() === false) {
       // The following document was deleted:
-      // console.log(JSON.stringify(doc));
+      const docToDelete = Object.assign({ toBeDeleted: true }, doc);
+      io.sockets.emit('idea', docToDelete);
     } else if (!doc.getOldValue()) {
       // A new document was inserted:
       io.sockets.in(doc.boardId).emit('idea', doc);

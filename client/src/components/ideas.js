@@ -23,9 +23,7 @@ class Ideas extends Component {
       this.socket.emit('subscribe', this.props.board.id);
     });
     this.socket.on('idea', (ideaDoc) => {
-      if (ideaDoc.boardId === this.props.board.id) {
-        this.props.refreshBoardView(ideaDoc);
-      }
+      this.props.refreshBoardView(ideaDoc);
     });
   }
 

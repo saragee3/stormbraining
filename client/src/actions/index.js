@@ -4,10 +4,9 @@ import * as types from './action_types';
 const ROOT_URL = '/api';
 
 export function newIdea(idea, id) {
-  const request = axios.post(`${ROOT_URL}/boards/${id}/ideas`, { content: idea });
+  axios.post(`${ROOT_URL}/boards/${id}/ideas`, { content: idea });
   return {
     type: types.NEW_IDEA,
-    payload: request,
   };
 }
 
@@ -20,10 +19,16 @@ export function getOneIdea(id, ideaId) {
 }
 
 export function upVote(id, ideaId) {
-  const request = axios.post(`${ROOT_URL}/boards/${id}/ideas/${ideaId}/upvotes`);
+  axios.post(`${ROOT_URL}/boards/${id}/ideas/${ideaId}/upvotes`);
   return {
     type: types.UP_VOTE,
-    payload: request,
+  };
+}
+
+export function deleteIdea(id, ideaId) {
+  axios.delete(`${ROOT_URL}/boards/${id}/ideas/${ideaId}`);
+  return {
+    type: types.DELETE_IDEA,
   };
 }
 
