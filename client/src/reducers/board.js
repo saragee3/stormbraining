@@ -30,9 +30,9 @@ export default function (state = INITIAL_STATE, action) {
       const changedIdea = action.payload;
       let updateComplete = false;
 
-      if (changedIdea.boardId !== state.id) {
-        return state;
-      }
+      // if (changedIdea.boardId !== state.id) {
+      //   return state;
+      // }
 
       // Update idea based on whether or not it is marked toBeDeleted and by matching ids
       const updatedIdeas = state.ideas.reduce((memo, idea) => {

@@ -1,4 +1,4 @@
-import { NEW_BOARD, GET_BOARDS, REFRESH_ALL_BOARDS } from '../actions/action_types';
+import { NEW_BOARD, GET_BOARDS, DELETE_BOARD, REFRESH_ALL_BOARDS } from '../actions/action_types';
 
 const INITIAL_STATE = [];
 
@@ -9,6 +9,9 @@ export default function (state = INITIAL_STATE, action) {
 
     case GET_BOARDS:
       return action.payload.data.boards;
+
+    case DELETE_BOARD:
+      return state;
 
     case REFRESH_ALL_BOARDS:
       const changedBoard = action.payload;

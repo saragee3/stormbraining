@@ -17,17 +17,21 @@ class Ideas extends Component {
   }
 
   componentWillMount() {
-    this.props.getOneBoard(this.props.params.board_id);
-    this.socket = io();
-    this.socket.on('connect', () => {
-      this.socket.emit('subscribe', this.props.board.id);
-    });
-    this.socket.on('idea', (ideaDoc) => {
-      this.props.refreshBoardView(ideaDoc);
-    });
+    this.props.getOneBoard(this.props.params.board_id)
+      .then(() => {
+        console.log(this.props.board);
+        this.socket = io();
+        this.socket.on('connect', () => {
+          this.socket.emit('subscribe', this.props.board.id);
+        });
+        this.socket.on('idea', (ideaDoc) => {
+          this.props.refreshBoardView(ideaDoc);
+        });
+      });
   }
 
   componentWillUnmount() {
+    console.log('unmounting');
     this.props.clearBoardView();
   }
 

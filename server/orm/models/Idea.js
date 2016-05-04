@@ -30,9 +30,10 @@ Idea.changes().then((feed) => {
     if (doc.isSaved() === false) {
       // The following document was deleted:
       const docToDelete = Object.assign({ toBeDeleted: true }, doc);
-      io.sockets.emit('idea', docToDelete);
+      io.sockets.in(doc.boardId).emit('idea', docToDelete);
     } else if (!doc.getOldValue()) {
       // A new document was inserted:
+      console.log(doc.boardId);
       io.sockets.in(doc.boardId).emit('idea', doc);
     } else {
       // A document was updated.

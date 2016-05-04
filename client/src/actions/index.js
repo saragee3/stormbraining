@@ -55,6 +55,13 @@ export function getOneBoard(id) {
   };
 }
 
+export function deleteBoard(id) {
+  axios.delete(`${ROOT_URL}/boards/${id}`);
+  return {
+    type: types.DELETE_BOARD,
+  };
+}
+
 export function refreshBoardView(changedEntry) {
   return {
     type: types.REFRESH_BOARD_VIEW,
