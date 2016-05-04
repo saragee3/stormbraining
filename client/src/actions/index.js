@@ -50,3 +50,10 @@ export function getOneBoard(id) {
     payload: request,
   };
 }
+
+export function refreshBoardView(changedEntry) {
+  return {
+    type: types.REFRESH_BOARD_VIEW,
+    payload: changedEntry,
+  };
+}
