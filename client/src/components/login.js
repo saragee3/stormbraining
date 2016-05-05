@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Router, Route, browserHistory } from 'react-router';
 import { loginUser } from '../actions/auth_actions';
 
 export default class Login extends Component {
@@ -13,6 +12,7 @@ export default class Login extends Component {
     loginUser: PropTypes.func,
     children: PropTypes.object,
     router: PropTypes.object,
+    auth: PropTypes.object.isRequired,
   }
 
   static contextTypes = {
@@ -27,8 +27,6 @@ export default class Login extends Component {
 
   onSubmit(event) {
 
-    const { isAuthenticated } = this.props;
-
     event.preventDefault();
     const username = this.refs.username;
     const password = this.refs.password;
@@ -39,8 +37,7 @@ export default class Login extends Component {
 
     this.props.loginUser(creds)
       .then(() => {
-          console.log(isAuthenticated)
-        if (isAuthenticated) {
+        if (this.props.auth.isAuthenticated === true) {
           this.context.router.push('/home');
         }
       }
@@ -86,4 +83,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ loginUser }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(Login);
+function mapStateToProps({ auth }) {
+  return { auth };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
