@@ -2,13 +2,17 @@
   "name": "stormbraining",
   "version": "1.0.0",
   "description": "social brainstorming app",
+  "engines": {
+    "node": "4.1.1"
+  },
   "scripts": {
     "clean": "rimraf client/dist",
     "build": "webpack --progress --verbose --colors --display-error-details --config client/webpack/common.config.js",
     "build:production": "npm run clean && npm run build",
     "lint": "eslint src",
     "postinstall": "npm run build:production",
-    "start": "nodemon server/bin/server.js",
+    "start:dev": "nodemon server/bin/server.js",
+    "start": "node server/bin/server.js",
     "test": "mocha server/test --compilers js:babel-register",
     "testF": "mocha client/src/test/**/*.spec.js --compilers js:babel-register --recursive"
   },
