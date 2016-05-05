@@ -1,10 +1,10 @@
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS } from '../actions/action_types';
 
 const INITIAL_STATE = { isFetching: false,
-  isAuthenticated: localStorage.getItem('id_token') ? true : false,
+  isAuthenticated: localStorage.getItem('id_token') ? false : true,
 };
 
-export function auth(state = INITIAL_STATE, action) {
+export default function auth(state = INITIAL_STATE, action) {
   switch (action.type) {
     case LOGIN_REQUEST:
       return Object.assign({}, state, {
