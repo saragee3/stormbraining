@@ -1,7 +1,6 @@
 import path from 'path';
 import BoardController from '../orm/controllers/BoardController.js';
 import IdeaController from '../orm/controllers/IdeaController.js';
-//import { jwtCheck } from './middleware.js';
 
 export default function routes(app, express) {
 
