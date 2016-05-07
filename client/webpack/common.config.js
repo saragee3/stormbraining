@@ -79,7 +79,7 @@ const common = {
   },
 };
 
-if (TARGET === 'start:dev' || !TARGET) {
+if (TARGET === 'start' || !TARGET) {
   module.exports = merge(development, common);
 }
 
