@@ -35,6 +35,14 @@ export function deleteIdea(id, ideaId) {
   };
 }
 
+export function updateIdea(idea, id, ideaId) {
+  const request = axios.put(`${ROOT_URL}/boards/${id}/ideas/${ideaId}`, { content: idea });
+  return {
+    type: types.UPDATE_IDEA,
+    payload: request,
+  };
+}
+
 export function newBoard(title) {
   const request = axios.post(`${ROOT_URL}/boards`, { title });
   return {
