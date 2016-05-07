@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { login, logoutUser, lockSuccess, lockError } from '../actions/auth_actions';
+import { login, lockSuccess, lockError } from '../actions/auth_actions';
 import { Router, Route, browserHistory } from 'react-router';
 
 export default class Login extends Component {
@@ -12,7 +12,6 @@ export default class Login extends Component {
     dispatch: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
     login: PropTypes.func,
-    logoutUser: PropTypes.func,
     children: PropTypes.object,
     router: PropTypes.object,
     auth: PropTypes.object,
@@ -27,11 +26,12 @@ export default class Login extends Component {
   constructor(props, context) {
     super(props, context);
     this.onLogin = this.onLogin.bind(this);
+    this.onLogout = this.onLogout.bind(this);
+    this.lock = new Auth0Lock('Wxg5EhfSanTioiIfdLOdlCwdKoK7twjn', 'app50347872.auth0.com');
   }
 
   onLogin() {
-    const lock = new Auth0Lock('Wxg5EhfSanTioiIfdLOdlCwdKoK7twjn', 'app50347872.auth0.com');
-    lock.show((err, profile, token) => {
+    this.lock.show((err, profile, token) => {
    // If we receive an error, we dispatch the lockError action
       if (err) {
         this.props.lockError(err);
@@ -43,6 +43,14 @@ export default class Login extends Component {
         browserHistory.push('/home');
       }
     });
+  }
+
+  onLogout() {
+    localStorage.removeItem('id_token');
+    if (!this.props.isAuthenticated) {
+      // do whatever other tear-down you need too...
+      browserHistory.push('/');
+    }
   }
 
 
@@ -66,7 +74,7 @@ export default class Login extends Component {
 
           {isAuthenticated &&
             <button
-              onClick={creds => this.onLogin}
+              onClick={this.onLogout}
               className="btn btn-primary"
             >
               Logout
@@ -80,7 +88,7 @@ export default class Login extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ login, logoutUser, lockSuccess, lockError }, dispatch);
+  return bindActionCreators({ login, lockSuccess, lockError }, dispatch);
 }
 
 function mapStateToProps({ auth }) {

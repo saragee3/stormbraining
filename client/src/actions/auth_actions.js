@@ -45,7 +45,7 @@ export function receiveLogout() {
 }
 
 export function logoutUser() {
-  let lock = new Auth0Lock('iGakh4fZgCCXIcn6M9Pe5lxsH3aFSaUY', 'nuggets.auth0.com');
+  const lock = new Auth0Lock('Wxg5EhfSanTioiIfdLOdlCwdKoK7twjn', 'app50347872.auth0.com');
   lock.logout({ ref: window.location.href });
   // console.log(window.location.href);
 }
@@ -70,22 +70,3 @@ export function lockError(err) {
     err,
   };
 }
-
-
-// export function login() {
-//
-//   let lock = new Auth0Lock('7knLLEidEQiUBihGrdb8GKVtNnfPF1A5', 'comparable.auth0.com');
-//
-//     return dispatch => {
-//       lock.show((err, profile, token) => {
-//      // If we receive an error, we dispatch the lockError action
-//         if (err) {
-//           dispatch(lockError(err));
-//           return;
-//         }
-//         localStorage.setItem('profile', JSON.stringify(profile));
-//         localStorage.setItem('id_token', token);
-//         dispatch(lockSuccess(profile, token));
-//     });
-//   };
-// }
