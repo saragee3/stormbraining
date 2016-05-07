@@ -15,6 +15,8 @@ export default Board;
 // Relationship defined after export following docs to handle circular reference,
 // require used instead of import due to same issue (https://github.com/neumino/thinky/issues/399)
 const Idea = require('./Idea').default;
+const User = require('./User').default;
+Board.belongsTo(User, 'user', 'userId', 'id');
 Board.hasMany(Idea, 'ideas', 'id', 'boardId');
 Board.ensureIndex('createdAt');
 
