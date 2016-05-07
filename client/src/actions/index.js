@@ -1,6 +1,13 @@
 import axios from 'axios';
 import * as types from './action_types';
 
+// Attaches Authentication token to outgoing API requests
+axios.interceptors.request.use((config) => {
+  const token = localStorage.getItem('id_token') || null;
+  config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
 const ROOT_URL = '/api';
 
 export function newIdea(idea, id) {
