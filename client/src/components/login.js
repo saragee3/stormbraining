@@ -1,19 +1,23 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { login, logoutUser } from '../actions/auth_actions';
+import { login, lockSuccess, lockError, receiveLogout } from '../actions/auth_actions';
+import { browserHistory } from 'react-router';
 
 export default class Login extends Component {
+
 
   static propTypes = {
     errorMessage: PropTypes.string,
     dispatch: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
     login: PropTypes.func,
-    logoutUser: PropTypes.func,
     children: PropTypes.object,
     router: PropTypes.object,
     auth: PropTypes.object,
+    lockSuccess: PropTypes.func,
+    lockError: PropTypes.func,
+    receiveLogout: PropTypes.func,
   }
 
   static contextTypes = {
@@ -22,27 +26,34 @@ export default class Login extends Component {
 
   constructor(props, context) {
     super(props, context);
-
     this.onLogin = this.onLogin.bind(this);
+    this.onLogout = this.onLogout.bind(this);
+    this.lock = new Auth0Lock('Wxg5EhfSanTioiIfdLOdlCwdKoK7twjn', 'app50347872.auth0.com');
   }
 
   onLogin() {
-  //   // event.preventDefault();
-  //   // const username = this.refs.username;
-  //   // const password = this.refs.password;
-  //   // const creds = {
-  //   //   username: username.value.trim(),
-  //   //   password: password.value.trim(),
-  //   // };
-    this.props.dispatch(login());
-    // if (this.props.auth.isAuthenticated === true) {
-    //   this.context.router.push('/home');
-    // }
+    this.lock.show((err, profile, token) => {
+   // If we receive an error, we dispatch the lockError action
+      if (err) {
+        this.props.lockError(err);
+      }
+      localStorage.setItem('profile', JSON.stringify(profile));
+      localStorage.setItem('id_token', token);
+      this.props.lockSuccess(profile, token);
+      if (this.props.isAuthenticated) {
+        browserHistory.push('/home');
+      }
+    });
   }
 
+  onLogout() {
+    localStorage.removeItem('id_token');
+    this.props.receiveLogout();
+  }
+
+
   render() {
-    const { dispatch, isAuthenticated, errorMessage } = this.props;
-    
+    const { isAuthenticated, errorMessage } = this.props;
     return (
       <div>
         <div>
@@ -61,7 +72,7 @@ export default class Login extends Component {
 
           {isAuthenticated &&
             <button
-              onClick={creds => this.onLogin}
+              onClick={this.onLogout}
               className="btn btn-primary"
             >
               Logout
@@ -75,7 +86,7 @@ export default class Login extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ login, logoutUser }, dispatch);
+  return bindActionCreators({ login, lockSuccess, lockError, receiveLogout }, dispatch);
 }
 
 function mapStateToProps({ auth }) {
@@ -83,26 +94,3 @@ function mapStateToProps({ auth }) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
-// <Login
-//   errorMessage={errorMessage}
-//   onLoginClick={() => dispatch(login()) }
-//   />
-// <form onSubmit={this.onSubmit} className="input-group">
-//   <input
-//     type="text"
-//     ref="username"
-//     className="form-control"
-//     placeholder="Username"
-//   />
-//   <input
-//     type="password"
-//     ref="password"
-//     className="form-control"
-//     placeholder="Password"
-//   />
-//   {!isAuthenticated &&
-//     <button type="submit" className="btn btn-primary">
-//         Login
-//     </button>
-//   }
-// </form>
