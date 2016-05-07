@@ -21,7 +21,7 @@ export default function middleware(app, express) {
   // Initiating Webpack Dev Middleware for hot reloading in development
   const compiler = webpack(webpackConfig);
   // If running from npm start, enable hot reloading
-  if (process.env.BABEL_ENV === 'start') {
+  if (process.env.BABEL_ENV === 'start:dev') {
     app.use(require('webpack-dev-middleware')(compiler, {
       noInfo: true, publicPath: webpackConfig.output.publicPath,
     }));
