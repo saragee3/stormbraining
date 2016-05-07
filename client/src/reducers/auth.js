@@ -31,10 +31,10 @@ export default function auth(state = INITIAL_STATE, action) {
         errorMessage: action.message,
       });
     case LOGOUT_SUCCESS:
-      return Object.assign({}, state, {
+      return {
         isFetching: true,
         isAuthenticated: false,
-      });
+      };
 
     default:
       return state;

@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { login, lockSuccess, lockError } from '../actions/auth_actions';
-import { Router, Route, browserHistory } from 'react-router';
+import { login, lockSuccess, lockError, receiveLogout } from '../actions/auth_actions';
+import { browserHistory } from 'react-router';
 
 export default class Login extends Component {
 
@@ -17,6 +17,7 @@ export default class Login extends Component {
     auth: PropTypes.object,
     lockSuccess: PropTypes.func,
     lockError: PropTypes.func,
+    receiveLogout: PropTypes.func,
   }
 
   static contextTypes = {
@@ -47,10 +48,7 @@ export default class Login extends Component {
 
   onLogout() {
     localStorage.removeItem('id_token');
-    if (!this.props.isAuthenticated) {
-      // do whatever other tear-down you need too...
-      browserHistory.push('/');
-    }
+    this.props.receiveLogout();
   }
 
 
@@ -88,7 +86,7 @@ export default class Login extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ login, lockSuccess, lockError }, dispatch);
+  return bindActionCreators({ login, lockSuccess, lockError, receiveLogout }, dispatch);
 }
 
 function mapStateToProps({ auth }) {
