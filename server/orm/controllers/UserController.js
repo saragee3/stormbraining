@@ -5,10 +5,19 @@ export default {
   addUser: (req, res) => {
     const newUser = new User(req.body);
 
-    newUser.save()
+    // Used ._get() and .execute() to return null instead of
+    // throwing error when user is not found
+    User._get(req.body.id).execute()
       .then((user) => {
-        res.status(201).json({ user });
-      })
-      .error(helper.handleError(res));
+        if (!user) {
+          newUser.save()
+            .then((user) => {
+              res.status(201).json({ user });
+            })
+            .error(helper.handleError(res));
+        } else {
+          console.log('User already exists.');
+        }
+      });
   },
 };
