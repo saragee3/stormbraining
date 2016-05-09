@@ -25,7 +25,7 @@ class IdeaInput extends Component {
   onFormSubmit(event) {
     event.preventDefault();
     if (this.state.term.length > 2) {
-      this.props.newIdea(this.state.term, this.props.params.board_id);
+      this.props.newIdea(this.state.term, this.props.params.board_id, this.props.userId);
     }
 
     this.setState({ term: '' });

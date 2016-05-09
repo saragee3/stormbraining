@@ -10,8 +10,8 @@ axios.interceptors.request.use((config) => {
 
 const ROOT_URL = '/api';
 
-export function newIdea(idea, id) {
-  const request = axios.post(`${ROOT_URL}/boards/${id}/ideas`, { content: idea });
+export function newIdea(idea, id, authorId) {
+  const request = axios.post(`${ROOT_URL}/boards/${id}/ideas`, { content: idea, authorId });
   return {
     type: types.NEW_IDEA,
     payload: request,
