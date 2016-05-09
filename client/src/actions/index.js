@@ -50,8 +50,10 @@ export function updateIdea(idea, id, ideaId) {
   };
 }
 
-export function newBoard(title) {
-  const request = axios.post(`${ROOT_URL}/boards`, { title });
+export function newBoard(title, userId) {
+  var data = { title, authorId: userId }
+  console.log(data)
+  const request = axios.post(`${ROOT_URL}/boards`, { title, authorId: userId });
   return {
     type: types.NEW_BOARD,
     payload: request,
@@ -103,7 +105,7 @@ export function refreshAllBoards(changedEntry) {
 }
 
 export function saveOrFetchUser(user) {
-  const request = axios.post(`${ROOT_URL}/users`, { content: user });
+  const request = axios.post(`${ROOT_URL}/users`, { user });
   return {
     type: types.SAVE_OR_FETCH_USER,
     payload: request,

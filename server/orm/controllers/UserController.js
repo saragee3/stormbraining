@@ -3,19 +3,19 @@ import helper from './helper.js';
 
 export default {
   addUser: (req, res) => {
-    const newUser = new User(req.body.content);
+    const newUser = new User(req.body.user);
     // Used ._get() and .execute() to return null instead of
     // throwing error when user is not found
-    User._get(req.body.content.id).execute()
+    User._get(req.body.user.id).execute()
       .then((user) => {
         if (!user) {
           newUser.save()
-            .then((user) => {
-              res.status(201).json({ user });
+            .then((thisUser) => {
+              res.status(201).json({ thisUser });
             })
             .error(helper.handleError(res));
         } else {
-          console.log('User already exists.');
+          res.status(200).json({ user });
         }
       });
   },
