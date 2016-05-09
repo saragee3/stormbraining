@@ -1,6 +1,7 @@
 export const NEW_IDEA = 'NEW_IDEA';
 export const GET_ONE_IDEA = 'GET_ONE_IDEA';
 export const UP_VOTE = 'UP_VOTE';
+export const UN_VOTE = 'UN_VOTE';
 export const DELETE_IDEA = 'DELETE_IDEA';
 export const UPDATE_IDEA = 'UPDATE_IDEA';
 export const NEW_BOARD = 'NEW_BOARD';
