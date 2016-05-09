@@ -22,7 +22,7 @@ class IdeaList extends Component {
   renderIdea(data) {
     const userId = this.props.userId;
     return (
-      <Idea { ...data } userId={userId} key={data.id}/>
+      <Idea {...data} userId={userId} key={data.id}/>
     );
   }
 
