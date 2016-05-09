@@ -11,6 +11,8 @@ export const REFRESH_BOARD_VIEW = 'REFRESH_BOARD_VIEW';
 export const CLEAR_BOARD_VIEW = 'CLEAR_BOARD_VIEW';
 export const REFRESH_ALL_BOARDS = 'REFRESH_ALL_BOARDS';
 
+// User actions
+export const SAVE_OR_FETCH_USER = 'SAVE_OR_FETCH_USER';
 
 // Auth Actions
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';

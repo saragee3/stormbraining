@@ -101,3 +101,11 @@ export function refreshAllBoards(changedEntry) {
     payload: changedEntry,
   };
 }
+
+export function saveOrFetchUser(user) {
+  const request = axios.post(`${ROOT_URL}/users`, { content: user });
+  return {
+    type: types.SAVE_OR_FETCH_USER,
+    payload: request,
+  };
+}
