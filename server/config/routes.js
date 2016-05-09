@@ -23,9 +23,10 @@ export default function routes(app, express) {
     .delete(IdeaController.deleteIdea);
 
   app.route('/api/boards/:board_id/ideas/:idea_id/upvotes')
-    .post(IdeaController.upvoteIdea);
+    .post(IdeaController.upvoteIdea)
+    .put(IdeaController.unvoteIdea);
 
-  app.route('/api/signup')
+  app.route('/api/users')
     .post(UserController.addUser);
 
   app.route(/.*/)
