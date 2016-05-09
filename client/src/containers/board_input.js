@@ -7,6 +7,7 @@ class BoardInput extends Component {
 
   static propTypes = {
     newBoard: PropTypes.func.isRequired,
+    userId: PropTypes.string.isRequired,
   }
 
   constructor(props) {
@@ -23,7 +24,7 @@ class BoardInput extends Component {
 
   onFormSubmit(event) {
     event.preventDefault();
-    this.props.newBoard(this.state.board);
+    this.props.newBoard(this.state.board, this.props.userId);
     this.setState({ board: '' });
   }
 
@@ -50,4 +51,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ newBoard }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(BoardInput);
+function mapStateToProps({ auth }) {
+  return { userId: auth.profile.user_id };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BoardInput);

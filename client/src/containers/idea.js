@@ -8,10 +8,11 @@ import IdeaEditInput from '../containers/idea_edit_input';
 class Idea extends Component {
   static propTypes = {
     content: PropTypes.string.isRequired,
-    upvotes: PropTypes.number.isRequired,
+    upvotes: PropTypes.array.isRequired,
     boardId: PropTypes.string.isRequired,
     getOneBoard: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
+    userId: PropTypes.string.isRequired,
     upVote: PropTypes.func.isRequired,
     deleteIdea: PropTypes.func.isRequired,
   }
@@ -23,7 +24,7 @@ class Idea extends Component {
   }
 
   renderUpvote() {
-    this.props.upVote(this.props.boardId, this.props.id);
+    this.props.upVote(this.props.boardId, this.props.id, this.props.userId);
   }
 
   renderDeleteIdea() {
@@ -35,7 +36,7 @@ class Idea extends Component {
       <tr>
         <IdeaEditInput {...this.props} />
         <td>
-          {this.props.upvotes}
+          {this.props.upvotes.length}
         </td>
         <td>
           <button

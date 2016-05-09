@@ -49,8 +49,8 @@ class Ideas extends Component {
   }
 }
 
-function mapStateToProps({ board }) {
-  return { board };
+function mapStateToProps({ board, auth }) {
+  return { board, userId: auth.profile.user_id };
 }
 
 export default connect(mapStateToProps, { getOneBoard, refreshBoardView, clearBoardView })(Ideas);
