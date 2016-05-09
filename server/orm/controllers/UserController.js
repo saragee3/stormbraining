@@ -10,8 +10,8 @@ export default {
       .then((user) => {
         if (!user) {
           newUser.save()
-            .then((thisUser) => {
-              res.status(201).json({ thisUser });
+            .then((user) => {
+              res.status(201).json({ user });
             })
             .error(helper.handleError(res));
         } else {
