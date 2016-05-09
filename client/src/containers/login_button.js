@@ -4,6 +4,12 @@ import { bindActionCreators } from 'redux';
 import { lockSuccess, lockError } from '../actions/auth_actions';
 import { saveOrFetchUser } from '../actions/index'
 import { browserHistory } from 'react-router';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import RaisedButton from 'material-ui/RaisedButton';
+
+const style = {
+  margin: 12,
+};
 
 export default class LoginButton extends Component {
 
@@ -51,6 +57,7 @@ export default class LoginButton extends Component {
 
   render() {
     const { isAuthenticated, errorMessage } = this.props;
+
     if (!isAuthenticated) {
       return (
         <button
