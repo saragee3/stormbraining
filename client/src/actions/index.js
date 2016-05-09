@@ -50,10 +50,8 @@ export function updateIdea(idea, id, ideaId) {
   };
 }
 
-export function newBoard(title, userId) {
-  var data = { title, authorId: userId }
-  console.log(data)
-  const request = axios.post(`${ROOT_URL}/boards`, { title, authorId: userId });
+export function newBoard(title, authorId) {
+  const request = axios.post(`${ROOT_URL}/boards`, { title, authorId });
   return {
     type: types.NEW_BOARD,
     payload: request,
