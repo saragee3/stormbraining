@@ -10,11 +10,19 @@ class IdeaList extends Component {
     params: PropTypes.object.isRequired,
     getOneBoard: PropTypes.func,
     board: PropTypes.object.isRequired,
+    userId: PropTypes.string.isRequired,
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.renderIdea = this.renderIdea.bind(this);
   }
 
   renderIdea(data) {
+    const userId = this.props.userId;
     return (
-      <Idea {...data} key={data.id}/>
+      <Idea { ...data } userId={userId} key={data.id}/>
     );
   }
 

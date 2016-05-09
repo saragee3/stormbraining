@@ -8,6 +8,7 @@ class IdeaInput extends Component {
   static propTypes = {
     params: PropTypes.object.isRequired,
     newIdea: PropTypes.func.isRequired,
+    userId: PropTypes.string.isRequired,
   }
 
   constructor(props) {
@@ -25,6 +26,7 @@ class IdeaInput extends Component {
   onFormSubmit(event) {
     event.preventDefault();
     if (this.state.term.length > 2) {
+      console.log(this.props.userId);
       this.props.newIdea(this.state.term, this.props.params.board_id, this.props.userId);
     }
 

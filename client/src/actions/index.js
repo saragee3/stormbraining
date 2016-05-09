@@ -26,8 +26,8 @@ export function getOneIdea(id, ideaId) {
   };
 }
 
-export function upVote(id, ideaId) {
-  const request = axios.post(`${ROOT_URL}/boards/${id}/ideas/${ideaId}/upvotes`);
+export function upVote(id, ideaId, userId) {
+  const request = axios.post(`${ROOT_URL}/boards/${id}/ideas/${ideaId}/upvotes`, { userId });
   return {
     type: types.UP_VOTE,
     payload: request,
