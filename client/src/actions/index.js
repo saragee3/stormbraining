@@ -117,3 +117,9 @@ export function saveOrFetchUser(user) {
     payload: request,
   };
 }
+
+export function shuffleIdeas() {
+  return {
+    type: types.SHUFFLE_IDEAS,
+  };
+}

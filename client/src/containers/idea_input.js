@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { newIdea } from '../actions/index';
+import { newIdea, shuffleIdeas } from '../actions/index';
 
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -12,6 +12,7 @@ class IdeaInput extends Component {
   static propTypes = {
     params: PropTypes.object.isRequired,
     newIdea: PropTypes.func.isRequired,
+    shuffleIdeas: PropTypes.func.isRequired,
     userId: PropTypes.string.isRequired,
   }
 
@@ -21,6 +22,7 @@ class IdeaInput extends Component {
     this.state = { term: '' };
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.onShuffle = this.onShuffle.bind(this);
   }
 
   onInputChange(event) {
@@ -37,6 +39,10 @@ class IdeaInput extends Component {
     this.setState({ term: '' });
   }
 
+  onShuffle() {
+    this.props.shuffleIdeas();
+  }
+
   render() {
     return (
       <div className="idea-input-container">
@@ -50,9 +56,14 @@ class IdeaInput extends Component {
           <RaisedButton
             type="submit"
             className="idea-button"
-          >
-            Submit
-          </RaisedButton>
+            label="Submit"
+          />
+          <RaisedButton
+            type="button"
+            className="idea-button"
+            label="Shuffle Ideas"
+            onTouchTap={this.onShuffle}
+          />
         </form>
       </div>
     );
@@ -60,7 +71,7 @@ class IdeaInput extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ newIdea }, dispatch);
+  return bindActionCreators({ newIdea, shuffleIdeas }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(IdeaInput);

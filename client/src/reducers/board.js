@@ -5,6 +5,9 @@ import {
   DELETE_IDEA,
   CLEAR_BOARD_VIEW,
   REFRESH_BOARD_VIEW,
+  SHUFFLE_IDEAS,
+  SORT_IDEAS_BY_VOTES,
+  SORT_IDEAS_BY_CONTENT,
 } from '../actions/action_types';
 
 const INITIAL_STATE = { id: '', title: '', ideas: [] };
@@ -46,6 +49,21 @@ export default function (state = INITIAL_STATE, action) {
         updatedIdeas.push(changedIdea);
       }
       return { ...state, ideas: updatedIdeas };
+
+    case SHUFFLE_IDEAS:
+      let i = 0;
+      let j = 0;
+      let temp = null;
+      const ideasArray = state.ideas;
+
+      for (i = ideasArray.length - 1; i > 0; i -= 1) {
+        j = Math.floor(Math.random() * (i + 1));
+        temp = ideasArray[i];
+        ideasArray[i] = ideasArray[j];
+        ideasArray[j] = temp;
+      }
+
+      return { ...state, ideas: ideasArray };
 
     default:
       return state;
