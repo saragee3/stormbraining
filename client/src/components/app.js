@@ -27,7 +27,6 @@ const paper = {
   width: 750,
   textAlign: 'center',
   display: 'inline-block',
-  backgroundColor: 'rgba(255,255,255,0.9)',
 };
 
 const iconStyles = {
