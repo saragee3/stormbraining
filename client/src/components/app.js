@@ -84,7 +84,7 @@ export default class App extends Component {
                     href="/boards"
                   />
                   <MenuItem
-                    primaryText="Sign out"
+                    primaryText="Logout"
                     onTouchTap={this.onLogout}
                   />
                 </IconMenu>
