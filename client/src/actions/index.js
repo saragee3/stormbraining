@@ -34,6 +34,14 @@ export function upVote(id, ideaId, userId) {
   };
 }
 
+export function unVote(id, ideaId, userId) {
+  const request = axios.put(`${ROOT_URL}/boards/${id}/ideas/${ideaId}/upvotes`, { userId });
+  return {
+    type: types.UN_VOTE,
+    payload: request,
+  };
+}
+
 export function deleteIdea(id, ideaId) {
   const request = axios.delete(`${ROOT_URL}/boards/${id}/ideas/${ideaId}`);
   return {
