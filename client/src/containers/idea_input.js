@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { newIdea } from '../actions/index';
 
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import './styles/main.scss';
+
 class IdeaInput extends Component {
 
   static propTypes = {
@@ -35,22 +39,22 @@ class IdeaInput extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onFormSubmit} className="input-group">
-        <input
-          placeholder="Great ideas start here..."
-          className="form-control"
-          value={this.state.term}
-          onChange={this.onInputChange}
-        />
-        <span className="input-group-btn">
-          <button
+      <div className="idea-input-container">
+        <form onSubmit={this.onFormSubmit}>
+          <TextField
+            hintText="Submit an idea"
+            floatingLabelText="Great ideas start here..."
+            value={this.state.term}
+            onChange={this.onInputChange}
+          />
+          <RaisedButton
             type="submit"
-            className="btn btn-primary"
+            className="idea-button"
           >
             Submit
-          </button>
-        </span>
-      </form>
+          </RaisedButton>
+        </form>
+      </div>
     );
   }
 }

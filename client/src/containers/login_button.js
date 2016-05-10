@@ -2,8 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { lockSuccess, lockError } from '../actions/auth_actions';
-import { saveOrFetchUser } from '../actions/index'
+import { saveOrFetchUser } from '../actions/index';
 import { browserHistory } from 'react-router';
+
+import RaisedButton from 'material-ui/RaisedButton';
+import './styles/main.scss';
 
 export default class LoginButton extends Component {
 
@@ -51,15 +54,17 @@ export default class LoginButton extends Component {
 
   render() {
     const { isAuthenticated, errorMessage } = this.props;
+
     if (!isAuthenticated) {
       return (
-        <button
+        <RaisedButton
           errorMessage={errorMessage}
           onClick={this.onLogin}
-          className="btn btn-primary"
+          className="login-button"
+          default={true}
         >
           Login
-        </button>
+        </RaisedButton>
       );
     } else {
       setTimeout(this.redirect, 1000);

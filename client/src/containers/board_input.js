@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { newBoard } from '../actions/index';
 
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import './styles/main.scss';
+
 class BoardInput extends Component {
 
   static propTypes = {
@@ -30,19 +34,23 @@ class BoardInput extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onFormSubmit} className="input-group">
-        <input
-          placeholder="Name your brainstorm"
-          className="form-control"
+      <div className="board-input-container">
+      <form onSubmit={this.onFormSubmit}>
+        <TextField
+          hintText="Name your brainstorm"
+          floatingLabelText="Create a new brainstorm"
           value={this.state.board}
           onChange={this.onInputChange}
+          className="board-input"
         />
-        <span className="input-group-btn">
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
-        </span>
+        <RaisedButton
+          type="submit"
+          className="board-button"
+        >
+          Submit
+        </RaisedButton>
       </form>
+      </div>
     );
   }
 }
