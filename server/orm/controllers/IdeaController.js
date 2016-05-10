@@ -27,7 +27,6 @@ export default {
   upvoteIdea: (req, res) => {
     const id = req.params.idea_id;
     const userId = req.body.userId;
-    console.log(req.body)
 
     Idea.get(id).run()
       .then((idea) => {
@@ -60,7 +59,7 @@ export default {
 
   deleteIdea: (req, res) => {
     const id = req.params.idea_id;
-    const userId = req.body.user_id;
+    const userId = req.user.sub;
 
     Idea.get(id).run()
       .then((idea) => {
@@ -78,7 +77,7 @@ export default {
   updateIdea: (req, res) => {
     const id = req.params.idea_id;
     const update = req.body;
-    const userId = req.body.user_id;
+    const userId = req.user.sub;
 
     Idea.get(id).run()
       .then((idea) => {
