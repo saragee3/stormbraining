@@ -32,6 +32,9 @@ export default {
       comments: {
         _apply: (sequence) => sequence.orderBy('createdAt'),
       },
+      messages: {
+        _apply: (sequence) => sequence.orderBy('createdAt'),
+      },
     }).run()
       .then((board) => {
         board.ideas.forEach(idea => {
@@ -55,10 +58,11 @@ export default {
     Board.get(id).getJoin({
       ideas: true,
       comments: true,
+      messages: true,
     }).run()
       .then((board) => {
         if (userId === board.authorId) {
-          board.deleteAll({ ideas: true, comments: true })
+          board.deleteAll({ ideas: true, comments: true, messages: true })
             .then((result) => {
               res.sendStatus(204);
             });
