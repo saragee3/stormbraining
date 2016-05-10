@@ -2,12 +2,16 @@ import React from 'react';
 import BoardInput from '../containers/board_input';
 import BoardList from '../containers/board_list';
 
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 const Boards = () => (
-  <div>
-    <h1> Create a brainstorm </h1>
-    <BoardInput />
-    <BoardList />
-  </div>
+  <MuiThemeProvider muiTheme={getMuiTheme()}>
+    <div>
+      <BoardInput />
+      <BoardList />
+    </div>
+  </MuiThemeProvider>
 );
 
 export default Boards;
