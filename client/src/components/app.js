@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { receiveLogout } from '../actions/auth_actions';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -11,7 +11,6 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import ContentFilter from 'material-ui/svg-icons/content/filter-list';
 import Paper from 'material-ui/Paper';
-import { cyan50 } from 'material-ui/styles/colors';
 
 const styles = {
   title: {
@@ -68,7 +67,7 @@ export default class App extends Component {
               title={<span style={styles.title}>Stormbraining</span>}
               onTitleTouchTap={handleTouchTap}
               iconElementLeft={
-                <Paper style={iconStyles} zDepth={1} circle={true} />
+                <Paper style={iconStyles} zDepth={1} circle />
               }
               iconElementRight={
                 <IconMenu
@@ -80,12 +79,14 @@ export default class App extends Component {
                 >
                   <MenuItem
                     primaryText="Boards"
-                    linkButton={true}
-                    href="/boards"
+                    linkButton
+                    containerElement={<Link to="/boards" />}
                   />
                   <MenuItem
                     primaryText="Logout"
                     onTouchTap={this.onLogout}
+                    linkButton
+                    containerElement={<Link to="/login" />}
                   />
                 </IconMenu>
               }
