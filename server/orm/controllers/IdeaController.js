@@ -72,7 +72,8 @@ export default {
         } else {
           console.log('Permission denied.');
         }
-      });
+      })
+      .error(helper.handleError(res));
   },
 
   updateIdea: (req, res) => {
