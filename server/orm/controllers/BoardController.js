@@ -3,7 +3,9 @@ import helper from './helper.js';
 
 export default {
   addBoard: (req, res) => {
-    const newBoard = new Board(req.body);
+    const { title } = req.body;
+    const authorId = req.user.sub;
+    const newBoard = new Board({ title, authorId });
 
     newBoard.save()
       .then((board) => {
@@ -36,15 +38,20 @@ export default {
 
   deleteBoard: (req, res) => {
     const id = req.params.board_id;
+    const userId = req.user.sub;
 
     Board.get(id).getJoin({
       ideas: true,
     }).run()
       .then((board) => {
-        board.deleteAll({ ideas: true })
-          .then((result) => {
-            res.sendStatus(204);
-          });
+        if (userId === board.authorId) {
+          board.deleteAll({ ideas: true })
+            .then((result) => {
+              res.sendStatus(204);
+            });
+        } else {
+          console.log('Permission denied.');
+        }
       })
       .error(helper.handleError(res));
   },

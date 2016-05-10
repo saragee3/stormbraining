@@ -13,6 +13,7 @@ class Idea extends Component {
     getOneBoard: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
     userId: PropTypes.string.isRequired,
+    authorId: PropTypes.string.isRequired,
     upVote: PropTypes.func.isRequired,
     unVote: PropTypes.func.isRequired,
     deleteIdea: PropTypes.func.isRequired,
@@ -46,15 +47,30 @@ class Idea extends Component {
     );
   }
 
+  deleteButton() {
+    if (this.props.userId === this.props.authorId) {
+      return (
+        <button
+          onClick={this.renderDeleteIdea}
+          className="btn btn-danger"
+        >
+          Delete
+        </button>
+      );
+    }
+  }
+
   renderDeleteIdea() {
-    this.props.deleteIdea(this.props.boardId, this.props.id);
+    if (this.props.userId === this.props.authorId) {
+      this.props.deleteIdea(this.props.boardId, this.props.id);
+    }
   }
 
   renderVote() {
     if (this.props.upvotes.indexOf(this.props.userId) !== -1) {
-      this.props.unVote(this.props.boardId, this.props.id, this.props.userId);
+      this.props.unVote(this.props.boardId, this.props.id);
     } else {
-      this.props.upVote(this.props.boardId, this.props.id, this.props.userId);
+      this.props.upVote(this.props.boardId, this.props.id);
     }
   }
 
@@ -69,12 +85,7 @@ class Idea extends Component {
           {this.voteButton()}
         </td>
         <td>
-          <button
-            onClick={this.renderDeleteIdea}
-            className="btn btn-danger"
-          >
-            Delete
-          </button>
+          {this.deleteButton()}
         </td>
       </tr>
     );
