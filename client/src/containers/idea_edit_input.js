@@ -41,7 +41,7 @@ class IdeaEditInput extends Component {
   onFormSubmit(event) {
     event.preventDefault();
     if (this.state.input.length && this.props.userId === this.props.authorId) {
-      this.props.updateIdea(this.state.input, this.props.boardId, this.props.id, this.props.userId);
+      this.props.updateIdea(this.state.input, this.props.boardId, this.props.id);
     }
     this.onHideEdit();
   }

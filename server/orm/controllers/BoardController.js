@@ -3,7 +3,9 @@ import helper from './helper.js';
 
 export default {
   addBoard: (req, res) => {
-    const newBoard = new Board(req.body);
+    const { title } = req.body;
+    const authorId = req.user.sub;
+    const newBoard = new Board({ title, authorId });
 
     newBoard.save()
       .then((board) => {

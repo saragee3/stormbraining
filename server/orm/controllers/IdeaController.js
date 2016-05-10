@@ -4,7 +4,8 @@ import helper from './helper.js';
 export default {
   addIdea: (req, res) => {
     const boardId = req.params.board_id;
-    const { content, authorId } = req.body;
+    const authorId = req.user.sub;
+    const { content } = req.body;
     const newIdea = new Idea({ content, boardId, authorId });
 
     newIdea.save()
@@ -26,7 +27,7 @@ export default {
 
   upvoteIdea: (req, res) => {
     const id = req.params.idea_id;
-    const userId = req.body.userId;
+    const userId = req.user.sub;
 
     Idea.get(id).run()
       .then((idea) => {
@@ -42,7 +43,7 @@ export default {
 
   unvoteIdea: (req, res) => {
     const id = req.params.idea_id;
-    const userId = req.body.userId;
+    const userId = req.user.sub;
 
     Idea.get(id).run()
       .then((idea) => {

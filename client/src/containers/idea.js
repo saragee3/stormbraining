@@ -68,9 +68,9 @@ class Idea extends Component {
 
   renderVote() {
     if (this.props.upvotes.indexOf(this.props.userId) !== -1) {
-      this.props.unVote(this.props.boardId, this.props.id, this.props.userId);
+      this.props.unVote(this.props.boardId, this.props.id);
     } else {
-      this.props.upVote(this.props.boardId, this.props.id, this.props.userId);
+      this.props.upVote(this.props.boardId, this.props.id);
     }
   }
 
