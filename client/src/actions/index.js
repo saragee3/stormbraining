@@ -130,3 +130,10 @@ export function sortIdeasByVotes(order) {
     order,
   };
 }
+
+export function sortIdeasByContent(order) {
+  return {
+    type: types.SORT_IDEAS_BY_CONTENT,
+    order,
+  };
+}

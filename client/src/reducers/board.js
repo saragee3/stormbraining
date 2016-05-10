@@ -54,28 +54,42 @@ export default function (state = INITIAL_STATE, action) {
       let i = 0;
       let j = 0;
       let temp = null;
-      const ideasArray = state.ideas.slice();
+      const arrayRandom = state.ideas.slice();
 
-      for (i = ideasArray.length - 1; i > 0; i -= 1) {
+      for (i = arrayRandom.length - 1; i > 0; i -= 1) {
         j = Math.floor(Math.random() * (i + 1));
-        temp = ideasArray[i];
-        ideasArray[i] = ideasArray[j];
-        ideasArray[j] = temp;
+        temp = arrayRandom[i];
+        arrayRandom[i] = arrayRandom[j];
+        arrayRandom[j] = temp;
       }
 
-      return { ...state, ideas: ideasArray };
+      return { ...state, ideas: arrayRandom };
 
     case SORT_IDEAS_BY_VOTES:
-      const array = state.ideas.slice();
-      const order = action.order;
+      const arrayByVotes = state.ideas.slice();
+      const orderVotes = action.order;
 
-      array.sort((a, b) => {
-        if (order === 1) { return b.upvotes.length - a.upvotes.length; }
-        if (order === 2) { return a.upvotes.length - b.upvotes.length; }
+      arrayByVotes.sort((a, b) => {
+        if (orderVotes === 1) { return b.upvotes.length - a.upvotes.length; }
+        if (orderVotes === 2) { return a.upvotes.length - b.upvotes.length; }
         return new Date(a.createdAt) - new Date(b.createdAt);
       });
 
-      return { ...state, ideas: array };
+      return { ...state, ideas: arrayByVotes };
+
+    case SORT_IDEAS_BY_CONTENT:
+      const arrayByContent = state.ideas.slice();
+      const orderContent = action.order;
+
+      arrayByContent.sort((a, b) => {
+        const strA = a.content.toLowerCase();
+        const strB = b.content.toLowerCase();
+        if (orderContent === 1) { return strA > strB ? 1 : -1; }
+        if (orderContent === 2) { return strA < strB ? 1 : -1; }
+        return new Date(a.createdAt) - new Date(b.createdAt);
+      });
+
+      return { ...state, ideas: arrayByContent };
 
     default:
       return state;
