@@ -117,3 +117,23 @@ export function saveOrFetchUser(user) {
     payload: request,
   };
 }
+
+export function shuffleIdeas() {
+  return {
+    type: types.SHUFFLE_IDEAS,
+  };
+}
+
+export function sortIdeasByVotes(order) {
+  return {
+    type: types.SORT_IDEAS_BY_VOTES,
+    order,
+  };
+}
+
+export function sortIdeasByContent(order) {
+  return {
+    type: types.SORT_IDEAS_BY_CONTENT,
+    order,
+  };
+}
