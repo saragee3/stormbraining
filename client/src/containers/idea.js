@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { upVote, unVote, getOneBoard, deleteIdea } from '../actions/index';
+// import { commentButton } from './commentButton'
 
 import IdeaEditInput from '../containers/idea_edit_input';
 
@@ -23,6 +24,7 @@ class Idea extends Component {
     super(props);
 
     this.renderVote = this.renderVote.bind(this);
+    // this.showCommentForm = this.showCommentForm.bind(this);
     this.renderDeleteIdea = this.renderDeleteIdea.bind(this);
   }
 
@@ -83,6 +85,14 @@ class Idea extends Component {
         </td>
         <td>
           {this.voteButton()}
+        </td>
+        <td>
+          <button
+            className="btn btn-primary"
+            onClick={this.showCommentForm}
+          >
+            Show comments
+          </button>
         </td>
         <td>
           {this.deleteButton()}
