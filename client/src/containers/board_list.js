@@ -28,22 +28,22 @@ class BoardList extends Component {
 
   renderBoardListing(data) { // renders a single row of the list table
     return (
-      <tr {...this.props} key={data.id}>
-        <td>
-        {data.title}
-          <Link to={`boards/${data.id}` } className="btn btn-secondary">
-            View
-          </Link>
-        </td>
-        <td>
-          <button
-            onClick={this.renderDeleteBoard.bind(this, data)}
-            className="btn btn-danger"
-          >
-            Delete
-          </button>
-        </td>
-      </tr>
+        <tr {...this.props} key={data.id}>
+          <td>
+          {data.title}
+            <Link to={`boards/${data.id}` } className="btn btn-secondary">
+              View
+            </Link>
+          </td>
+          <td>
+            <button
+              onClick={this.renderDeleteBoard.bind(this, data)}
+              className="btn btn-danger"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
     );
   }
   render() { // renders an entire table of boards
