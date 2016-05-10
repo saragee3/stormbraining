@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getOneBoard } from '../actions/index';
+import { getOneBoard, sortIdeasByVotes } from '../actions/index';
 import Idea from './idea';
 
 class IdeaList extends Component {
@@ -11,12 +11,22 @@ class IdeaList extends Component {
     getOneBoard: PropTypes.func,
     board: PropTypes.object.isRequired,
     userId: PropTypes.string.isRequired,
+    sortIdeasByVotes: PropTypes.func,
   }
 
   constructor(props) {
     super(props);
-
+    this.state = { sorting: { byIdeas: 0, byVotes: 0, byDate: 1 } };
     this.renderIdea = this.renderIdea.bind(this);
+    this.onSortIdeasByVotes = this.onSortIdeasByVotes.bind(this);
+  }
+
+  onSortIdeasByVotes() {
+    // order: 1 is descending, 2 is ascending, 0 is not sorted
+    let order = this.state.sorting.byVotes + 1;
+    order = order > 2 ? 0 : order;
+    this.props.sortIdeasByVotes(order);
+    this.setState({ sorting: { byIdeas: 0, byVotes: order, byDate: 0 } });
   }
 
   renderIdea(data) {
@@ -32,7 +42,9 @@ class IdeaList extends Component {
         <thead>
           <tr>
             <th>Idea</th>
-            <th>Votes</th>
+            <th onClick={this.onSortIdeasByVotes}>
+              Votes {this.state.sorting.byVotes}
+            </th>
             <th></th>
             <th></th>
           </tr>
@@ -46,7 +58,7 @@ class IdeaList extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getOneBoard }, dispatch);
+  return bindActionCreators({ getOneBoard, sortIdeasByVotes }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(IdeaList);

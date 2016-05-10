@@ -54,7 +54,7 @@ export default function (state = INITIAL_STATE, action) {
       let i = 0;
       let j = 0;
       let temp = null;
-      const ideasArray = state.ideas;
+      const ideasArray = state.ideas.slice();
 
       for (i = ideasArray.length - 1; i > 0; i -= 1) {
         j = Math.floor(Math.random() * (i + 1));
@@ -64,6 +64,18 @@ export default function (state = INITIAL_STATE, action) {
       }
 
       return { ...state, ideas: ideasArray };
+
+    case SORT_IDEAS_BY_VOTES:
+      const array = state.ideas.slice();
+      const order = action.order;
+
+      array.sort((a, b) => {
+        if (order === 1) { return b.upvotes.length - a.upvotes.length; }
+        if (order === 2) { return a.upvotes.length - b.upvotes.length; }
+        return new Date(a.createdAt) - new Date(b.createdAt);
+      });
+
+      return { ...state, ideas: array };
 
     default:
       return state;

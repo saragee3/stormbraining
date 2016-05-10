@@ -123,3 +123,10 @@ export function shuffleIdeas() {
     type: types.SHUFFLE_IDEAS,
   };
 }
+
+export function sortIdeasByVotes(order) {
+  return {
+    type: types.SORT_IDEAS_BY_VOTES,
+    order,
+  };
+}
