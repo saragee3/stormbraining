@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getOneBoard, sortIdeasByVotes, sortIdeasByContent } from '../actions/index';
 import Idea from './idea';
+import ArrowDown from 'material-ui/svg-icons/navigation/expand-more';
+import ArrowUp from 'material-ui/svg-icons/navigation/expand-less';
+
+const Arrows = ['', <ArrowDown />, <ArrowUp />];
 
 class IdeaList extends Component {
 
@@ -52,10 +56,10 @@ class IdeaList extends Component {
         <thead>
           <tr>
             <th onClick={this.onSortIdeasByContent}>
-              Idea {this.state.sorting.byContent}
+              Idea {Arrows[this.state.sorting.byContent]}
             </th>
             <th onClick={this.onSortIdeasByVotes}>
-              Votes {this.state.sorting.byVotes}
+              Votes {Arrows[this.state.sorting.byVotes]}
             </th>
             <th></th>
             <th></th>
