@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { upVote, unVote, getOneBoard, deleteIdea } from '../actions/index';
+import { TableRow, TableRowColumn } from 'material-ui/Table';
 
 import IdeaEditInput from '../containers/idea_edit_input';
 
@@ -77,26 +78,26 @@ class Idea extends Component {
 
   render() {
     return (
-      <tr>
+      <TableRow>
         <IdeaEditInput {...this.props} />
-        <td>
+        <TableRowColumn>
           {this.props.upvotes.length}
-        </td>
-        <td>
+        </TableRowColumn>
+        <TableRowColumn>
           {this.voteButton()}
-        </td>
-        <td>
+        </TableRowColumn>
+        <TableRowColumn>
           <button
             className="btn btn-primary"
             onClick={this.showCommentForm}
           >
             Show comments
           </button>
-        </td>
-        <td>
+        </TableRowColumn>
+        <TableRowColumn>
           {this.deleteButton()}
-        </td>
-      </tr>
+        </TableRowColumn>
+      </TableRow>
     );
   }
 }

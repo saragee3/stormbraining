@@ -1,8 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 import IconButton from 'material-ui/IconButton';
 import X from 'material-ui/svg-icons/content/clear';
+import { TableRow, TableRowColumn } from 'material-ui/Table';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import { addComment, deleteComment } from '../actions/index';
 
@@ -66,35 +70,41 @@ class Comments extends Component {
   render() {
     // if (this.state.showComments) {
     return (
-      <tr>
-        <td colSpan="5">
+      <TableRow>
+        <TableRowColumn colSpan="5">
           <span>
             {this.props.comments.map(this.renderComments)}
           </span>
-          <form onSubmit={this.onFormSubmit} className="input-group">
-            <input
-              className="form-control"
-              value={this.state.input}
-              onChange={this.onInputChange}
-            />
-            <span className="input-group-btn">
-              <button
+          <form onSubmit={this.onFormSubmit}>
+            <span style={{
+              width: '75%',
+              display: 'inline-block' }}
+            >
+              <TextField
+                fullWidth={true}
+                hintText={'Type your comment here'}
+                floatingLabelText="Add a comment"
+                value={this.state.input}
+                onChange={this.onInputChange}
+              />
+            </span>
+            <span>
+              <RaisedButton
                 type="submit"
-                className="btn btn-primary"
               >
-              Save
-              </button>
-              <button
+              Submit
+              </RaisedButton>
+              <RaisedButton
                 type="button"
                 onClick={this.onHideEdit}
-                className="btn btn-primary"
+                backgroundColor={'#E0E0E0'}
               >
               Hide
-              </button>
+              </RaisedButton>
             </span>
           </form>
-        </td>
-      </tr>
+        </TableRowColumn>
+      </TableRow>
     );
     // }
   }

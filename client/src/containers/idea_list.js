@@ -4,8 +4,10 @@ import { bindActionCreators } from 'redux';
 import { getOneBoard, sortIdeasByVotes, sortIdeasByContent } from '../actions/index';
 import Idea from './idea';
 import Comments from './comments';
+
 import ArrowDown from 'material-ui/svg-icons/navigation/expand-more';
 import ArrowUp from 'material-ui/svg-icons/navigation/expand-less';
+import { Table, TableHeader, TableHeaderColumn, TableBody, TableRow } from 'material-ui/Table';
 
 const Arrows = ['', <ArrowDown />, <ArrowUp />];
 
@@ -47,30 +49,29 @@ class IdeaList extends Component {
   renderIdea(data) {
     const userId = this.props.userId;
     return (
-      <tbody key={data.id}>
+      <TableBody key={data.id}>
         <Idea {...data} userId={userId} />
         <Comments {...data} userId={userId} />
-      </tbody>
+      </TableBody>
     );
   }
 
   render() {
     return (
-      <table className="table table-hover">
-        <thead>
-          <tr>
-            <th onClick={this.onSortIdeasByContent}>
+      <Table selectable={false} >
+        <TableHeader displaySelectAll={false}>
+          <TableRow>
+            <TableHeaderColumn onClick={this.onSortIdeasByContent}>
               Idea {Arrows[this.state.sorting.byContent]}
-            </th>
-            <th onClick={this.onSortIdeasByVotes}>
+            </TableHeaderColumn>
+            <TableHeaderColumn onClick={this.onSortIdeasByVotes}>
               Votes {Arrows[this.state.sorting.byVotes]}
-            </th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
+            </TableHeaderColumn>
+            <TableHeaderColumn colSpan="3"></TableHeaderColumn>
+          </TableRow>
+        </TableHeader>
         {this.props.board.ideas.map(this.renderIdea)}
-      </table>
+      </Table>
     );
   }
 }
