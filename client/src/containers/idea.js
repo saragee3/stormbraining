@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { upVote, unVote, getOneBoard, deleteIdea } from '../actions/index';
-// import { commentButton } from './commentButton'
 
 import IdeaEditInput from '../containers/idea_edit_input';
 
