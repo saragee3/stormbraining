@@ -160,3 +160,19 @@ export function syncComment(comment) {
     comment,
   };
 }
+
+export function getMessages(boardId) {
+  const request = axios.get(`${ROOT_URL}/messages/${boardId}`);
+  return {
+    type: types.GET_MESSAGES,
+    payload: request,
+  };
+}
+
+export function addMessage(boardId, message, userName) {
+  const request = axios.post(`${ROOT_URL}/messages/${boardId}`, { message, userName });
+  return {
+    type: types.ADD_MESSAGE,
+    payload: request,
+  };
+}
