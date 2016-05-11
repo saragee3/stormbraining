@@ -17,6 +17,8 @@ export const SORT_IDEAS_BY_CONTENT = 'SORT_IDEAS_BY_CONTENT';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const SYNC_COMMENT = 'SYNC_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const GET_MESSAGES = 'GET_MESSAGES';
+export const ADD_MESSAGE = 'ADD_MESSAGE';
 
 // User actions
 export const SAVE_OR_FETCH_USER = 'SAVE_OR_FETCH_USER';
