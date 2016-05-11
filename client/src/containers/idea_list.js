@@ -47,9 +47,9 @@ class IdeaList extends Component {
   renderIdea(data) {
     const userId = this.props.userId;
     return (
-      <tbody>
-        <Idea {...data} userId={userId} key={data.id}/>
-        <Comments {...data} userId={userId} key={`comments:${data.id}`} />
+      <tbody key={data.id}>
+        <Idea {...data} userId={userId} />
+        <Comments {...data} userId={userId} />
       </tbody>
     );
   }
