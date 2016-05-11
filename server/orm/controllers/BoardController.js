@@ -3,9 +3,7 @@ import helper from './helper.js';
 
 export default {
   addBoard: (req, res) => {
-    const { title } = req.body;
-    const authorId = req.user.sub;
-    const newBoard = new Board({ title, authorId });
+    const newBoard = new Board(req.body);
 
     newBoard.save()
       .then((board) => {
@@ -29,8 +27,19 @@ export default {
       ideas: {
         _apply: (sequence) => sequence.orderBy('createdAt'),
       },
+      comments: {
+        _apply: (sequence) => sequence.orderBy('ideaId'),
+      },
     }).run()
       .then((board) => {
+        board.ideas.forEach(idea => {
+          idea.comments = [];
+          board.comments.forEach(comment => {
+            if (comment.ideaId === idea.id) {
+              idea.comments.push(comment);
+            }
+          });
+        });
         res.status(200).json({ board });
       })
       .error(helper.handleError(res));
@@ -38,20 +47,15 @@ export default {
 
   deleteBoard: (req, res) => {
     const id = req.params.board_id;
-    const userId = req.user.sub;
 
     Board.get(id).getJoin({
       ideas: true,
     }).run()
       .then((board) => {
-        if (userId === board.authorId) {
-          board.deleteAll({ ideas: true })
-            .then((result) => {
-              res.sendStatus(204);
-            });
-        } else {
-          console.log('Permission denied.');
-        }
+        board.deleteAll({ ideas: true })
+          .then((result) => {
+            res.sendStatus(204);
+          });
       })
       .error(helper.handleError(res));
   },

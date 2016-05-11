@@ -4,8 +4,10 @@ import helper from './helper.js';
 export default {
   addComment: (req, res) => {
     const ideaId = req.params.idea_id;
-    const { content, authorId } = req.body;
-    const newComment = new Comment({ content, ideaId, authorId });
+    const boardId = req.params.board_id;
+    const authorId = req.user.sub;
+    const { content } = req.body;
+    const newComment = new Comment({ content, ideaId, boardId, authorId });
 
     newComment.save()
       .then((comment) => {
@@ -16,7 +18,7 @@ export default {
 
   deleteComment: (req, res) => {
     const id = req.params.comment_id;
-    const userId = req.body.userId;
+    const userId = req.user.sub;
 
     Comment.get(id).run()
       .then((comment) => {
@@ -27,6 +29,7 @@ export default {
             });
         } else {
           console.log('Permission denied.');
+          throw new Error('Permission denied');
         }
       });
   },
@@ -34,7 +37,7 @@ export default {
   updateComment: (req, res) => {
     const id = req.params.idea_id;
     const update = req.body;
-    const userId = req.body.userId;
+    const userId = req.user.sub;
 
     Comment.get(id).run()
       .then((comment) => {
