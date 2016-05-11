@@ -40,6 +40,7 @@ export default {
             }
           });
         });
+        delete board.comments;
         res.status(200).json({ board });
       })
       .error(helper.handleError(res));
@@ -53,7 +54,7 @@ export default {
       comments: true,
     }).run()
       .then((board) => {
-        board.deleteAll({ ideas: true })
+        board.deleteAll({ ideas: true, comments: true })
           .then((result) => {
             res.sendStatus(204);
           });

@@ -32,7 +32,6 @@ Comment.changes().then((feed) => {
       console.log(error);
       process.exit(1);
     }
-    console.log(JSON.stringify(doc))
     if (doc.isSaved() === false) {
       // The following document was deleted:
       const docToDelete = Object.assign({ toBeDeleted: true }, doc);
