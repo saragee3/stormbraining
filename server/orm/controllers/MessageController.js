@@ -5,7 +5,8 @@ export default {
   getMessages: (req, res) => {
     const boardId = req.params.board_id;
 
-    Message.get(boardId).run()
+    Message.getAll(boardId, { index: 'boardId' })
+      .orderBy('createdAt').run()
       .then((messages) => {
         res.status(200).json({ messages });
       })
