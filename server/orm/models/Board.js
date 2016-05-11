@@ -17,10 +17,12 @@ export default Board;
 // require used instead of import due to same issue (https://github.com/neumino/thinky/issues/399)
 const Idea = require('./Idea').default;
 const User = require('./User').default;
+const Message = require('./Message').default;
 const Comment = require('./Comment').default;
 Board.belongsTo(User, 'author', 'authorId', 'id');
 Board.hasMany(Idea, 'ideas', 'id', 'boardId');
 Board.hasMany(Comment, 'comments', 'id', 'boardId');
+Board.hasMany(Message, 'messages', 'id', 'boardId');
 Board.ensureIndex('createdAt');
 
 Board.changes().then((feed) => {
