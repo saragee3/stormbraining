@@ -137,3 +137,26 @@ export function sortIdeasByContent(order) {
     order,
   };
 }
+
+export function addComment(content, ideaId, boardId) {
+  const request = axios.post(`${ROOT_URL}/boards/${boardId}/ideas/${ideaId}/comments`, { content });
+  return {
+    type: types.ADD_COMMENT,
+    payload: request,
+  };
+}
+
+export function deleteComment(commentId, ideaId, boardId) {
+  const request = axios.delete(`${ROOT_URL}/boards/${boardId}/ideas/${ideaId}/comments/${commentId}`);
+  return {
+    type: types.DELETE_COMMENT,
+    payload: request,
+  };
+}
+
+export function syncComment(comment) {
+  return {
+    type: types.SYNC_COMMENT,
+    comment,
+  };
+}

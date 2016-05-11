@@ -29,8 +29,20 @@ export default {
       ideas: {
         _apply: (sequence) => sequence.orderBy('createdAt'),
       },
+      comments: {
+        _apply: (sequence) => sequence.orderBy('createdAt'),
+      },
     }).run()
       .then((board) => {
+        board.ideas.forEach(idea => {
+          idea.comments = [];
+          board.comments.forEach(comment => {
+            if (comment.ideaId === idea.id) {
+              idea.comments.push(comment);
+            }
+          });
+        });
+        delete board.comments;
         res.status(200).json({ board });
       })
       .error(helper.handleError(res));
@@ -42,10 +54,11 @@ export default {
 
     Board.get(id).getJoin({
       ideas: true,
+      comments: true,
     }).run()
       .then((board) => {
         if (userId === board.authorId) {
-          board.deleteAll({ ideas: true })
+          board.deleteAll({ ideas: true, comments: true })
             .then((result) => {
               res.sendStatus(204);
             });

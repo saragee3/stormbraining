@@ -1,6 +1,7 @@
 import path from 'path';
 import BoardController from '../orm/controllers/BoardController.js';
 import IdeaController from '../orm/controllers/IdeaController.js';
+import CommentController from '../orm/controllers/CommentController.js';
 import UserController from '../orm//controllers/UserController.js';
 
 export default function routes(app, express) {
@@ -25,6 +26,13 @@ export default function routes(app, express) {
   app.route('/api/boards/:board_id/ideas/:idea_id/upvotes')
     .post(IdeaController.upvoteIdea)
     .put(IdeaController.unvoteIdea);
+
+  app.route('/api/boards/:board_id/ideas/:idea_id/comments')
+    .post(CommentController.addComment);
+
+  app.route('/api/boards/:board_id/ideas/:idea_id/comments/:comment_id')
+    .put(CommentController.updateComment)
+    .delete(CommentController.deleteComment);
 
   app.route('/api/users')
     .post(UserController.addUser);

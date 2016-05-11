@@ -4,29 +4,29 @@ import { io } from '../../server.js';
 const r = thinky.r;
 const type = thinky.type;
 
-const Idea = thinky.createModel('Idea', {
+const Comment = thinky.createModel('Comment', {
   id: type.string(),
   authorId: type.string().required(),
   content: type.string().required(),
-  upvotes: type.array().default(() => []),
+  ideaId: type.string().required(),
   boardId: type.string().required(),
   createdAt: type.date().default(r.now),
 });
 
-export default Idea;
+export default Comment;
 
 // Relationship defined after export following docs to handle circular reference,
 // require used instead of import due to same issue (https://github.com/neumino/thinky/issues/399)
-const Board = require('./Board').default;
+const Idea = require('./Idea').default;
 const User = require('./User').default;
-const Comment = require('./Comment').default;
-Idea.belongsTo(User, 'author', 'authorId', 'id');
-Idea.belongsTo(Board, 'board', 'boardId', 'id');
-Idea.hasMany(Comment, 'comments', 'id', 'ideaId');
-Idea.ensureIndex('createdAt');
+const Board = require('./Board').default;
+Comment.belongsTo(User, 'author', 'authorId', 'id');
+Comment.belongsTo(Idea, 'idea', 'ideaId', 'id');
+Comment.belongsTo(Board, 'board', 'boardId', 'id');
+Comment.ensureIndex('createdAt');
 
-// Initialize change feed on Idea
-Idea.changes().then((feed) => {
+// Initialize change feed on comment
+Comment.changes().then((feed) => {
   feed.each((error, doc) => {
     if (error) {
       console.log(error);
@@ -35,13 +35,13 @@ Idea.changes().then((feed) => {
     if (doc.isSaved() === false) {
       // The following document was deleted:
       const docToDelete = Object.assign({ toBeDeleted: true }, doc);
-      io.sockets.in(doc.boardId).emit('idea', docToDelete);
+      io.sockets.in(doc.boardId).emit('comment', docToDelete);
     } else if (!doc.getOldValue()) {
       // A new document was inserted:
-      io.sockets.in(doc.boardId).emit('idea', doc);
+      io.sockets.in(doc.boardId).emit('comment', doc);
     } else {
       // A document was updated.
-      io.sockets.in(doc.boardId).emit('idea', doc);
+      io.sockets.in(doc.boardId).emit('comment', doc);
     }
   });
 }).error((error) => {

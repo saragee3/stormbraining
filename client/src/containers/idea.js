@@ -23,6 +23,7 @@ class Idea extends Component {
     super(props);
 
     this.renderVote = this.renderVote.bind(this);
+    // this.showCommentForm = this.showCommentForm.bind(this);
     this.renderDeleteIdea = this.renderDeleteIdea.bind(this);
   }
 
@@ -83,6 +84,14 @@ class Idea extends Component {
         </td>
         <td>
           {this.voteButton()}
+        </td>
+        <td>
+          <button
+            className="btn btn-primary"
+            onClick={this.showCommentForm}
+          >
+            Show comments
+          </button>
         </td>
         <td>
           {this.deleteButton()}
