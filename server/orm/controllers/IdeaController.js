@@ -61,11 +61,12 @@ export default {
   deleteIdea: (req, res) => {
     const id = req.params.idea_id;
     const userId = req.user.sub;
-
-    Idea.get(id).run()
+    Idea.get(id).getJoin({
+      comments: true,
+    }).run()
       .then((idea) => {
         if (userId === idea.authorId) {
-          idea.delete()
+          idea.deleteAll({ comments: true })
             .then((result) => {
               res.sendStatus(204);
             });

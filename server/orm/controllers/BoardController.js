@@ -28,7 +28,7 @@ export default {
         _apply: (sequence) => sequence.orderBy('createdAt'),
       },
       comments: {
-        _apply: (sequence) => sequence.orderBy('ideaId'),
+        _apply: (sequence) => sequence.orderBy('createdAt'),
       },
     }).run()
       .then((board) => {
@@ -50,6 +50,7 @@ export default {
 
     Board.get(id).getJoin({
       ideas: true,
+      comments: true,
     }).run()
       .then((board) => {
         board.deleteAll({ ideas: true })
