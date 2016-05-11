@@ -49,7 +49,7 @@ class IdeaList extends Component {
     return (
       <tbody>
         <Idea {...data} userId={userId} key={data.id}/>
-        <Comments {...data} userId={userId} key={data.id + ' comments'} />
+        <Comments {...data} userId={userId} key={`comments:${data.id}`} />
       </tbody>
     );
   }
