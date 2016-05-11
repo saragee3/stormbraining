@@ -4,8 +4,7 @@ import helper from './helper.js';
 export default {
   addIdea: (req, res) => {
     const boardId = req.params.board_id;
-    const authorId = req.user.sub;
-    const { content } = req.body;
+    const { content, authorId } = req.body;
     const newIdea = new Idea({ content, boardId, authorId });
 
     newIdea.save()
@@ -73,8 +72,7 @@ export default {
         } else {
           console.log('Permission denied.');
         }
-      })
-      .error(helper.handleError(res));
+      });
   },
 
   updateIdea: (req, res) => {
