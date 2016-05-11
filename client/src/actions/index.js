@@ -200,3 +200,11 @@ export function deleteActiveUser(boardId) {
     payload: request,
   };
 }
+
+export function getUser() {
+  const request = axios.get(`${ROOT_URL}/users`);
+  return {
+    type: types.GET_USER,
+    payload: request,
+  };
+}

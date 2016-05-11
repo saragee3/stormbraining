@@ -37,6 +37,7 @@ export default function routes(app, express) {
     .delete(CommentController.deleteComment);
 
   app.route('/api/users')
+    .get(UserController.getUser)
     .post(UserController.addUser);
 
   app.route('/api/messages/:board_id')

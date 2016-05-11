@@ -65,8 +65,8 @@ export default {
       .then((board) => {
         if (userId === board.authorId) {
           board.deleteAll({ ideas: true, comments: true, messages: true })
-            .then((result) => {
-              res.sendStatus(204);
+            .then((board) => {
+              res.status(201).json({ board });
             });
         } else {
           console.log('Permission denied.');

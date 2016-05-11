@@ -25,6 +25,7 @@ export const DELETE_ACTIVEUSER = 'DELETE_ACTIVEUSER';
 
 // User actions
 export const SAVE_OR_FETCH_USER = 'SAVE_OR_FETCH_USER';
+export const GET_USER = 'GET_USER';
 
 // Auth Actions
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
