@@ -4,6 +4,7 @@ import helper from './helper.js';
 export default {
   addIdea: (req, res) => {
     const boardId = req.params.board_id;
+    const authorId = req.user.sub;
     const { content, authorId } = req.body;
     const newIdea = new Idea({ content, boardId, authorId });
 
