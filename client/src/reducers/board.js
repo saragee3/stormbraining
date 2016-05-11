@@ -11,7 +11,7 @@ import {
   SYNC_COMMENT,
 } from '../actions/action_types';
 
-const INITIAL_STATE = { id: '', title: '', ideas: [] };
+const INITIAL_STATE = { id: '', title: '', ideas: [], messages: [] };
 
 export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
