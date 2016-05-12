@@ -1,8 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 import IconButton from 'material-ui/IconButton';
 import X from 'material-ui/svg-icons/content/clear';
+import { CardText } from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import { addComment, deleteComment } from '../actions/index';
 
@@ -48,16 +52,16 @@ class Comments extends Component {
     // TODO: Refactor delete button to avoid bind
     if (this.props.userId === data.authorId) {
       return (
-        <p key={this.props.id + data.id}>
-          <span>{data.content}</span>
+        <div key={data.id}>
+          <span style={{position: 'relative', top: '-5px'}}>{data.content}</span>
           <IconButton onClick={this.deleteComment.bind(this, data)} >
             <X />
           </IconButton>
-        </p>
+        </div>
       );
     }
     return (
-      <p key={this.props.id + data.id}>
+      <p key={data.id}>
         <span>{data.content}</span>
       </p>
     );
@@ -66,35 +70,32 @@ class Comments extends Component {
   render() {
     // if (this.state.showComments) {
     return (
-      <tr>
-        <td colSpan="5">
-          <span>
-            {this.props.comments.map(this.renderComments)}
-          </span>
-          <form onSubmit={this.onFormSubmit} className="input-group">
-            <input
-              className="form-control"
+      <CardText expandable={true}>
+        <span>
+          {this.props.comments.map(this.renderComments)}
+        </span>
+        <form onSubmit={this.onFormSubmit}>
+          <span style={{
+            width: '75%',
+            display: 'inline-block' }}
+          >
+            <TextField
+              fullWidth={true}
+              hintText={'Type your comment here'}
+              floatingLabelText="Add a comment"
               value={this.state.input}
               onChange={this.onInputChange}
             />
-            <span className="input-group-btn">
-              <button
-                type="submit"
-                className="btn btn-primary"
-              >
-              Save
-              </button>
-              <button
-                type="button"
-                onClick={this.onHideEdit}
-                className="btn btn-primary"
-              >
-              Hide
-              </button>
-            </span>
-          </form>
-        </td>
-      </tr>
+          </span>
+          <span>
+            <RaisedButton
+              type="submit"
+            >
+            Submit
+            </RaisedButton>
+          </span>
+        </form>
+      </CardText>
     );
     // }
   }
