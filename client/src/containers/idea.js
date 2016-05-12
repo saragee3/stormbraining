@@ -21,6 +21,7 @@ class Idea extends Component {
     getOneBoard: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
     userId: PropTypes.string.isRequired,
+    userName: PropTypes.string.isRequired,
     authorId: PropTypes.string.isRequired,
     upVote: PropTypes.func.isRequired,
     unVote: PropTypes.func.isRequired,
@@ -75,6 +76,7 @@ class Idea extends Component {
 
   render() {
     const userId = this.props.userId;
+    const userName = this.props.userName;
     const joined = this.props.joined;
     const grayIfNotJoined = joined ? {} : { color: '#9E9E9E' };
     return (
@@ -93,7 +95,7 @@ class Idea extends Component {
           </div>
         </CardHeader>
         <CardText expandable>
-          <Comments {...this.props} userId={userId} joined={joined} />
+          <Comments {...this.props} userId={userId} joined={joined} userName={userName} />
         </CardText>
       </Card>
     );

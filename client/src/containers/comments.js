@@ -19,6 +19,7 @@ class Comments extends Component {
     id: PropTypes.string.isRequired,
     comments: PropTypes.array,
     userId: PropTypes.string.isRequired,
+    userName: PropTypes.string.isRequired,
     deleteComment: PropTypes.func.isRequired,
     authorId: PropTypes.string,
     joined: PropTypes.bool.isRequired,
@@ -40,14 +41,13 @@ class Comments extends Component {
 
   onFormSubmit(event) {
     event.preventDefault();
-    console.log(this.props)
     this.props.addComment(this.state.input, this.props.userName, this.props.id, this.props.boardId);
     this.setState({ input: '' });
   }
 
   deleteComment(data) {
     // commentId, ideaId, boardId
-    this.props.deleteComment(data.id, this.props.ideaId, this.props.boardId);
+    this.props.deleteComment(data.id, data.ideaId, this.props.boardId);
   }
 
   renderComments(data) {

@@ -30,6 +30,7 @@ class IdeaList extends Component {
     getOneBoard: PropTypes.func,
     board: PropTypes.object.isRequired,
     userId: PropTypes.string.isRequired,
+    userName: PropTypes.string.isRequired,
     sortIdeasByVotes: PropTypes.func,
     sortIdeasByContent: PropTypes.func,
     joined: PropTypes.bool.isRequired,
@@ -61,10 +62,11 @@ class IdeaList extends Component {
 
   renderIdea(data) {
     const userId = this.props.userId;
+    const userName = this.props.userName;
     const joined = this.props.joined;
     return (
       <div style={{ padding: '10px' }} key={data.id}>
-        <Idea {...data} userId={userId} joined={joined} />
+        <Idea {...data} userId={userId} joined={joined} userName={userName} />
       </div>
     );
   }
