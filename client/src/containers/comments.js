@@ -76,13 +76,10 @@ class Comments extends Component {
   }
 
   render() {
-    // if (this.state.showComments) {
     if (this.props.joined) {
       return (
-        <CardText expandable={true}>
-          <span>
-            {this.props.comments.map(this.renderComments)}
-          </span>
+        <CardText expandable>
+          {this.props.comments.map(this.renderComments)}
           <form onSubmit={this.onFormSubmit}>
             <span style={{
               width: '75%',
@@ -108,10 +105,8 @@ class Comments extends Component {
       );
     }
     return (
-      <CardText expandable={true}>
-        <span>
-          {this.props.comments.map(this.renderComments)}
-        </span>
+      <CardText expandable>
+        {this.props.comments.map(this.renderComments)}
       </CardText>
     );
   }

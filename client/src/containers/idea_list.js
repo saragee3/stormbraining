@@ -3,12 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getOneBoard, sortIdeasByVotes, sortIdeasByContent } from '../actions/index';
 import Idea from './idea';
-import Comments from './comments';
 
 import ArrowDown from 'material-ui/svg-icons/navigation/expand-more';
 import ArrowUp from 'material-ui/svg-icons/navigation/expand-less';
 import Reorder from 'material-ui/svg-icons/action/reorder';
-import { Card } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
 
@@ -66,10 +64,7 @@ class IdeaList extends Component {
     const joined = this.props.joined;
     return (
       <div style={{ padding: '10px' }} key={data.id}>
-      <Card>
-        <Idea {...data} userId={userId} />
-        <Comments {...data} userId={userId} joined={joined} userName={this.props.userName}/>
-      </Card>
+        <Idea {...data} userId={userId} joined={joined} />
       </div>
     );
   }

@@ -3,18 +3,20 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { upVote, unVote, getOneBoard, deleteIdea } from '../actions/index';
 
-import { CardHeader } from 'material-ui/Card';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
 import ThumbsUp from 'material-ui/svg-icons/action/thumb-up';
 import ThumbsDown from 'material-ui/svg-icons/action/thumb-down';
 import DeleteForever from 'material-ui/svg-icons/action/delete-forever';
 import IconButton from 'material-ui/IconButton';
 
 import IdeaEditInput from '../containers/idea_edit_input';
+import Comments from './comments';
 
 class Idea extends Component {
   static propTypes = {
     content: PropTypes.string.isRequired,
     upvotes: PropTypes.array.isRequired,
+    comments: PropTypes.array.isRequired,
     boardId: PropTypes.string.isRequired,
     getOneBoard: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
@@ -30,7 +32,6 @@ class Idea extends Component {
     super(props);
 
     this.renderVote = this.renderVote.bind(this);
-    // this.showCommentForm = this.showCommentForm.bind(this);
     this.renderDeleteIdea = this.renderDeleteIdea.bind(this);
   }
 
@@ -85,18 +86,23 @@ class Idea extends Component {
   }
 
   render() {
+    const userId = this.props.userId;
+    const joined = this.props.joined;
     return (
-      <CardHeader
-        actAsExpander={true}
-        showExpandableButton={true}
-      >
-        <IdeaEditInput {...this.props} />
-        <span style={{ float: 'right' }}>
-          {this.deleteButton()}
-          {this.props.upvotes.length} upvotes
-          {this.voteButton()}
-        </span>
-      </CardHeader>
+      <Card>
+        <CardHeader actAsExpander>
+          <IdeaEditInput {...this.props} />
+          <div style={{ float: 'right' }}>
+            {this.deleteButton()}
+            <span>{this.props.comments.length} comments </span>
+            <span>{this.props.upvotes.length} upvotes</span>
+            {this.voteButton()}
+          </div>
+        </CardHeader>
+        <CardText expandable>
+          <Comments {...this.props} userId={userId} joined={joined} />
+        </CardText>
+      </Card>
     );
   }
 }
