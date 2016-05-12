@@ -67,7 +67,7 @@ class IdeaList extends Component {
       <div style={{ padding: '10px'}} key={data.id}>
       <Card>
         <Idea {...data} userId={userId} />
-        <Comments {...data} userId={userId} />
+        <Comments {...data} userId={userId} userName={this.props.userName}/>
       </Card>
       </div>
     );

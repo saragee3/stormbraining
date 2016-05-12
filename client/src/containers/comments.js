@@ -39,7 +39,8 @@ class Comments extends Component {
 
   onFormSubmit(event) {
     event.preventDefault();
-    this.props.addComment(this.state.input, this.props.id, this.props.boardId);
+    console.log(this.props)
+    this.props.addComment(this.state.input, this.props.userName, this.props.id, this.props.boardId);
     this.setState({ input: '' });
   }
 
@@ -53,7 +54,10 @@ class Comments extends Component {
     if (this.props.userId === data.authorId) {
       return (
         <div key={data.id}>
-          <span style={{position: 'relative', top: '-5px'}}>{data.content}</span>
+          <span style={{ position: 'relative', top: '-5px' }}>
+            <span style={{ color: '#BDBDBD', paddingRight: '15px' }}>{data.authorName} </span>
+            {data.content}
+          </span>
           <IconButton onClick={this.deleteComment.bind(this, data)} >
             <X />
           </IconButton>
@@ -62,7 +66,10 @@ class Comments extends Component {
     }
     return (
       <p key={data.id}>
-        <span>{data.content}</span>
+        <span style={{ position: 'relative', top: '-5px' }}>
+          <span style={{ color: '#BDBDBD', paddingRight: '15px' }}>{data.authorName} </span>
+          {data.content}
+        </span>
       </p>
     );
   }
