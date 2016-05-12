@@ -38,7 +38,6 @@ class Idea extends Component {
       return (
         <IconButton
           onClick={this.renderVote}
-          className="btn btn-warning"
         >
           <ThumbsUp color={'#8BC34A'} />
         </IconButton>
@@ -47,7 +46,6 @@ class Idea extends Component {
     return (
       <IconButton
         onClick={this.renderVote}
-        className="btn btn-success"
       >
         <ThumbsUp hoverColor={'#8BC34A'} />
       </IconButton>
