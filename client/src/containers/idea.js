@@ -23,6 +23,7 @@ class Idea extends Component {
     upVote: PropTypes.func.isRequired,
     unVote: PropTypes.func.isRequired,
     deleteIdea: PropTypes.func.isRequired,
+    joined: PropTypes.bool.isRequired,
   }
 
   constructor(props) {
@@ -34,26 +35,30 @@ class Idea extends Component {
   }
 
   voteButton() {
-    if (this.props.upvotes.indexOf(this.props.userId) !== -1) {
+    if (this.props.joined) {
+      if (this.props.upvotes.indexOf(this.props.userId) !== -1) {
+        return (
+          <IconButton
+            onClick={this.renderVote}
+            className="btn btn-warning"
+          >
+            <ThumbsDown />
+          </IconButton>
+        );
+      }
       return (
         <IconButton
           onClick={this.renderVote}
+          className="btn btn-success"
         >
-          <ThumbsUp color={'#8BC34A'} />
+          <ThumbsUp />
         </IconButton>
       );
     }
-    return (
-      <IconButton
-        onClick={this.renderVote}
-      >
-        <ThumbsUp hoverColor={'#8BC34A'} />
-      </IconButton>
-    );
   }
 
   deleteButton() {
-    if (this.props.userId === this.props.authorId) {
+    if (this.props.userId === this.props.authorId && this.props.joined) {
       return (
         <IconButton
           onClick={this.renderDeleteIdea}
@@ -86,8 +91,8 @@ class Idea extends Component {
         showExpandableButton={true}
       >
         <IdeaEditInput {...this.props} />
-        {this.deleteButton()}
         <span style={{ float: 'right' }}>
+          {this.deleteButton()}
           {this.props.upvotes.length} upvotes
           {this.voteButton()}
         </span>

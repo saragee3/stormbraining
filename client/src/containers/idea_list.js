@@ -34,6 +34,7 @@ class IdeaList extends Component {
     userId: PropTypes.string.isRequired,
     sortIdeasByVotes: PropTypes.func,
     sortIdeasByContent: PropTypes.func,
+    joined: PropTypes.bool.isRequired,
   }
 
   constructor(props) {
@@ -62,12 +63,12 @@ class IdeaList extends Component {
 
   renderIdea(data) {
     const userId = this.props.userId;
-    // console.log(data)
+    const joined = this.props.joined;
     return (
-      <div style={{ padding: '10px'}} key={data.id}>
+      <div style={{ padding: '10px' }} key={data.id}>
       <Card>
         <Idea {...data} userId={userId} />
-        <Comments {...data} userId={userId} userName={this.props.userName}/>
+        <Comments {...data} userId={userId} joined={joined} userName={this.props.userName}/>
       </Card>
       </div>
     );
@@ -76,10 +77,10 @@ class IdeaList extends Component {
   render() {
     return (
       <div>
-        <FlatButton style={{paddingRight: '10px'}} onClick={this.onSortIdeasByContent}>
+        <FlatButton style={{ paddingRight: '10px' }} onClick={this.onSortIdeasByContent}>
           Sort by Idea {Arrows[this.state.sorting.byContent]}
         </FlatButton>
-        <FlatButton style={{paddingLeft: '10px'}} onClick={this.onSortIdeasByVotes}>
+        <FlatButton style={{ paddingLeft: '10px' }} onClick={this.onSortIdeasByVotes}>
           Sort by Votes {Arrows[this.state.sorting.byVotes]}
         </FlatButton>
         {this.props.board.ideas.map(this.renderIdea)}

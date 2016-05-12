@@ -21,6 +21,7 @@ class Comments extends Component {
     userId: PropTypes.string.isRequired,
     deleteComment: PropTypes.func.isRequired,
     authorId: PropTypes.string,
+    joined: PropTypes.bool.isRequired,
   }
 
   constructor(props) {
@@ -51,7 +52,7 @@ class Comments extends Component {
 
   renderComments(data) {
     // TODO: Refactor delete button to avoid bind
-    if (this.props.userId === data.authorId) {
+    if (this.props.userId === data.authorId && this.props.joined) {
       return (
         <div key={data.id}>
           <span style={{ position: 'relative', top: '-5px' }}>
@@ -76,35 +77,43 @@ class Comments extends Component {
 
   render() {
     // if (this.state.showComments) {
+    if (this.props.joined) {
+      return (
+        <CardText expandable={true}>
+          <span>
+            {this.props.comments.map(this.renderComments)}
+          </span>
+          <form onSubmit={this.onFormSubmit}>
+            <span style={{
+              width: '75%',
+              display: 'inline-block' }}
+            >
+              <TextField
+                fullWidth
+                hintText={'Type your comment here'}
+                floatingLabelText="Add a comment"
+                value={this.state.input}
+                onChange={this.onInputChange}
+              />
+            </span>
+            <span>
+              <RaisedButton
+                type="submit"
+              >
+              Submit
+              </RaisedButton>
+            </span>
+          </form>
+        </CardText>
+      );
+    }
     return (
       <CardText expandable={true}>
         <span>
           {this.props.comments.map(this.renderComments)}
         </span>
-        <form onSubmit={this.onFormSubmit}>
-          <span style={{
-            width: '75%',
-            display: 'inline-block' }}
-          >
-            <TextField
-              fullWidth={true}
-              hintText={'Type your comment here'}
-              floatingLabelText="Add a comment"
-              value={this.state.input}
-              onChange={this.onInputChange}
-            />
-          </span>
-          <span>
-            <RaisedButton
-              type="submit"
-            >
-            Submit
-            </RaisedButton>
-          </span>
-        </form>
       </CardText>
     );
-    // }
   }
 }
 
