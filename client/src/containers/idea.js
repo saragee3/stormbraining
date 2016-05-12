@@ -2,7 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { upVote, unVote, getOneBoard, deleteIdea } from '../actions/index';
-import { TableRow, TableRowColumn } from 'material-ui/Table';
+
+import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
+import ThumbsUp from 'material-ui/svg-icons/action/thumb-up';
+import ThumbsDown from 'material-ui/svg-icons/action/thumb-down';
+import DeleteForever from 'material-ui/svg-icons/action/delete-forever';
+import IconButton from 'material-ui/IconButton';
 
 import IdeaEditInput from '../containers/idea_edit_input';
 
@@ -31,33 +36,33 @@ class Idea extends Component {
   voteButton() {
     if (this.props.upvotes.indexOf(this.props.userId) !== -1) {
       return (
-        <button
+        <IconButton
           onClick={this.renderVote}
           className="btn btn-warning"
         >
-          Un-vote
-        </button>
+          <ThumbsDown />
+        </IconButton>
       );
     }
     return (
-      <button
+      <IconButton
         onClick={this.renderVote}
         className="btn btn-success"
       >
-        Upvote
-      </button>
+        <ThumbsUp />
+      </IconButton>
     );
   }
 
   deleteButton() {
     if (this.props.userId === this.props.authorId) {
       return (
-        <button
+        <IconButton
           onClick={this.renderDeleteIdea}
-          className="btn btn-danger"
+          style={{ float: 'left' }}
         >
-          Delete
-        </button>
+          <DeleteForever />
+        </IconButton>
       );
     }
   }
@@ -78,26 +83,17 @@ class Idea extends Component {
 
   render() {
     return (
-      <TableRow>
+      <CardHeader
+        actAsExpander={true}
+        showExpandableButton={true}
+      >
         <IdeaEditInput {...this.props} />
-        <TableRowColumn>
-          {this.props.upvotes.length}
-        </TableRowColumn>
-        <TableRowColumn>
+        {this.deleteButton()}
+        <span style={{ float: 'right' }}>
+          {this.props.upvotes.length} upvotes
           {this.voteButton()}
-        </TableRowColumn>
-        <TableRowColumn>
-          <button
-            className="btn btn-primary"
-            onClick={this.showCommentForm}
-          >
-            Show comments
-          </button>
-        </TableRowColumn>
-        <TableRowColumn>
-          {this.deleteButton()}
-        </TableRowColumn>
-      </TableRow>
+        </span>
+      </CardHeader>
     );
   }
 }

@@ -7,9 +7,23 @@ import Comments from './comments';
 
 import ArrowDown from 'material-ui/svg-icons/navigation/expand-more';
 import ArrowUp from 'material-ui/svg-icons/navigation/expand-less';
-import { Table, TableHeader, TableHeaderColumn, TableBody, TableRow } from 'material-ui/Table';
+import Reorder from 'material-ui/svg-icons/action/reorder';
+import { Card } from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 
-const Arrows = ['', <ArrowDown />, <ArrowUp />];
+
+const styles = {
+  smallIcon: {
+    width: 20,
+    height: 20,
+  },
+};
+
+const Arrows = [
+  <Reorder style={styles.smallIcon} />,
+  <ArrowDown style={styles.smallIcon} />,
+  <ArrowUp style={styles.smallIcon} />,
+];
 
 class IdeaList extends Component {
 
@@ -48,30 +62,28 @@ class IdeaList extends Component {
 
   renderIdea(data) {
     const userId = this.props.userId;
+    // console.log(data)
     return (
-      <TableBody key={data.id}>
+      <div style={{ padding: '10px'}} key={data.id}>
+      <Card>
         <Idea {...data} userId={userId} />
         <Comments {...data} userId={userId} />
-      </TableBody>
+      </Card>
+      </div>
     );
   }
 
   render() {
     return (
-      <Table selectable={false} >
-        <TableHeader displaySelectAll={false}>
-          <TableRow>
-            <TableHeaderColumn onClick={this.onSortIdeasByContent}>
-              Idea {Arrows[this.state.sorting.byContent]}
-            </TableHeaderColumn>
-            <TableHeaderColumn onClick={this.onSortIdeasByVotes}>
-              Votes {Arrows[this.state.sorting.byVotes]}
-            </TableHeaderColumn>
-            <TableHeaderColumn colSpan="3"></TableHeaderColumn>
-          </TableRow>
-        </TableHeader>
+      <div>
+        <FlatButton style={{paddingRight: '10px'}} onClick={this.onSortIdeasByContent}>
+          Sort by Idea {Arrows[this.state.sorting.byContent]}
+        </FlatButton>
+        <FlatButton style={{paddingLeft: '10px'}} onClick={this.onSortIdeasByVotes}>
+          Sort by Votes {Arrows[this.state.sorting.byVotes]}
+        </FlatButton>
         {this.props.board.ideas.map(this.renderIdea)}
-      </Table>
+      </div>
     );
   }
 }

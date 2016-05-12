@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import IconButton from 'material-ui/IconButton';
 import X from 'material-ui/svg-icons/content/clear';
-import { TableRow, TableRowColumn } from 'material-ui/Table';
+import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -52,12 +52,12 @@ class Comments extends Component {
     // TODO: Refactor delete button to avoid bind
     if (this.props.userId === data.authorId) {
       return (
-        <p key={this.props.id + data.id}>
-          <span>{data.content}</span>
+        <div key={this.props.id + data.id}>
+          <span style={{position: 'relative', top: '-5px'}}>{data.content}</span>
           <IconButton onClick={this.deleteComment.bind(this, data)} >
             <X />
           </IconButton>
-        </p>
+        </div>
       );
     }
     return (
@@ -70,41 +70,32 @@ class Comments extends Component {
   render() {
     // if (this.state.showComments) {
     return (
-      <TableRow>
-        <TableRowColumn colSpan="5">
-          <span>
-            {this.props.comments.map(this.renderComments)}
+      <CardText expandable={true}>
+        <span>
+          {this.props.comments.map(this.renderComments)}
+        </span>
+        <form onSubmit={this.onFormSubmit}>
+          <span style={{
+            width: '75%',
+            display: 'inline-block' }}
+          >
+            <TextField
+              fullWidth={true}
+              hintText={'Type your comment here'}
+              floatingLabelText="Add a comment"
+              value={this.state.input}
+              onChange={this.onInputChange}
+            />
           </span>
-          <form onSubmit={this.onFormSubmit}>
-            <span style={{
-              width: '75%',
-              display: 'inline-block' }}
+          <span>
+            <RaisedButton
+              type="submit"
             >
-              <TextField
-                fullWidth={true}
-                hintText={'Type your comment here'}
-                floatingLabelText="Add a comment"
-                value={this.state.input}
-                onChange={this.onInputChange}
-              />
-            </span>
-            <span>
-              <RaisedButton
-                type="submit"
-              >
-              Submit
-              </RaisedButton>
-              <RaisedButton
-                type="button"
-                onClick={this.onHideEdit}
-                backgroundColor={'#E0E0E0'}
-              >
-              Hide
-              </RaisedButton>
-            </span>
-          </form>
-        </TableRowColumn>
-      </TableRow>
+            Submit
+            </RaisedButton>
+          </span>
+        </form>
+      </CardText>
     );
     // }
   }
