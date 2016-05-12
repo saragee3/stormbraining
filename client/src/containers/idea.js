@@ -1,11 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { upVote, unVote, getOneBoard, deleteIdea } from '../actions/index';
+import { upVote, unVote, getOneBoard, deleteIdea, branchIdeaToBoard } from '../actions/index';
+import { browserHistory } from 'react-router';
 
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import ThumbsUp from 'material-ui/svg-icons/action/thumb-up';
 import DeleteForever from 'material-ui/svg-icons/action/delete-forever';
+import Input from 'material-ui/svg-icons/action/input';
 import IconButton from 'material-ui/IconButton';
 import { cyan500 } from 'material-ui/styles/colors';
 
@@ -27,6 +29,7 @@ class Idea extends Component {
     unVote: PropTypes.func.isRequired,
     deleteIdea: PropTypes.func.isRequired,
     joined: PropTypes.bool.isRequired,
+    branchIdeaToBoard: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -34,6 +37,7 @@ class Idea extends Component {
 
     this.renderVote = this.renderVote.bind(this);
     this.renderDeleteIdea = this.renderDeleteIdea.bind(this);
+    this.branch = this.branch.bind(this);
   }
 
   voteButton() {
@@ -74,6 +78,14 @@ class Idea extends Component {
     }
   }
 
+  branch() {
+    this.props.branchIdeaToBoard(this.props.content)
+      .then((action) => {
+        console.log(action.payload.data.board.id)
+        browserHistory.push(`/boards/${action.payload.data.board.id}`);
+      });
+  }
+
   render() {
     const userId = this.props.userId;
     const userName = this.props.userName;
@@ -88,6 +100,12 @@ class Idea extends Component {
         <CardHeader style={{ paddingTop: '0px', paddingBottom: '40px' }}>
           <IdeaEditInput {...this.props} />
           <div style={{ float: 'right' }}>
+            <IconButton
+              onClick={this.branch}
+              tooltip="steal this idea"
+              touch={true}
+              tooltipPosition="bottom-center"
+            >
             {this.deleteButton()}
             <span>{this.props.comments.length} comments </span>
             <span>{this.props.upvotes.length} upvotes</span>
@@ -103,7 +121,7 @@ class Idea extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ upVote, unVote, getOneBoard, deleteIdea }, dispatch);
+  return bindActionCreators({ upVote, unVote, getOneBoard, deleteIdea, branchIdeaToBoard }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(Idea);
