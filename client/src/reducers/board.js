@@ -99,6 +99,12 @@ export default function (state = INITIAL_STATE, action) {
       });
       return { ...state, ideas: changedIdeas };
 
+    case types.JOIN_BOARD:
+      return { ...state, members: action.payload.data.board.members };
+
+    case types.LEAVE_BOARD:
+      return { ...state, members: action.payload.data.board.members };
+
     default:
       return state;
   }
