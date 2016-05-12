@@ -46,7 +46,7 @@ class ChatList extends Component {
   }
 
   onInputChange(event) {
-    event.preventDefault();
+    event.stopPropagation();
     this.setState({ term: event.target.value });
   }
 
