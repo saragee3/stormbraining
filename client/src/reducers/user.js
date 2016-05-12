@@ -1,6 +1,8 @@
 import { GET_USER, NEW_BOARD, DELETE_BOARD } from '../actions/action_types';
 
-export default function (state = {}, action) {
+const INITIAL_STATE = { email: '', id: '', name: '', authoredBoards: [], boards: [] };
+
+export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case GET_USER:
       return action.payload.data.user;

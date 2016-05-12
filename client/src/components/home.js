@@ -71,9 +71,7 @@ class Home extends Component {
               </TableRow>
             </TableHeader>
             <TableBody displayRowCheckbox={false}>
-              {this.props.user.authoredBoards
-                ? this.props.user.authoredBoards.map(this.renderBoardListing)
-                : ''}
+              {this.props.user.authoredBoards.map(this.renderBoardListing)}
             </TableBody>
           </Table>
         </div>
@@ -85,9 +83,7 @@ class Home extends Component {
               </TableRow>
             </TableHeader>
             <TableBody displayRowCheckbox={false}>
-              {this.props.user.boards
-                ? this.props.user.boards.map(this.renderBoardListing)
-                : ''}
+              {this.props.user.boards.map(this.renderBoardListing)}
             </TableBody>
           </Table>
         </div>

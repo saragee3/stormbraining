@@ -39,9 +39,6 @@ class Ideas extends Component {
   }
 
   render() {
-    if (!this.props.board) {
-      return <div>Thinking...</div>;
-    }
     return (
       <div>
         <h2>Topic: {this.props.board.title}</h2>

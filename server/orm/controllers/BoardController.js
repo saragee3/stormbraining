@@ -1,4 +1,5 @@
 import Board from '../models/Board.js';
+import User from '../models/User.js';
 import helper from './helper.js';
 
 export default {
@@ -85,6 +86,52 @@ export default {
         board.merge(update).save()
           .then((result) => {
             res.status(200).json({ result });
+          });
+      })
+      .error(helper.handleError(res));
+  },
+
+  joinUserToBoard: (req, res) => {
+    const id = req.params.board_id;
+    const userId = req.user.sub;
+
+    Board.get(id).getJoin({ members: true }).run()
+      .then((board) => {
+        User.get(userId).run()
+          .then((user) => {
+            const existingIndex = board.members.map((member) => member.id).indexOf(user.id);
+            if (existingIndex < 0 && user.id !== board.authorId) {
+              board.members = [...board.members, user];
+              board.saveAll({ members: true })
+                .then((updatedBoard) => {
+                  res.status(201).json({ board: updatedBoard });
+                });
+            } else {
+              res.sendStatus(422);
+            }
+          });
+      })
+      .error(helper.handleError(res));
+  },
+
+  removeUserFromBoard: (req, res) => {
+    const id = req.params.board_id;
+    const userId = req.user.sub;
+
+    Board.get(id).getJoin({ members: true }).run()
+      .then((board) => {
+        User.get(userId).run()
+          .then((user) => {
+            const existingIndex = board.members.map((member) => member.id).indexOf(user.id);
+            if (existingIndex > -1) {
+              board.members.splice(existingIndex, 1);
+              board.saveAll({ members: true })
+                .then((updatedBoard) => {
+                  res.status(201).json({ board: updatedBoard });
+                });
+            } else {
+              res.sendStatus(404);
+            }
           });
       })
       .error(helper.handleError(res));
