@@ -27,12 +27,14 @@ class Home extends Component {
   }
 
   deleteButton(data) {
-    return (
-      <RaisedButton
-        onTouchTap={this.renderDeleteBoard.bind(this, data)}
-        label="Delete"
-      />
-    );
+    if (this.props.user.id === data.authorId) {
+      return (
+        <RaisedButton
+          onTouchTap={this.renderDeleteBoard.bind(this, data)}
+          label="Delete"
+        />
+      );
+    }
   }
 
   renderDeleteBoard(data) {
@@ -61,18 +63,34 @@ class Home extends Component {
       <div>
         <h1>Welcome, {this.props.user.name}!</h1>
         <BoardInput />
-        <Table>
-          <TableHeader displaySelectAll={false}>
-            <TableRow>
-              <TableRowColumn><h3>Your Boards</h3></TableRowColumn>
-            </TableRow>
-          </TableHeader>
-          <TableBody displayRowCheckbox={false}>
-            {this.props.user.authoredBoards
-              ? this.props.user.authoredBoards.map(this.renderBoardListing)
-              : ''}
-          </TableBody>
-        </Table>
+        <div>
+          <Table>
+            <TableHeader displaySelectAll={false}>
+              <TableRow>
+                <TableRowColumn><h3>Your Boards</h3></TableRowColumn>
+              </TableRow>
+            </TableHeader>
+            <TableBody displayRowCheckbox={false}>
+              {this.props.user.authoredBoards
+                ? this.props.user.authoredBoards.map(this.renderBoardListing)
+                : ''}
+            </TableBody>
+          </Table>
+        </div>
+        <div>
+          <Table>
+            <TableHeader displaySelectAll={false}>
+              <TableRow>
+                <TableRowColumn><h3>Boards You Have Joined</h3></TableRowColumn>
+              </TableRow>
+            </TableHeader>
+            <TableBody displayRowCheckbox={false}>
+              {this.props.user.boards
+                ? this.props.user.boards.map(this.renderBoardListing)
+                : ''}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     );
   }
