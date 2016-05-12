@@ -39,7 +39,8 @@ class Comments extends Component {
 
   onFormSubmit(event) {
     event.preventDefault();
-    this.props.addComment(this.state.input, this.props.id, this.props.boardId);
+    console.log(this.props)
+    this.props.addComment(this.state.input, this.props.userName, this.props.id, this.props.boardId);
     this.setState({ input: '' });
   }
 

@@ -138,8 +138,8 @@ export function sortIdeasByContent(order) {
   };
 }
 
-export function addComment(content, ideaId, boardId) {
-  const request = axios.post(`${ROOT_URL}/boards/${boardId}/ideas/${ideaId}/comments`, { content });
+export function addComment(content, userName, ideaId, boardId) {
+  const request = axios.post(`${ROOT_URL}/boards/${boardId}/ideas/${ideaId}/comments`, { content, userName });
   return {
     type: types.ADD_COMMENT,
     payload: request,
