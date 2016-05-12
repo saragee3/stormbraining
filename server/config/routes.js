@@ -40,6 +40,10 @@ export default function routes(app, express) {
     .get(UserController.getUser)
     .post(UserController.addUser);
 
+  app.route('/api/users/:board_id')
+    .post(UserController.joinUserToBoard)
+    .put(UserController.removeUserFromBoard);
+
   app.route('/api/messages/:board_id')
     .get(MessageController.getMessages)
     .post(MessageController.addMessage);

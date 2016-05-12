@@ -36,6 +36,7 @@ export default {
         _apply: (sequence) => sequence.orderBy('createdAt'),
       },
       activeUser: true,
+      members: true,
     }).run()
       .then((board) => {
         board.ideas.forEach(idea => {
