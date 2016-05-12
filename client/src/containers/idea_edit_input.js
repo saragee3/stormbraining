@@ -69,7 +69,7 @@ class IdeaEditInput extends Component {
       );
     }
     return (
-      <span style={{ float: 'left', paddingTop: '14' }} onClick={this.onShowEdit}>
+      <span style={{ float: 'left', paddingTop: '14px' }} onClick={this.onShowEdit}>
         {this.props.content}
       </span>
     );

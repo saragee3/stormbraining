@@ -52,7 +52,7 @@ class Comments extends Component {
     // TODO: Refactor delete button to avoid bind
     if (this.props.userId === data.authorId) {
       return (
-        <div key={this.props.id + data.id}>
+        <div key={data.id}>
           <span style={{position: 'relative', top: '-5px'}}>{data.content}</span>
           <IconButton onClick={this.deleteComment.bind(this, data)} >
             <X />
@@ -61,7 +61,7 @@ class Comments extends Component {
       );
     }
     return (
-      <p key={this.props.id + data.id}>
+      <p key={data.id}>
         <span>{data.content}</span>
       </p>
     );
