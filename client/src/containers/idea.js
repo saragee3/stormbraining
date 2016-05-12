@@ -9,7 +9,7 @@ import ThumbsUp from 'material-ui/svg-icons/action/thumb-up';
 import DeleteForever from 'material-ui/svg-icons/action/delete-forever';
 import Input from 'material-ui/svg-icons/action/input';
 import IconButton from 'material-ui/IconButton';
-import { cyan500 } from 'material-ui/styles/colors';
+import { cyan500, pink500 } from 'material-ui/styles/colors';
 
 import IdeaEditInput from '../containers/idea_edit_input';
 import Comments from './comments';
@@ -44,7 +44,11 @@ class Idea extends Component {
     if (this.props.joined) {
       const upvotedColor = (this.props.upvotes.indexOf(this.props.userId) !== -1) ? cyan500 : '';
       return (
-        <IconButton onClick={this.renderVote}>
+        <IconButton
+          onClick={this.renderVote}
+          touch
+          tooltipPosition="bottom-center"
+        >
           <ThumbsUp color={upvotedColor} hoverColor={cyan500} />
         </IconButton>
       );
@@ -57,8 +61,11 @@ class Idea extends Component {
         <IconButton
           onClick={this.renderDeleteIdea}
           style={{ float: 'left' }}
+          tooltip="delete idea"
+          touch
+          tooltipPosition="bottom-center"
         >
-          <DeleteForever hoverColor={cyan500} />
+          <DeleteForever hoverColor={pink500} />
         </IconButton>
       );
     }
@@ -81,7 +88,7 @@ class Idea extends Component {
   branch() {
     this.props.branchIdeaToBoard(this.props.content)
       .then((action) => {
-        console.log(action.payload.data.board.id)
+        browserHistory.push('/boards');
         browserHistory.push(`/boards/${action.payload.data.board.id}`);
       });
   }
@@ -99,17 +106,20 @@ class Idea extends Component {
         />
         <CardHeader style={{ paddingTop: '0px', paddingBottom: '40px' }}>
           <IdeaEditInput {...this.props} />
+          {this.deleteButton()}
           <div style={{ float: 'right' }}>
             <IconButton
               onClick={this.branch}
+              hoverColor={cyan500}
               tooltip="steal this idea"
-              touch={true}
+              touch
               tooltipPosition="bottom-center"
             >
-            {this.deleteButton()}
-            <span>{this.props.comments.length} comments </span>
-            <span>{this.props.upvotes.length} upvotes</span>
+              <Input />
+            </IconButton>
+            <span style={{ position: 'relative', top: '-5px' }}>{this.props.comments.length} comments </span>
             {this.voteButton()}
+            <span style={{ position: 'relative', top: '-5px' }}>{this.props.upvotes.length}</span>
           </div>
         </CardHeader>
         <CardText expandable>

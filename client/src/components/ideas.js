@@ -39,6 +39,7 @@ class Ideas extends Component {
   }
 
   render() {
+    console.log(this.props.board)
     return (
       <div>
         <h2>Topic: {this.props.board.title}</h2>
