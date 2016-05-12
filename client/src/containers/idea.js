@@ -40,7 +40,7 @@ class Idea extends Component {
           onClick={this.renderVote}
           className="btn btn-warning"
         >
-          <ThumbsDown />
+          <ThumbsUp color={'#8BC34A'} />
         </IconButton>
       );
     }
@@ -49,7 +49,7 @@ class Idea extends Component {
         onClick={this.renderVote}
         className="btn btn-success"
       >
-        <ThumbsUp />
+        <ThumbsUp hoverColor={'#8BC34A'} />
       </IconButton>
     );
   }
