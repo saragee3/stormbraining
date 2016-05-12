@@ -176,3 +176,27 @@ export function addMessage(boardId, message, userName) {
     payload: request,
   };
 }
+
+export function getActiveUsers(boardId) {
+  const request = axios.get(`${ROOT_URL}/activeusers/${boardId}`);
+  return {
+    type: types.GET_ACTIVEUSER,
+    payload: request,
+  };
+}
+
+export function addActiveUser(boardId, name) {
+  const request = axios.post(`${ROOT_URL}/activeusers/${boardId}`, { boardId, name });
+  return {
+    type: types.ADD_ACTIVEUSER,
+    payload: request,
+  };
+}
+
+export function deleteActiveUser(boardId) {
+  const request = axios.delete(`${ROOT_URL}/activeusers/${boardId}`);
+  return {
+    type: types.DELETE_ACTIVEUSER,
+    payload: request,
+  };
+}
