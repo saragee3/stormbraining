@@ -5,9 +5,9 @@ import { upVote, unVote, getOneBoard, deleteIdea } from '../actions/index';
 
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import ThumbsUp from 'material-ui/svg-icons/action/thumb-up';
-import ThumbsDown from 'material-ui/svg-icons/action/thumb-down';
 import DeleteForever from 'material-ui/svg-icons/action/delete-forever';
 import IconButton from 'material-ui/IconButton';
+import { cyan500 } from 'material-ui/styles/colors';
 
 import IdeaEditInput from '../containers/idea_edit_input';
 import Comments from './comments';
@@ -37,22 +37,10 @@ class Idea extends Component {
 
   voteButton() {
     if (this.props.joined) {
-      if (this.props.upvotes.indexOf(this.props.userId) !== -1) {
-        return (
-          <IconButton
-            onClick={this.renderVote}
-            className="btn btn-warning"
-          >
-            <ThumbsDown />
-          </IconButton>
-        );
-      }
+      const upvotedColor = (this.props.upvotes.indexOf(this.props.userId) !== -1) ? cyan500 : '';
       return (
-        <IconButton
-          onClick={this.renderVote}
-          className="btn btn-success"
-        >
-          <ThumbsUp />
+        <IconButton onClick={this.renderVote}>
+          <ThumbsUp color={upvotedColor} hoverColor={cyan500} />
         </IconButton>
       );
     }
@@ -65,7 +53,7 @@ class Idea extends Component {
           onClick={this.renderDeleteIdea}
           style={{ float: 'left' }}
         >
-          <DeleteForever />
+          <DeleteForever hoverColor={cyan500} />
         </IconButton>
       );
     }
@@ -88,9 +76,14 @@ class Idea extends Component {
   render() {
     const userId = this.props.userId;
     const joined = this.props.joined;
+    const grayIfNotJoined = joined ? {} : { color: '#9E9E9E' };
     return (
-      <Card>
-        <CardHeader actAsExpander>
+      <Card style={grayIfNotJoined}>
+        <CardHeader
+          actAsExpander showExpandableButton
+          style={{ paddingBottom: '0px' }}
+        />
+        <CardHeader style={{ paddingTop: '0px', paddingBottom: '40px' }}>
           <IdeaEditInput {...this.props} />
           <div style={{ float: 'right' }}>
             {this.deleteButton()}
