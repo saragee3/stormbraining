@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import IconButton from 'material-ui/IconButton';
 import X from 'material-ui/svg-icons/content/clear';
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
+import { CardText } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 

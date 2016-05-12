@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { upVote, unVote, getOneBoard, deleteIdea } from '../actions/index';
 
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
+import { CardHeader } from 'material-ui/Card';
 import ThumbsUp from 'material-ui/svg-icons/action/thumb-up';
 import ThumbsDown from 'material-ui/svg-icons/action/thumb-down';
 import DeleteForever from 'material-ui/svg-icons/action/delete-forever';
