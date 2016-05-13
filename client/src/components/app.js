@@ -3,12 +3,37 @@ import { connect } from 'react-redux';
 import { receiveLogout } from '../actions/auth_actions';
 import { Link } from 'react-router';
 
+import {
+  lightBlue600, lightBlue700, orange500, grey100, grey300, grey400, grey500,
+  white, darkBlack, fullBlack,
+} from 'material-ui/styles/colors';
+import { fade } from 'material-ui/utils/colorManipulator';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Paper from 'material-ui/Paper';
 import '../containers/styles/main.scss';
+
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: lightBlue600,
+    primary2Color: lightBlue700,
+    primary3Color: grey400,
+    accent1Color: orange500,
+    accent2Color: grey100,
+    accent3Color: grey500,
+    textColor: darkBlack,
+    alternateTextColor: white,
+    canvasColor: white,
+    borderColor: grey300,
+    disabledColor: fade(darkBlack, 0.3),
+    pickerHeaderColor: lightBlue600,
+    clockCircleColor: fade(darkBlack, 0.07),
+    shadowColor: fullBlack,
+  },
+});
+
 
 const styles = {
   title: {
@@ -53,7 +78,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme()}>
+      <MuiThemeProvider muiTheme={muiTheme}>
         <div>
           <Paper style={paper} zDepth={4}>
             <AppBar
