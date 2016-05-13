@@ -65,9 +65,17 @@ export default class App extends Component {
     receiveLogout: PropTypes.func,
   }
 
+  static childContextTypes = {
+    muiTheme: PropTypes.object.isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.onLogout = this.onLogout.bind(this);
+  }
+
+  getChildContext() {
+    return { muiTheme: getMuiTheme(muiTheme) };
   }
 
   onLogout() {

@@ -9,7 +9,6 @@ import ThumbsUp from 'material-ui/svg-icons/action/thumb-up';
 import DeleteForever from 'material-ui/svg-icons/action/delete-forever';
 import Input from 'material-ui/svg-icons/action/input';
 import IconButton from 'material-ui/IconButton';
-import { cyan500, pink500 } from 'material-ui/styles/colors';
 
 import IdeaEditInput from '../containers/idea_edit_input';
 import Comments from './comments';
@@ -32,6 +31,10 @@ class Idea extends Component {
     branchIdeaToBoard: PropTypes.func.isRequired,
   }
 
+  static contextTypes = {
+    muiTheme: PropTypes.object.isRequired,
+  };
+
   constructor(props) {
     super(props);
 
@@ -42,14 +45,14 @@ class Idea extends Component {
 
   voteButton() {
     if (this.props.joined) {
-      const upvotedColor = (this.props.upvotes.indexOf(this.props.userId) !== -1) ? cyan500 : '';
+      const upvotedColor = (this.props.upvotes.indexOf(this.props.userId) !== -1) ? this.context.muiTheme.palette.primary1Color : '';
       return (
         <IconButton
           onClick={this.renderVote}
           touch
           tooltipPosition="bottom-center"
         >
-          <ThumbsUp color={upvotedColor} hoverColor={cyan500} />
+          <ThumbsUp color={upvotedColor} hoverColor={this.context.muiTheme.palette.primary1Color} />
         </IconButton>
       );
     }
@@ -65,7 +68,7 @@ class Idea extends Component {
           touch
           tooltipPosition="bottom-center"
         >
-          <DeleteForever hoverColor={pink500} />
+          <DeleteForever hoverColor={this.context.muiTheme.palette.accent1Color} />
         </IconButton>
       );
     }
@@ -97,7 +100,7 @@ class Idea extends Component {
     const userId = this.props.userId;
     const userName = this.props.userName;
     const joined = this.props.joined;
-    const grayIfNotJoined = joined ? {} : { color: '#9E9E9E' };
+    const grayIfNotJoined = joined ? {} : { color: this.context.muiTheme.palette.disabledColor };
     return (
       <Card style={grayIfNotJoined}>
         <CardHeader
@@ -110,7 +113,7 @@ class Idea extends Component {
           <div style={{ float: 'right' }}>
             <IconButton
               onClick={this.branch}
-              hoverColor={cyan500}
+              hoverColor={this.context.muiTheme.palette.primary1Color}
               tooltip="steal this idea"
               touch
               tooltipPosition="bottom-center"

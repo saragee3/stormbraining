@@ -46,6 +46,7 @@ export default class Chat extends Component {
       <div>
         <FloatingActionButton
           style={style}
+          secondary
           onTouchTap={this.handleToggle}
         >
         <ChatBubble />
