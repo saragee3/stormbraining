@@ -9,8 +9,9 @@ import ChatBubble from 'material-ui/svg-icons/communication/chat-bubble-outline'
 
 const style = {
   float: 'left',
-  position: 'relative',
-  marginLeft: '1%',
+  position: 'absolute',
+  marginLeft: '2%',
+  marginTop: '2%',
 };
 
 export default class Chat extends Component {
@@ -46,6 +47,7 @@ export default class Chat extends Component {
       <div>
         <FloatingActionButton
           style={style}
+          secondary
           onTouchTap={this.handleToggle}
         >
         <ChatBubble />

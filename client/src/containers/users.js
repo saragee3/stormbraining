@@ -51,7 +51,7 @@ class Users extends Component {
         <ListItem key={data.id}
           primaryText={data.name}
           disabled={true}
-          rightIcon={<Paper style={paper} zDepth={2} circle />}
+          rightIcon={<Paper style={paper} zDepth={1} circle />}
         />
     );
   }

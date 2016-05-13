@@ -3,12 +3,37 @@ import { connect } from 'react-redux';
 import { receiveLogout } from '../actions/auth_actions';
 import { Link } from 'react-router';
 
+import {
+  lightBlue600, lightBlue700, orange500, grey100, grey300, grey400, grey500,
+  white, darkBlack, fullBlack,
+} from 'material-ui/styles/colors';
+import { fade } from 'material-ui/utils/colorManipulator';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Paper from 'material-ui/Paper';
 import '../containers/styles/main.scss';
+
+const muiTheme = getMuiTheme({
+  palette: { //bluegrey and amber
+    primary1Color: '#607D8B',
+    primary2Color: '#455A64',
+    primary3Color: '#90A4AE',
+    accent1Color: '#FFC400',
+    accent2Color: grey100,
+    accent3Color: grey500,
+    textColor: darkBlack,
+    alternateTextColor: white,
+    canvasColor: white,
+    borderColor: grey300,
+    disabledColor: fade(darkBlack, 0.3),
+    pickerHeaderColor: '#607D8B',
+    clockCircleColor: fade(darkBlack, 0.07),
+    shadowColor: fullBlack,
+  },
+});
+
 
 const styles = {
   title: {
@@ -40,9 +65,17 @@ export default class App extends Component {
     receiveLogout: PropTypes.func,
   }
 
+  static childContextTypes = {
+    muiTheme: PropTypes.object.isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.onLogout = this.onLogout.bind(this);
+  }
+
+  getChildContext() {
+    return { muiTheme: getMuiTheme(muiTheme) };
   }
 
   onLogout() {
@@ -53,10 +86,11 @@ export default class App extends Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme()}>
+      <MuiThemeProvider muiTheme={muiTheme}>
         <div>
           <Paper style={paper} zDepth={4}>
             <AppBar
+              style={{ paddingTop: '10px', paddingBottom: '5px' }}
               title={<span style={styles.title}>Stormbraining</span>}
               iconElementLeft={<div />}
               iconElementRight={
