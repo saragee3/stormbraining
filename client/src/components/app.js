@@ -16,11 +16,11 @@ import Paper from 'material-ui/Paper';
 import '../containers/styles/main.scss';
 
 const muiTheme = getMuiTheme({
-  palette: {
+  palette: { //bluegrey and amber
     primary1Color: '#607D8B',
     primary2Color: '#455A64',
     primary3Color: '#90A4AE',
-    accent1Color: '#FF9100',
+    accent1Color: '#FFC400',
     accent2Color: grey100,
     accent3Color: grey500,
     textColor: darkBlack,
