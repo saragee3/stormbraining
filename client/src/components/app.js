@@ -16,27 +16,11 @@ import Paper from 'material-ui/Paper';
 import '../containers/styles/main.scss';
 
 const muiTheme = getMuiTheme({
-  // palette: {
-  //   primary1Color: '#607D8B',
-  //   primary2Color: '#455A64',
-  //   primary3Color: '#90A4AE',
-  //   accent1Color: '#FF9100',
-  //   accent2Color: grey100,
-  //   accent3Color: grey500,
-  //   textColor: darkBlack,
-  //   alternateTextColor: white,
-  //   canvasColor: white,
-  //   borderColor: grey300,
-  //   disabledColor: fade(darkBlack, 0.3),
-  //   pickerHeaderColor: '#607D8B',
-  //   clockCircleColor: fade(darkBlack, 0.07),
-  //   shadowColor: fullBlack,
-  // },
   palette: {
-    primary1Color: '#CDDC39',
-    primary2Color: '#AFB42B',
-    primary3Color: '#DCE775',
-    accent1Color: '#FF4081',
+    primary1Color: '#607D8B',
+    primary2Color: '#455A64',
+    primary3Color: '#90A4AE',
+    accent1Color: '#FF9100',
     accent2Color: grey100,
     accent3Color: grey500,
     textColor: darkBlack,
@@ -44,11 +28,10 @@ const muiTheme = getMuiTheme({
     canvasColor: white,
     borderColor: grey300,
     disabledColor: fade(darkBlack, 0.3),
-    pickerHeaderColor: '#CDDC39',
+    pickerHeaderColor: '#607D8B',
     clockCircleColor: fade(darkBlack, 0.07),
     shadowColor: fullBlack,
   },
-
 });
 
 

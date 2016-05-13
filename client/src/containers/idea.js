@@ -45,14 +45,14 @@ class Idea extends Component {
 
   voteButton() {
     if (this.props.joined) {
-      const upvotedColor = (this.props.upvotes.indexOf(this.props.userId) !== -1) ? this.context.muiTheme.palette.primary1Color : '';
+      const upvotedColor = (this.props.upvotes.indexOf(this.props.userId) !== -1) ? this.context.muiTheme.palette.accent1Color : '';
       return (
         <IconButton
           onClick={this.renderVote}
           touch
           tooltipPosition="bottom-center"
         >
-          <ThumbsUp color={upvotedColor} hoverColor={this.context.muiTheme.palette.primary1Color} />
+          <ThumbsUp color={upvotedColor} hoverColor={this.context.muiTheme.palette.accent1Color} />
         </IconButton>
       );
     }
@@ -63,7 +63,6 @@ class Idea extends Component {
       return (
         <IconButton
           onClick={this.renderDeleteIdea}
-          // style={{ float: 'left' }}
           tooltip="delete idea"
           touch
           tooltipPosition="bottom-center"
