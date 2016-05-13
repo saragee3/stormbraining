@@ -61,7 +61,7 @@ class Comments extends Component {
       return (
         <div key={data.id}>
           <span style={{ position: 'relative', top: '-5px' }}>
-            <span style={{ color: this.context.muiTheme.palette.primary3Color, paddingRight: '15px' }}>{data.authorName} </span>
+            <span style={{ color: this.context.muiTheme.palette.primary2Color, paddingRight: '15px' }}>{data.authorName} </span>
             {data.content}
           </span>
           <IconButton onClick={this.deleteComment.bind(this, data)} >
@@ -73,7 +73,7 @@ class Comments extends Component {
     return (
       <p key={data.id}>
         <span style={{ position: 'relative', top: '-5px' }}>
-          <span style={{ color: this.context.muiTheme.palette.primary3Color, paddingRight: '15px' }}>{data.authorName} </span>
+          <span style={{ color: this.context.muiTheme.palette.primary2Color, paddingRight: '15px' }}>{data.authorName} </span>
           {data.content}
         </span>
       </p>

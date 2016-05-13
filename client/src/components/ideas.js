@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { getOneBoard, refreshBoardView, clearBoardView, syncComment } from '../actions/index';
 import io from 'socket.io-client';
+import AppBar from 'material-ui/AppBar';
 
 import IdeaInput from '../containers/idea_input';
 import IdeaList from '../containers/idea_list';
@@ -17,6 +18,10 @@ class Ideas extends Component {
     syncComment: PropTypes.func,
     board: PropTypes.object,
   }
+
+  static contextTypes = {
+    muiTheme: PropTypes.object.isRequired,
+  };
 
   componentWillMount() {
     this.props.getOneBoard(this.props.params.board_id)
@@ -42,10 +47,14 @@ class Ideas extends Component {
   render() {
     return (
       <div>
-        <div>
-          <Chat {...this.props} />
-          <h2>Topic: {this.props.board.title}</h2>
-        </div>
+        <AppBar
+          title={<span style={{ color: this.context.muiTheme.palette.textColor }}>
+              {this.props.board.title}
+            </span>}
+          iconElementLeft={<Chat {...this.props} />}
+          zDepth={2}
+          style={{ backgroundColor: this.context.muiTheme.palette.primary3Color }}
+        />
         <IdeaInput {...this.props} />
         <IdeaList {...this.props} />
       </div>

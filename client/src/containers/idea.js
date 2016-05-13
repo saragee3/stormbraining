@@ -63,7 +63,7 @@ class Idea extends Component {
       return (
         <IconButton
           onClick={this.renderDeleteIdea}
-          style={{ float: 'left' }}
+          // style={{ float: 'left' }}
           tooltip="delete idea"
           touch
           tooltipPosition="bottom-center"
@@ -102,33 +102,57 @@ class Idea extends Component {
     const joined = this.props.joined;
     const grayIfNotJoined = joined ? {} : { color: this.context.muiTheme.palette.disabledColor };
     return (
-      <Card style={grayIfNotJoined}>
-        <CardHeader
-          actAsExpander showExpandableButton
-          style={{ paddingBottom: '0px' }}
-        />
-        <CardHeader style={{ paddingTop: '0px', paddingBottom: '40px' }}>
+      <div className="cardHolder" style={{position: 'relative'}}>
+        <div style={{
+          position: 'absolute',
+          paddingLeft: '16px',
+          paddingTop: '4px',
+          boxSizing: 'border-box',
+          zIndex: '999'}}
+        >
+          <span >
           <IdeaEditInput {...this.props} />
           {this.deleteButton()}
-          <div style={{ float: 'right' }}>
-            <IconButton
-              onClick={this.branch}
-              hoverColor={this.context.muiTheme.palette.primary1Color}
-              tooltip="steal this idea"
-              touch
-              tooltipPosition="bottom-center"
-            >
-              <Input />
-            </IconButton>
-            <span style={{ position: 'relative', top: '-5px' }}>{this.props.comments.length} comments </span>
-            {this.voteButton()}
-            <span style={{ position: 'relative', top: '-5px' }}>{this.props.upvotes.length}</span>
+          </span>
           </div>
-        </CardHeader>
-        <CardText expandable>
-          <Comments {...this.props} userId={userId} joined={joined} userName={userName} />
-        </CardText>
-      </Card>
+          <div style={{
+            position: 'absolute',
+            display: 'inline-block',
+            paddingRight: '16px',
+            paddingTop: '4px',
+            boxSizing: 'border-box',
+            right: '0',
+            zIndex: '999'}}
+          >
+          <span>
+          <IconButton
+            onClick={this.branch}
+            hoverColor={this.context.muiTheme.palette.primary1Color}
+            tooltip="make a board from this idea"
+            tooltipPosition="bottom-center"
+          >
+          <Input />
+          </IconButton>
+          {this.voteButton()}
+          <span style={{ position: 'relative', top: '-5px'}}>{this.props.upvotes.length}</span>
+          </span>
+        </div>
+        <Card style={grayIfNotJoined, {textAlign: 'left', paddingTop: '10px'}}>
+          <CardHeader
+            title={<span>&nbsp;</span>}
+            subtitle={
+              <span>{this.props.comments.length} comments </span>
+            }
+            actAsExpander
+          />
+          <CardText
+            expandable
+            style={{ textAlign: 'center' }}
+          >
+            <Comments {...this.props} userId={userId} joined={joined} userName={userName} />
+          </CardText>
+        </Card>
+      </div>
     );
   }
 }
