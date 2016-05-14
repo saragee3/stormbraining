@@ -5,6 +5,7 @@ import { getUser, deleteBoard } from '../actions/index';
 
 import BoardInput from '../containers/board_input';
 import { List, ListItem } from 'material-ui/List';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Paper from 'material-ui/Paper';
 import { paper } from './app.js';
 import DeleteForever from 'material-ui/svg-icons/action/delete-forever';
@@ -63,13 +64,16 @@ class Home extends Component {
     return (
       <ListItem {...this.props}
         key={data.id}
-        href={`boards/${data.id}`}
+
         primaryText={
-          <span style={{ marginBottom: '20px' }}>{data.title}</span>
+          <a
+            href={`boards/${data.id}`}
+            style={{ marginBottom: '20px' }}
+          >
+            {data.title}
+          </a>
         }
-        rightIconButton={
-          this.deleteButton(data)
-        }
+        rightIconButton={this.deleteButton(data)}
       />
     );
   }

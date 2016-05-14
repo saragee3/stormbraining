@@ -1,19 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router';
 import { getBoards, refreshAllBoards, deleteBoard } from '../actions/index';
 import io from 'socket.io-client';
 
-import {List, ListItem} from 'material-ui/List';
-import Divider from 'material-ui/Divider';
-import Subheader from 'material-ui/Subheader';
-import Avatar from 'material-ui/Avatar';
+import { List, ListItem } from 'material-ui/List';
+import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
 import DeleteForever from 'material-ui/svg-icons/action/delete-forever';
+
+const container = {
+  display: 'block',
+  margin: '20px auto',
+};
 
 class BoardList extends Component {
 
@@ -64,30 +63,34 @@ class BoardList extends Component {
 
   renderBoardListing(data) { // renders a single row of the list table
     return (
-        <ListItem {...this.props}
-          href={`boards/${data.id}`}
-          key={data.id}
-          style={{padding:'0'}}
-          primaryText={
-            <span style={{ marginBottom: '20px' }}>{data.title}</span>
-          }
-          rightIconButton={
-            this.deleteButton(data)
-          }
-        />
+      <ListItem {...this.props}
+        key={data.id}
+        primaryText={
+          <a
+            href={`boards/${data.id}`}
+            style={{ marginBottom: '20px' }}
+          >
+            {data.title}
+          </a>
+        }
+        rightIconButton={this.deleteButton(data)}
+      />
     );
   }
 
   render() { // renders an entire table of boards
     return (
-      <List
-        style={{
-          textAlign: 'left',
-          width: '60%'
-        }}
-      >
-        {this.props.allBoards.map(this.renderBoardListing)}
-      </List>
+      <Paper style={container} zDepth={2}>
+        <List
+          style={{
+            display: 'block',
+            margin: '0 auto',
+            textAlign: 'left',
+          }}
+        >
+          {this.props.allBoards.map(this.renderBoardListing)}
+        </List>
+      </Paper>
     );
   }
 }
