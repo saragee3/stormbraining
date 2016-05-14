@@ -12,7 +12,8 @@
     "lint": "eslint --ignore-path .gitignore **/*.js",
     "postinstall": "npm run build:production",
     "start": "nodemon server/bin/server.js",
-    "test": "npm run testFront && npm run testBack",
+    "test": "npm run testFront",
+    "testAll": "npm run testFront && npm run testBack",
     "testFront": "mocha client/src/test/**/*.spec.js --compilers js:babel-register --recursive",
     "testBack": "mocha server/test --compilers js:babel-register"
   },
