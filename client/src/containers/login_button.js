@@ -32,7 +32,7 @@ export default class LoginButton extends Component {
   }
 
   onLogin() {
-    this.lock.show((err, profile, token) => {
+    this.lock.show({ gravatar: false }, (err, profile, token) => {
       // If we receive an error, we dispatch the lockError action
       if (err) {
         this.props.lockError(err);
