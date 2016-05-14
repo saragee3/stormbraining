@@ -45,11 +45,13 @@ export default class LoginButton extends Component {
         email: profile.email,
         id: profile.user_id,
       };
-      this.props.saveOrFetchUser(user);
-      this.props.lockSuccess(profile, token);
-      if (this.props.isAuthenticated) {
-        this.redirect();
-      }
+      this.props.saveOrFetchUser(user)
+        .then(() => {
+          this.props.lockSuccess(profile, token);
+          if (this.props.isAuthenticated) {
+            this.redirect();
+          }
+        });
     });
   }
 
