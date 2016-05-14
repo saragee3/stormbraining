@@ -4,10 +4,13 @@ import { getMessages, addMessage } from '../actions/index';
 import io from 'socket.io-client';
 import { bindActionCreators } from 'redux';
 
+import { grey400, darkBlack, bold } from 'material-ui/styles/colors';
+import Divider from 'material-ui/Divider';
+import { List, ListItem } from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Subheader from 'material-ui/Subheader';
-import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui';
+// import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui';
 
 class ChatList extends Component {
 
@@ -45,6 +48,11 @@ class ChatList extends Component {
     this.socket.emit('unsubscribe', this.props.board.id);
   }
 
+  // componentDidUpdate() {
+  //   const node = this.getDOMNode();
+  //   node.scrollTop = node.scrollHeight;
+  // }
+
   onInputChange(event) {
     event.stopPropagation();
     this.setState({ term: event.target.value });
@@ -62,23 +70,38 @@ class ChatList extends Component {
 
   renderChats(data) {
     return (
-      <TableRow key={data.id}>
-        <TableRowColumn>{data.userName}</TableRowColumn>
-        <TableRowColumn>{data.message}</TableRowColumn>
-        <TableRowColumn>{moment(data.createdAt).toString()}</TableRowColumn>
-      </TableRow>
+      <div>
+        <ListItem key={data.id}
+          primaryText={
+            <p>
+              <span style={{ color: darkBlack }}>{data.userName}</span>
+              <span style={{ color: grey400 }}>  {moment(data.createdAt).startOf('hour').fromNow().toString()}</span>
+              <br />
+              <br />
+              {data.message}
+            </p>
+          }
+          disabled={true}
+        />
+      <Divider />
+    </div>
     );
   }
+  // <ListItem key={1}
+  //   primaryText={data.message}
+  // />
 
   render() {
     return (
       <div>
-        <Subheader>ESC to exit</Subheader>
-        <Table>
-          <TableBody displayRowCheckbox={false}>
+        <List>
+          <Subheader>Active Users</Subheader>
+          <div>
             {this.props.chat.map(this.renderChats)}
-          </TableBody>
-        </Table>
+          </div>
+        </List>
+      <div>
+        <Subheader>ESC to exit</Subheader>
         <form onSubmit={this.onChatSubmit}>
           <TextField
             hintText="Your message here..."
@@ -92,6 +115,7 @@ class ChatList extends Component {
           />
         </form>
       </div>
+    </div>
     );
   }
 }
