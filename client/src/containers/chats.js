@@ -10,8 +10,8 @@ import ChatBubble from 'material-ui/svg-icons/communication/chat-bubble-outline'
 const style = {
   float: 'left',
   position: 'absolute',
-  marginLeft: '2%',
-  marginTop: '2%',
+  marginLeft: '10%',
+  marginTop: '28px',
 };
 
 export default class Chat extends Component {

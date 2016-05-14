@@ -4,6 +4,8 @@ import { getOneBoard, refreshBoardView, clearBoardView, syncComment } from '../a
 import io from 'socket.io-client';
 import AppBar from 'material-ui/AppBar';
 
+import Paper from 'material-ui/Paper';
+import { paper } from './app.js';
 import IdeaInput from '../containers/idea_input';
 import IdeaList from '../containers/idea_list';
 import Chat from '../containers/chats';
@@ -52,11 +54,13 @@ class Ideas extends Component {
               {this.props.board.title}
             </span>}
           iconElementLeft={<Chat {...this.props} />}
-          zDepth={2}
-          style={{ backgroundColor: this.context.muiTheme.palette.primary3Color }}
+          zDepth={3}
+          style={{ backgroundColor: this.context.muiTheme.palette.primary3Color, textAlign: 'center' }}
         />
-        <IdeaInput {...this.props} />
-        <IdeaList {...this.props} />
+        <Paper style={paper} zDepth={0}>
+          <IdeaInput {...this.props} />
+          <IdeaList {...this.props} />
+        </Paper>
       </div>
     );
   }

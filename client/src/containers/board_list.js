@@ -1,12 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router';
 import { getBoards, refreshAllBoards, deleteBoard } from '../actions/index';
 import io from 'socket.io-client';
 
-import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
-import RaisedButton from 'material-ui/RaisedButton';
+import { List, ListItem } from 'material-ui/List';
+import Paper from 'material-ui/Paper';
+import IconButton from 'material-ui/IconButton';
+import DeleteForever from 'material-ui/svg-icons/action/delete-forever';
+
+const container = {
+  display: 'block',
+  margin: '20px auto',
+};
 
 class BoardList extends Component {
 
@@ -17,6 +23,10 @@ class BoardList extends Component {
     deleteBoard: PropTypes.func.isRequired,
     userId: PropTypes.string.isRequired,
   }
+
+  static contextTypes = {
+    muiTheme: PropTypes.object.isRequired,
+  };
 
   constructor(props) {
     super(props);
@@ -34,10 +44,15 @@ class BoardList extends Component {
   deleteButton(data) {
     if (this.props.userId === data.authorId) {
       return (
-        <RaisedButton
+        <IconButton
           onTouchTap={this.renderDeleteBoard.bind(this, data)}
+          tooltip="Delete board"
+          touch
+          tooltipPosition="bottom-center"
           label="Delete"
-        />
+        >
+          <DeleteForever hoverColor={this.context.muiTheme.palette.accent1Color} />
+        </IconButton>
       );
     }
   }
@@ -48,34 +63,34 @@ class BoardList extends Component {
 
   renderBoardListing(data) { // renders a single row of the list table
     return (
-        <TableRow {...this.props} key={data.id}>
-          <TableRowColumn />
-          <TableRowColumn>
+      <ListItem {...this.props}
+        key={data.id}
+        primaryText={
+          <a
+            href={`boards/${data.id}`}
+            style={{ marginBottom: '20px' }}
+          >
             {data.title}
-          </TableRowColumn>
-          <TableRowColumn>
-            <RaisedButton
-              label="View"
-              linkButton
-              href={`boards/${data.id}`}
-              primary
-            />
-          </TableRowColumn>
-          <TableRowColumn>
-            {this.deleteButton(data)}
-          </TableRowColumn>
-          <TableRowColumn />
-        </TableRow>
+          </a>
+        }
+        rightIconButton={this.deleteButton(data)}
+      />
     );
   }
 
   render() { // renders an entire table of boards
     return (
-      <Table>
-        <TableBody displayRowCheckbox={false}>
+      <Paper style={container} zDepth={2}>
+        <List
+          style={{
+            display: 'block',
+            margin: '0 auto',
+            textAlign: 'left',
+          }}
+        >
           {this.props.allBoards.map(this.renderBoardListing)}
-        </TableBody>
-      </Table>
+        </List>
+      </Paper>
     );
   }
 }
