@@ -25,7 +25,8 @@ const store = createStore(reducers, applyMiddleware(thunkMiddleware, promise, ro
 const history = syncHistoryWithStore(browserHistory, store);
 
 const UserIsAuthenticated = UserAuthWrapper({
-  authSelector: state => state.auth.profile,
+  authSelector: (state) => state.auth,
+  predicate: (auth) => auth.isAuthenticated,
   redirectAction: routerActions.replace,
   wrapperDisplayName: 'UserIsAuthenticated',
   allowRedirectBack: false,
