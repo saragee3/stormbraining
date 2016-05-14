@@ -61,7 +61,7 @@ export default class LoginButton extends Component {
           errorMessage={errorMessage}
           onClick={this.onLogin}
           className="login-button"
-          backgroundColor="#FF8A65"
+          backgroundColor="#F50057"
         >
           Login
         </RaisedButton>
