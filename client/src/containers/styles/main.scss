@@ -11,19 +11,23 @@
 
 .login-title {
   font-family: Roboto;
-  margin-top: 20%;
+  position: relative;
+  top: 25%;
+  .title {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-left: 5%;
+  }
+  .login-button {
+    width: 15%;
+    font-size: 18px;
+    float: right;
+    margin-right: 5%;
+  }
 }
 
-.title {
-  font-size: 64px;
-  letter-spacing: 1px;
-}
 
-.login-button {
-  margin-top: 15%;
-  width: 50%;
-  font-size: 28px;
-}
 
 .board-input-container {
   width: 100%;

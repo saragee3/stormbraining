@@ -15,12 +15,12 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import Paper from 'material-ui/Paper';
 import '../containers/styles/main.scss';
 
-const muiTheme = getMuiTheme({
-  palette: { //bluegrey and amber
+export const muiTheme = getMuiTheme({
+  palette: {
     primary1Color: '#607D8B',
     primary2Color: '#455A64',
     primary3Color: '#90A4AE',
-    accent1Color: '#FFC400',
+    accent1Color: '#F50057',
     accent2Color: grey100,
     accent3Color: grey500,
     textColor: darkBlack,
