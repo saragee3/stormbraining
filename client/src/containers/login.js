@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import LoginButton from './login_button';
 
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { muiTheme } from '../components/app.js';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
@@ -25,7 +25,7 @@ const style = {
     height: '400px',
     minWidth: '100%',
     textAlign: 'center',
-    backgroundColor: '#FFC107',
+    backgroundColor: muiTheme.palette.primary3Color,
     h1: {
       color: '#fff',
       marginTop: '8%',
@@ -49,13 +49,14 @@ const style = {
     marginTop: '-1.7%',
     height: '650px',
     minWidth: '100%',
-    backgroundColor: '#FFC107',
+    backgroundColor: muiTheme.palette.primary3Color,
     position: 'block',
     subject: {
       marginTop: '3%',
       marginLeft: '5%',
       width: '100px',
       height: '100px',
+      backgroundColor: muiTheme.palette.accent1Color,
     },
     h1: {
       marginTop: '-5%',
@@ -75,7 +76,7 @@ const style = {
     paddingTop: '3%',
     height: '600px',
     minWidth: '100%',
-    backgroundColor: '#FFC107',
+    backgroundColor: muiTheme.palette.primary3Color,
     team: {
       marginTop: '3%',
       marginLeft: '7%',
@@ -107,7 +108,7 @@ class Login extends Component {
     const { dispatch, isAuthenticated, errorMessage } = this.props;
 
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme()}>
+      <MuiThemeProvider muiTheme={ muiTheme }>
         <div>
           <div>
             <Paper style={style.nav} zDepth={2}>
@@ -131,7 +132,6 @@ class Login extends Component {
             <div style={{ marginTop: '1.5%' }}>
               <Avatar
                 style={style.second.subject}
-                backgroundColor="#FF8A65"
                 icon={<Subject style={svgIcon}/>}
               />
               <h1 style={style.second.h1}>Create a Board</h1>
@@ -140,7 +140,6 @@ class Login extends Component {
             <div style={{ marginTop: '1.5%' }}>
               <Avatar
                 style={style.second.subject}
-                backgroundColor="#FF8A65"
                 icon={<Group style={svgIcon}/>}
               />
               <h1 style={style.second.h1}>Invite a friend!</h1>
@@ -149,7 +148,6 @@ class Login extends Component {
             <div style={{ marginTop: '1.5%' }}>
               <Avatar
                 style={style.second.subject}
-                backgroundColor="#FF8A65"
                 icon={<Idea style={svgIcon}/>}
               />
               <h1 style={style.second.h1}>Real-time collaborative thinking</h1>
