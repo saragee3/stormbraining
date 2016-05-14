@@ -4,8 +4,17 @@ import { bindActionCreators } from 'redux';
 import { getUser, deleteBoard } from '../actions/index';
 
 import BoardInput from '../containers/board_input';
-import { Table, TableHeader, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
-import RaisedButton from 'material-ui/RaisedButton';
+import { List, ListItem } from 'material-ui/List';
+import Paper from 'material-ui/Paper';
+import { paper } from './app.js';
+import DeleteForever from 'material-ui/svg-icons/action/delete-forever';
+import Subheader from 'material-ui/Subheader';
+import IconButton from 'material-ui/IconButton';
+
+const container = {
+  display: 'block',
+  margin: '20px auto',
+};
 
 class Home extends Component {
   static propTypes = {
@@ -13,6 +22,10 @@ class Home extends Component {
     deleteBoard: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
   }
+
+  static contextTypes = {
+    muiTheme: PropTypes.object.isRequired,
+  };
 
   constructor(props) {
     super(props);
@@ -29,10 +42,15 @@ class Home extends Component {
   deleteButton(data) {
     if (this.props.user.id === data.authorId) {
       return (
-        <RaisedButton
+        <IconButton
           onTouchTap={this.renderDeleteBoard.bind(this, data)}
+          tooltip="Delete board"
+          touch
+          tooltipPosition="bottom-center"
           label="Delete"
-        />
+        >
+          <DeleteForever hoverColor={this.context.muiTheme.palette.accent1Color} />
+        </IconButton>
       );
     }
   }
@@ -43,42 +61,51 @@ class Home extends Component {
 
   renderBoardListing(data) {
     return (
-      <TableRow {...this.props} key={data.id}>
-        <TableRowColumn></TableRowColumn>
-        <TableRowColumn>{data.title}</TableRowColumn>
-        <TableRowColumn>
-          <RaisedButton
-            label="View"
-            linkButton
-            href={`boards/${data.id}`}
-            primary
-          />
-        </TableRowColumn>
-        <TableRowColumn>{this.deleteButton(data)}</TableRowColumn>
-        <TableRowColumn></TableRowColumn>
-      </TableRow>
+      <ListItem {...this.props}
+        key={data.id}
+        href={`boards/${data.id}`}
+        primaryText={
+          <span style={{ marginBottom: '20px' }}>{data.title}</span>
+        }
+        rightIconButton={
+          this.deleteButton(data)
+        }
+      />
     );
   }
 
   render() {
     return (
-      <div>
-        <h1>Welcome, {this.props.user.name}!</h1>
-        <BoardInput />
-        <h3>Your Boards</h3>
-          <Table>
-            <TableBody displayRowCheckbox={false}>
-              {this.props.user.authoredBoards.map(this.renderBoardListing)}
-            </TableBody>
-          </Table>
-          <h3>Boards You Have Joined</h3>
-          <Table>
-            <TableBody displayRowCheckbox={false}>
-              {this.props.user.boards.map(this.renderBoardListing)}
-            </TableBody>
-          </Table>
-
-      </div>
+      <Paper style={paper} zDepth={0}>
+        <Paper zDepth={0}>
+          <h1>Welcome, {this.props.user.name}!</h1>
+          <BoardInput />
+        </Paper>
+        <Paper style={container} zDepth={2}>
+        <List
+          style={{
+            display: 'block',
+            margin: '0 auto',
+            textAlign: 'left',
+          }}
+        >
+          <Subheader style={{ color: this.context.muiTheme.palette.accent1Color }}>Your Boards</Subheader>
+          {this.props.user.authoredBoards.map(this.renderBoardListing)}
+        </List>
+        </Paper>
+        <Paper style={container} zDepth={2}>
+        <List
+          style={{
+            display: 'block',
+            margin: '0 auto',
+            textAlign: 'left',
+          }}
+        >
+          <Subheader style={{ color: this.context.muiTheme.palette.accent1Color }}>Boards You Have Joined</Subheader>
+          {this.props.user.boards.map(this.renderBoardListing)}
+        </List>
+        </Paper>
+      </Paper>
     );
   }
 }

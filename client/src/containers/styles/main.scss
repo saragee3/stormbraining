@@ -1,5 +1,14 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
 
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  overflow: hidden;
+}
+
 .tabs-boards {
   letter-spacing: 1px;
 }

@@ -78,34 +78,33 @@ export default class App extends Component {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>
-          <Paper style={paper} zDepth={4}>
-            <AppBar
-              style={{ paddingTop: '10px', paddingBottom: '5px' }}
-              title={<span style={styles.title}>Stormbraining</span>}
-              iconElementLeft={<div />}
-              iconElementRight={
-                <Tabs>
-                  <Tab
-                    className="tabs-boards"
-                    label="Home"
-                    containerElement={<Link to="/" />}
-                  />
-                  <Tab
-                    className="tabs-boards"
-                    label="Boards"
-                    containerElement={<Link to="/boards" />}
-                  />
-                  <Tab
-                    className="tabs-logout"
-                    label="Logout"
-                    onClick={this.onLogout}
-                    containerElement={<Link to="/login" />}
-                  />
-                </Tabs>
-              }
-            />
-            {this.props.children}
-          </Paper>
+          <AppBar
+            style={{ margin: '0', paddingTop: '10px', paddingBottom: '5px' }}
+            title={<span style={styles.title}>Stormbraining</span>}
+            zDepth={3}
+            iconElementLeft={<img src="../brainstorm.gif" style={{ width: '40px', margin: '0 10px' }} /> }
+            iconElementRight={
+              <Tabs>
+                <Tab
+                  className="tabs-boards"
+                  label="Home"
+                  containerElement={<Link to="/" />}
+                />
+                <Tab
+                  className="tabs-boards"
+                  label="Boards"
+                  containerElement={<Link to="/boards" />}
+                />
+                <Tab
+                  className="tabs-logout"
+                  label="Logout"
+                  onClick={this.onLogout}
+                  containerElement={<Link to="/login" />}
+                />
+              </Tabs>
+            }
+          />
+          {this.props.children}
         </div>
       </MuiThemeProvider>
     );
