@@ -22,8 +22,10 @@ describe('board reducer', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {}))
       .toEqual({
+        authorId: '',
         id: '',
         title: '',
+        members: [],
         ideas: [],
         messages: [],
       });
