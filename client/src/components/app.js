@@ -3,10 +3,7 @@ import { connect } from 'react-redux';
 import { receiveLogout } from '../actions/auth_actions';
 import { Link } from 'react-router';
 
-import {
-  lightBlue600, lightBlue700, orange500, grey100, grey300, grey400, grey500,
-  white, darkBlack, fullBlack,
-} from 'material-ui/styles/colors';
+import { grey100, grey300, grey500, white, darkBlack, fullBlack } from 'material-ui/styles/colors';
 import { fade } from 'material-ui/utils/colorManipulator';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -41,21 +38,14 @@ const styles = {
   },
 };
 
-const paper = {
+export const paper = {
   minHeight: '620px',
   maxWidth: '100%',
   width: 1000,
   textAlign: 'center',
   display: 'block',
   margin: '0 auto',
-};
-
-const iconStyles = {
-  height: 25,
-  width: 25,
-  margin: 10,
-  display: 'inline-block',
-  color: 'cyan50',
+  paddingBottom: '20px',
 };
 
 export default class App extends Component {
