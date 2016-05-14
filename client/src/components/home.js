@@ -79,7 +79,7 @@ class Home extends Component {
     return (
       <Paper style={paper} zDepth={0}>
         <Paper zDepth={0}>
-          <h1>Welcome, {this.props.user.name}!</h1>
+          <h1>Welcome, {this.props.user.name || this.props.user.nickname}!</h1>
           <BoardInput />
         </Paper>
         <Paper style={container} zDepth={2}>

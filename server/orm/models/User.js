@@ -6,6 +6,7 @@ const type = thinky.type;
 const User = thinky.createModel('User', {
   id: type.string(),
   name: type.string().required(),
+  nickname: type.string(),
   email: type.string().required(),
 });
 
