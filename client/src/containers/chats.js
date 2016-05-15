@@ -10,13 +10,6 @@ import Drawer from 'material-ui/Drawer';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ChatBubble from 'material-ui/svg-icons/communication/chat-bubble-outline';
 
-const style = {
-  float: 'left',
-  position: 'absolute',
-  marginLeft: '10%',
-  marginTop: '28px',
-};
-
 export default class Chat extends Component {
 
   static propTypes = {
@@ -33,29 +26,21 @@ export default class Chat extends Component {
       value: 'b',
       open: false,
       messageCount: 0,
+      badgeDisplay: 'none',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
   }
-
-  // componentWillMount() {
-  //   this.socket = io();
-  //   this.socket.on('connect', () => {
-  //
-  //     this.socket.on('message', () => {
-  //       this.state.messageCount++;
-  //       console.log(this.state.messageCount);
-  //       console.log('45', 'message received');
-  //     });
-  //   });
-  // }
 
   componentWillMount() {
     this.socket = io();
     this.socket.on('connect', () => {
       this.socket.emit('subscribe', this.props.board.id);
       this.socket.on('message', () => {
-        this.setState({ messageCount: this.state.messageCount += 1 });
+        if (!this.state.open) {
+          this.setState({ messageCount: this.state.messageCount += 1 });
+          this.setState({ badgeDisplay: this.state.badgeDisplay = 'inline' });
+        }
       });
     });
   }
@@ -75,6 +60,8 @@ export default class Chat extends Component {
   }
 
   handleToggle() {
+    this.setState({ badgeDisplay: this.state.badgeDisplay = 'none' });
+    this.setState({ messageCount: this.state.messageCount = 0 });
     this.setState({ ...this.state, open: !this.state.open });
   }
 
@@ -82,14 +69,23 @@ export default class Chat extends Component {
     return (
       <div>
         <Badge
+          style={{
+            marginLeft: '3%',
+            marginTop: '1.5%',
+            position: 'absolute',
+          }}
           badgeStyle={{
             backgroundColor: '#FFC107',
+            marginTop: '15%',
+            marginRight: '15%',
+            width: '35%',
+            height: '35%',
+            display: this.state.badgeDisplay,
           }}
-          badgeContent={this.state.messageCount}
+          badgeContent={<span style={{ fontSize: '2.2em' }}>{this.state.messageCount}</span>}
           primary={true}
         >
         <FloatingActionButton
-          style={style}
           secondary
           onTouchTap={this.handleToggle}
         >
