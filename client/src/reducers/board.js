@@ -1,6 +1,13 @@
 import * as types from '../actions/action_types';
 
-const INITIAL_STATE = { id: '', title: '', ideas: [], messages: [], members: [], authorId: '' };
+const INITIAL_STATE = {
+  id: '',
+  title: '',
+  ideas: [],
+  messages: [],
+  members: [],
+  authorId: '',
+};
 
 export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -8,7 +15,7 @@ export default function (state = INITIAL_STATE, action) {
       return state;
 
     case types.GET_ONE_BOARD:
-      return action.payload.data.board;
+      return Object.assign({}, state, action.payload.data.board);
 
     case types.BRANCH_IDEA_TO_BOARD:
       return INITIAL_STATE;
@@ -29,7 +36,7 @@ export default function (state = INITIAL_STATE, action) {
       const updatedIdeas = state.ideas.reduce((memo, idea) => {
         if (idea.id === changedIdea.id) {
           if (!changedIdea.toBeDeleted) {
-            const update = Object.assign(idea, changedIdea);
+            const update = Object.assign({}, idea, changedIdea);
             memo.push(update);
           }
           updateComplete = true;
@@ -87,18 +94,13 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, ideas: arrayByContent };
 
     case types.SYNC_COMMENT:
-      const changedIdeas = state.ideas.slice();
-      changedIdeas.forEach(idea => {
+      const changedIdeas = state.ideas.map(idea => {
         if (idea.id === action.comment.ideaId) {
-          idea.comments = idea.comments.reduce((memo, comment) => {
-            if (comment.id === action.comment.id && action.comment.toBeDeleted) {
-              return memo;
-            }
-            memo.push(comment);
-            return memo;
-          }, []);
-          if (!action.comment.toBeDeleted) {idea.comments.push(action.comment);}
+          idea.comments = action.comment.toBeDeleted
+            ? idea.comments.filter(comment => comment.id !== action.comment.id)
+            : [...idea.comments, action.comment];
         }
+        return idea;
       });
       return { ...state, ideas: changedIdeas };
 
