@@ -1,7 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import ChatList from './chat_list';
 import Users from './users';
+import io from 'socket.io-client';
+import ReactDOM from 'react-dom';
 
+import Badge from 'material-ui/Badge';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Drawer from 'material-ui/Drawer';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
@@ -29,9 +32,42 @@ export default class Chat extends Component {
     this.state = {
       value: 'b',
       open: false,
+      messageCount: 0,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+  }
+
+  // componentWillMount() {
+  //   this.socket = io();
+  //   this.socket.on('connect', () => {
+  //
+  //     this.socket.on('message', () => {
+  //       this.state.messageCount++;
+  //       console.log(this.state.messageCount);
+  //       console.log('45', 'message received');
+  //     });
+  //   });
+  // }
+
+  componentWillMount() {
+    this.socket = io();
+    this.socket.on('connect', () => {
+      this.socket.emit('subscribe', this.props.board.id);
+      this.socket.on('message', () => {
+        this.setState({ messageCount: this.state.messageCount += 1 });
+      });
+    });
+  }
+
+  componentDidUpdate() {
+    // this.getDOMNode().scrollBottom = 0 ;
+    const node = ReactDOM.findDOMNode(this);
+    node.scrollTop = node.scrollHeight;
+  }
+
+  componentWillUnmount() {
+    this.socket.emit('unsubscribe', this.props.board.id);
   }
 
   handleChange(value) {
@@ -45,14 +81,23 @@ export default class Chat extends Component {
   render() {
     return (
       <div>
+        <Badge
+          badgeStyle={{
+            backgroundColor: '#FFC107',
+          }}
+          badgeContent={this.state.messageCount}
+          primary={true}
+        >
         <FloatingActionButton
           style={style}
           secondary
           onTouchTap={this.handleToggle}
         >
-        <ChatBubble />
+            <ChatBubble />
         </FloatingActionButton>
+      </Badge>
         <Drawer
+          style={{ overflowY: 'scroll' }}
           docked={false}
           width={400}
           open={this.state.open}
