@@ -8,6 +8,7 @@ import { List, ListItem } from 'material-ui/List';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import DeleteForever from 'material-ui/svg-icons/action/delete-forever';
+import { browserHistory } from 'react-router';
 
 const container = {
   display: 'block',
@@ -41,6 +42,10 @@ class BoardList extends Component {
     });
   }
 
+  onViewBoard(data) {
+    browserHistory.push(`boards/${data.id}`);
+  }
+
   deleteButton(data) {
     if (this.props.userId === data.authorId) {
       return (
@@ -65,14 +70,8 @@ class BoardList extends Component {
     return (
       <ListItem {...this.props}
         key={data.id}
-        primaryText={
-          <a
-            href={`boards/${data.id}`}
-            style={{ marginBottom: '20px' }}
-          >
-            {data.title}
-          </a>
-        }
+        primaryText={data.title}
+        onTouchTap={this.onViewBoard.bind(this, data)}
         rightIconButton={this.deleteButton(data)}
       />
     );
