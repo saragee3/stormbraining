@@ -5,12 +5,11 @@ import io from 'socket.io-client';
 import { bindActionCreators } from 'redux';
 
 import { grey400, darkBlack, bold } from 'material-ui/styles/colors';
-import Divider from 'material-ui/Divider';
 import { List, ListItem } from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Subheader from 'material-ui/Subheader';
-// import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui';
+import './styles/main.scss';
 
 class ChatList extends Component {
 
@@ -20,6 +19,7 @@ class ChatList extends Component {
     board: PropTypes.object,
     addMessage: PropTypes.func,
     chat: PropTypes.array,
+    messageCount: PropTypes.number,
   }
 
   constructor(props) {
@@ -37,9 +37,9 @@ class ChatList extends Component {
         this.socket = io();
         this.socket.on('connect', () => {
           this.socket.emit('subscribe', this.props.board.id);
-        });
-        this.socket.on('message', () => {
-          this.props.getMessages(this.props.board.id);
+          this.socket.on('message', () => {
+            this.props.getMessages(this.props.board.id);
+          });
         });
       });
   }
@@ -47,11 +47,6 @@ class ChatList extends Component {
   componentWillUnmount() {
     this.socket.emit('unsubscribe', this.props.board.id);
   }
-
-  // componentDidUpdate() {
-  //   const node = this.getDOMNode();
-  //   node.scrollTop = node.scrollHeight;
-  // }
 
   onInputChange(event) {
     event.stopPropagation();
@@ -70,11 +65,15 @@ class ChatList extends Component {
 
   renderChats(data) {
     return (
-      <div>
         <ListItem key={data.id}
+          style={{
+            margin: '5px 5px 1px 5px',
+            padding: '8px 10px 5px 10px',
+          }}
+          className= {'bubble'}
           primaryText={
             <p>
-              <span style={{ color: darkBlack }}>{data.userName}</span>
+              <span style={{ color: darkBlack, text: bold }}><strong>{data.userName}</strong></span>
               <span style={{ color: grey400 }}>  {moment(data.createdAt).startOf('hour').fromNow().toString()}</span>
               <br />
               <br />
@@ -83,13 +82,8 @@ class ChatList extends Component {
           }
           disabled={true}
         />
-      <Divider />
-    </div>
     );
   }
-  // <ListItem key={1}
-  //   primaryText={data.message}
-  // />
 
   render() {
     return (
