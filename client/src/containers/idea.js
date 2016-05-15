@@ -120,7 +120,7 @@ class Idea extends Component {
             paddingRight: '16px',
             paddingTop: '4px',
             boxSizing: 'border-box',
-            right: '0',
+            right: '0px',
             zIndex: '999'}}
           >
           <span>

@@ -5,12 +5,12 @@ import { getUser, deleteBoard } from '../actions/index';
 
 import BoardInput from '../containers/board_input';
 import { List, ListItem } from 'material-ui/List';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Paper from 'material-ui/Paper';
 import { paper } from './app.js';
 import DeleteForever from 'material-ui/svg-icons/action/delete-forever';
 import Subheader from 'material-ui/Subheader';
 import IconButton from 'material-ui/IconButton';
+import { browserHistory } from 'react-router';
 
 const container = {
   display: 'block',
@@ -40,6 +40,10 @@ class Home extends Component {
   componentWillUnmount() {
   }
 
+  onViewBoard(data) {
+    browserHistory.push(`boards/${data.id}`);
+  }
+
   deleteButton(data) {
     if (this.props.user.id === data.authorId) {
       return (
@@ -64,15 +68,8 @@ class Home extends Component {
     return (
       <ListItem {...this.props}
         key={data.id}
-
-        primaryText={
-          <a
-            href={`boards/${data.id}`}
-            style={{ marginBottom: '20px' }}
-          >
-            {data.title}
-          </a>
-        }
+        primaryText={data.title}
+        onTouchTap={this.onViewBoard.bind(this, data)}
         rightIconButton={this.deleteButton(data)}
       />
     );

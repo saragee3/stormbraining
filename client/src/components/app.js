@@ -79,10 +79,10 @@ export default class App extends Component {
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>
           <AppBar
-            style={{ margin: '0', paddingTop: '10px', paddingBottom: '5px' }}
+            style={{ margin: '0px', paddingTop: '10px', paddingBottom: '5px' }}
             title={<span style={styles.title}>Stormbraining</span>}
             zDepth={3}
-            iconElementLeft={<img src="../brainstorm.gif" style={{ width: '40px', margin: '0 10px' }} /> }
+            iconElementLeft={<img src="../brainstorm.gif" style={{ width: '40px', margin: '0px 10px' }} /> }
             iconElementRight={
               <Tabs>
                 <Tab
