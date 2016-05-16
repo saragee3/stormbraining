@@ -31,7 +31,7 @@ class Ideas extends Component {
       .then(() => {
         this.socket = io();
         this.socket.on('connect', () => {
-          this.socket.emit('subscribe', this.props.board.id);
+          this.socket.emit('subscribe', this.props.params.board_id);
         });
         this.socket.on('idea', (ideaDoc) => {
           this.props.refreshBoardView(ideaDoc);
@@ -43,7 +43,7 @@ class Ideas extends Component {
   }
 
   componentWillUnmount() {
-    this.socket.emit('unsubscribe', this.props.board.id);
+    this.socket.emit('unsubscribe', this.props.params.board_id);
     this.props.clearBoardView();
   }
 

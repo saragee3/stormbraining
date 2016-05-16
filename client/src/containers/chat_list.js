@@ -37,9 +37,9 @@ class ChatList extends Component {
       .then(() => {
         this.socket = io();
         this.socket.on('connect', () => {
-          this.socket.emit('subscribe', this.props.board.id);
+          this.socket.emit('subscribe', this.props.params.board_id);
           this.socket.on('message', () => {
-            this.props.getMessages(this.props.board.id);
+            this.props.getMessages(this.props.params.board_id);
           });
         });
       });
@@ -51,7 +51,7 @@ class ChatList extends Component {
   }
 
   componentWillUnmount() {
-    this.socket.emit('unsubscribe', this.props.board.id);
+    this.socket.emit('unsubscribe', this.props.params.board_id);
   }
 
   onInputChange(event) {
