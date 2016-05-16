@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import ChatList from './chat_list';
 import Users from './users';
 import io from 'socket.io-client';
-import ReactDOM from 'react-dom';
 
 import Badge from 'material-ui/Badge';
 import { Tabs, Tab } from 'material-ui/Tabs';
@@ -45,12 +44,6 @@ export default class Chat extends Component {
     });
   }
 
-  componentDidUpdate() {
-    // this.getDOMNode().scrollBottom = 0 ;
-    const node = ReactDOM.findDOMNode(this);
-    node.scrollTop = node.scrollHeight;
-  }
-
   componentWillUnmount() {
     this.socket.emit('unsubscribe', this.props.board.id);
   }
@@ -83,17 +76,15 @@ export default class Chat extends Component {
             display: this.state.badgeDisplay,
           }}
           badgeContent={<span style={{ fontSize: '2.2em' }}>{this.state.messageCount}</span>}
-          primary={true}
         >
         <FloatingActionButton
           secondary
           onTouchTap={this.handleToggle}
         >
-            <ChatBubble />
+          <ChatBubble />
         </FloatingActionButton>
       </Badge>
         <Drawer
-          style={{ overflowY: 'scroll' }}
           docked={false}
           width={400}
           open={this.state.open}
