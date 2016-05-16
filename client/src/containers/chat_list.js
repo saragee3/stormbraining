@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getMessages, addMessage } from '../actions/index';
 import io from 'socket.io-client';
 import { bindActionCreators } from 'redux';
+import ReactDOM from 'react-dom';
 
 import { grey400, darkBlack, bold } from 'material-ui/styles/colors';
 import { List, ListItem } from 'material-ui/List';
@@ -44,6 +45,11 @@ class ChatList extends Component {
       });
   }
 
+  componentDidUpdate() {
+    const node = ReactDOM.findDOMNode(this);
+    node.scrollTop = node.scrollHeight;
+  }
+
   componentWillUnmount() {
     this.socket.emit('unsubscribe', this.props.board.id);
   }
@@ -70,7 +76,7 @@ class ChatList extends Component {
             margin: '5px 5px 1px 5px',
             padding: '8px 10px 5px 10px',
           }}
-          className= {'bubble'}
+          className={'bubble'}
           primaryText={
             <p>
               <span style={{ color: darkBlack, text: bold }}><strong>{data.userName}</strong></span>
@@ -87,14 +93,16 @@ class ChatList extends Component {
 
   render() {
     return (
-      <div>
-        <List>
-          <Subheader>Active Users</Subheader>
-          <div>
-            {this.props.chat.map(this.renderChats)}
-          </div>
-        </List>
-      <div>
+      <div style={{ overflowY: 'scroll', maxHeight: '850px' }}>
+        <div>
+          <List>
+            <Subheader>Active Users</Subheader>
+            <div>
+              {this.props.chat.map(this.renderChats)}
+            </div>
+          </List>
+      </div>
+      <div style={{ position: 'fixed', bottom: '0' }}>
         <Subheader>ESC to exit</Subheader>
         <form onSubmit={this.onChatSubmit}>
           <TextField
