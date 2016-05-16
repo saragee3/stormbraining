@@ -133,10 +133,10 @@ class Idea extends Component {
           <Input />
           </IconButton>
           {this.voteButton()}
-          <span style={{ position: 'relative', top: '-5px'}}>{this.props.upvotes.length}</span>
+          <span style={{ position: 'relative', top: '-5px' }}>{this.props.upvotes.length}</span>
           </span>
         </div>
-        <Card style={grayIfNotJoined, {textAlign: 'left', paddingTop: '10px'}}>
+        <Card style={{ ...grayIfNotJoined, textAlign: 'left', paddingTop: '10px' }} zDepth={2}>
           <CardHeader
             title={<span>&nbsp;</span>}
             subtitle={
