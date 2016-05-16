@@ -8,6 +8,7 @@ import ArrowDown from 'material-ui/svg-icons/navigation/expand-more';
 import ArrowUp from 'material-ui/svg-icons/navigation/expand-less';
 import Reorder from 'material-ui/svg-icons/action/reorder';
 import FlatButton from 'material-ui/FlatButton';
+import FlipMove from 'react-flip-move';
 
 
 const styles = {
@@ -80,7 +81,9 @@ class IdeaList extends Component {
         <FlatButton style={{ paddingLeft: '10px' }} onClick={this.onSortIdeasByVotes}>
           Sort by Votes {Arrows[this.state.sorting.byVotes]}
         </FlatButton>
-        {this.props.board.ideas.map(this.renderIdea)}
+        <FlipMove enterAnimation="fade" leaveAnimation="fade" duration={300} staggerDurationBy={100}>
+          {this.props.board.ideas.map(this.renderIdea)}
+        </FlipMove>
       </div>
     );
   }

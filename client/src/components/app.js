@@ -91,11 +91,6 @@ export default class App extends Component {
                   containerElement={<Link to="/" />}
                 />
                 <Tab
-                  className="tabs-boards"
-                  label="Boards"
-                  containerElement={<Link to="/boards" />}
-                />
-                <Tab
                   className="tabs-logout"
                   label="Logout"
                   onClick={this.onLogout}

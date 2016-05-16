@@ -9,6 +9,7 @@ import { paper } from './app.js';
 import IdeaInput from '../containers/idea_input';
 import IdeaList from '../containers/idea_list';
 import Chat from '../containers/chats';
+import CircularProgress from 'material-ui/CircularProgress';
 
 class Ideas extends Component {
 
@@ -30,7 +31,7 @@ class Ideas extends Component {
       .then(() => {
         this.socket = io();
         this.socket.on('connect', () => {
-          this.socket.emit('subscribe', this.props.board.id);
+          this.socket.emit('subscribe', this.props.params.board_id);
         });
         this.socket.on('idea', (ideaDoc) => {
           this.props.refreshBoardView(ideaDoc);
@@ -42,8 +43,26 @@ class Ideas extends Component {
   }
 
   componentWillUnmount() {
-    this.socket.emit('unsubscribe', this.props.board.id);
+    this.socket.emit('unsubscribe', this.props.params.board_id);
     this.props.clearBoardView();
+  }
+
+  renderLoadingOrComplete() {
+    if (this.props.board.isLoading) {
+      return (
+        <CircularProgress
+          style={{ ...paper, marginTop: '150px' }}
+          color={this.context.muiTheme.palette.accent1Color}
+          size={3}
+        />
+      );
+    }
+    return (
+      <Paper style={paper} zDepth={0}>
+        <IdeaInput {...this.props} />
+        <IdeaList {...this.props} />
+      </Paper>
+    );
   }
 
   render() {
@@ -57,10 +76,7 @@ class Ideas extends Component {
           zDepth={3}
           style={{ backgroundColor: this.context.muiTheme.palette.primary3Color, textAlign: 'center' }}
         />
-        <Paper style={paper} zDepth={0}>
-          <IdeaInput {...this.props} />
-          <IdeaList {...this.props} />
-        </Paper>
+        {this.renderLoadingOrComplete()}
       </div>
     );
   }

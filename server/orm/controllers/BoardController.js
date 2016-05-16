@@ -40,13 +40,9 @@ export default {
       members: true,
     }).run()
       .then((board) => {
-        board.ideas.forEach(idea => {
-          idea.comments = [];
-          board.comments.forEach(comment => {
-            if (comment.ideaId === idea.id) {
-              idea.comments.push(comment);
-            }
-          });
+        board.ideas = board.ideas.map((idea) => {
+          const comments = board.comments.filter((comment) => comment.ideaId === idea.id);
+          return { ...idea, comments };
         });
         delete board.comments;
         res.status(200).json({ board });

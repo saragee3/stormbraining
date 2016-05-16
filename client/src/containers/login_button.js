@@ -32,19 +32,26 @@ export default class LoginButton extends Component {
   }
 
   onLogin() {
-    this.lock.show((err, profile, token) => {
+    this.lock.show({ gravatar: false }, (err, profile, token) => {
       // If we receive an error, we dispatch the lockError action
       if (err) {
         this.props.lockError(err);
       }
       localStorage.setItem('profile', JSON.stringify(profile));
       localStorage.setItem('id_token', token);
-      const user = { name: profile.name, email: profile.email, id: profile.user_id };
-      this.props.saveOrFetchUser(user);
-      this.props.lockSuccess(profile, token);
-      if (this.props.isAuthenticated) {
-        this.redirect();
-      }
+      const user = {
+        name: profile.name,
+        nickname: profile.nickname,
+        email: profile.email,
+        id: profile.user_id,
+      };
+      this.props.saveOrFetchUser(user)
+        .then(() => {
+          this.props.lockSuccess(profile, token);
+          if (this.props.isAuthenticated) {
+            this.redirect();
+          }
+        });
     });
   }
 
@@ -63,7 +70,7 @@ export default class LoginButton extends Component {
           className="login-button"
           backgroundColor="#F50057"
         >
-          Login
+          Login/Signup
         </RaisedButton>
       );
     } else {

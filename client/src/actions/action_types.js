@@ -7,7 +7,9 @@ export const UPDATE_IDEA = 'UPDATE_IDEA';
 export const BRANCH_IDEA_TO_BOARD = 'BRANCH_IDEA_TO_BOARD';
 export const NEW_BOARD = 'NEW_BOARD';
 export const GET_BOARDS = 'GET_BOARDS';
-export const GET_ONE_BOARD = 'GET_ONE_BOARD';
+export const GET_ONE_BOARD_REQUEST = 'GET_ONE_BOARD_REQUEST';
+export const GET_ONE_BOARD_SUCCESS = 'GET_ONE_BOARD_SUCCESS';
+export const GET_ONE_BOARD_ERROR = 'GET_ONE_BOARD_ERROR';
 export const DELETE_BOARD = 'DELETE_BOARD';
 export const REFRESH_BOARD_VIEW = 'REFRESH_BOARD_VIEW';
 export const CLEAR_BOARD_VIEW = 'CLEAR_BOARD_VIEW';
@@ -26,7 +28,9 @@ export const DELETE_ACTIVEUSER = 'DELETE_ACTIVEUSER';
 
 // User actions
 export const SAVE_OR_FETCH_USER = 'SAVE_OR_FETCH_USER';
-export const GET_USER = 'GET_USER';
+export const GET_USER_REQUEST = 'GET_USER_REQUEST';
+export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
+export const GET_USER_ERROR = 'GET_USER_ERROR';
 export const JOIN_BOARD = 'JOIN_BOARD';
 export const LEAVE_BOARD = 'LEAVE_BOARD';
 
