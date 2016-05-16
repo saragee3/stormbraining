@@ -240,10 +240,39 @@ export function deleteActiveUser(boardId) {
 }
 
 export function getUser() {
-  const request = axios.get(`${ROOT_URL}/users`);
+  return dispatch => {
+    dispatch(getUserRequest());
+    return axios.get(`${ROOT_URL}/users`)
+      .then(res => {
+        setTimeout(() => dispatch(getUserSuccess(res.data)), 500);
+      })
+      .catch(err => {
+        if (err.status === 401) {
+          dispatch(lockError(err));
+        } else {
+          dispatch(getUserError(err));
+        }
+      });
+  };
+}
+
+export function getUserRequest() {
   return {
-    type: types.GET_USER,
-    payload: request,
+    type: types.GET_USER_REQUEST,
+  };
+}
+
+export function getUserSuccess({ user }) {
+  return {
+    type: types.GET_USER_SUCCESS,
+    payload: user,
+  };
+}
+
+export function getUserError(err) {
+  return {
+    type: types.GET_USER_ERROR,
+    err,
   };
 }
 
