@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as types from './action_types';
+import { lockError } from './auth_actions';
 
 // Attaches Authentication token to outgoing API requests
 axios.interceptors.request.use((config) => {
@@ -83,10 +84,39 @@ export function getBoards() {
 }
 
 export function getOneBoard(id) {
-  const request = axios.get(`${ROOT_URL}/boards/${id}`);
+  return dispatch => {
+    dispatch(getOneBoardRequest());
+    return axios.get(`${ROOT_URL}/boards/${id}`)
+      .then(res => {
+        setTimeout(() => dispatch(getOneBoardSuccess(res.data)), 500);
+      })
+      .catch(err => {
+        if (err.status === 401) {
+          dispatch(lockError(err));
+        } else {
+          dispatch(getOneBoardError(err));
+        }
+      });
+  };
+}
+
+export function getOneBoardRequest() {
   return {
-    type: types.GET_ONE_BOARD,
-    payload: request,
+    type: types.GET_ONE_BOARD_REQUEST,
+  };
+}
+
+export function getOneBoardSuccess({ board }) {
+  return {
+    type: types.GET_ONE_BOARD_SUCCESS,
+    payload: board,
+  };
+}
+
+export function getOneBoardError(err) {
+  return {
+    type: types.GET_ONE_BOARD_ERROR,
+    err,
   };
 }
 

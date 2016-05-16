@@ -17,7 +17,6 @@ export default function auth(state = INITIAL_STATE, action) {
       });
 
     case types.LOCK_ERROR:
-      console.log(action);
       return Object.assign({}, state, {
         isAuthenticated: false,
         errorMessage: action.err.message,

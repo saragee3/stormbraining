@@ -14,8 +14,14 @@ export default function (state = INITIAL_STATE, action) {
     case types.NEW_IDEA:
       return state;
 
-    case types.GET_ONE_BOARD:
-      return Object.assign({}, state, action.payload.data.board);
+    case types.GET_ONE_BOARD_REQUEST:
+      return { ...state, isLoading: true };
+
+    case types.GET_ONE_BOARD_SUCCESS:
+      return { ...action.payload, isLoading: false };
+
+    case types.GET_ONE_BOARD_ERROR:
+      return { ...state, isLoading: false };
 
     case types.BRANCH_IDEA_TO_BOARD:
       return INITIAL_STATE;
@@ -36,7 +42,7 @@ export default function (state = INITIAL_STATE, action) {
       const updatedIdeas = state.ideas.reduce((memo, idea) => {
         if (idea.id === changedIdea.id) {
           if (!changedIdea.toBeDeleted) {
-            const update = Object.assign({}, idea, changedIdea);
+            const update = { ...idea, ...changedIdea };
             memo.push(update);
           }
           updateComplete = true;
@@ -47,7 +53,7 @@ export default function (state = INITIAL_STATE, action) {
       }, []);
       // Add new idea if changedIdea id did not matching existing ids
       if (!updateComplete && !changedIdea.toBeDeleted) {
-        changedIdea = Object.assign(changedIdea, { comments: [] });
+        changedIdea = { ...changedIdea, comments: [] };
         updatedIdeas.push(changedIdea);
       }
       return { ...state, ideas: updatedIdeas };

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import * as types from './action_types';
 
 export function receiveLogout() {
