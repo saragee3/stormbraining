@@ -11,6 +11,7 @@ import DeleteForever from 'material-ui/svg-icons/action/delete-forever';
 import Subheader from 'material-ui/Subheader';
 import IconButton from 'material-ui/IconButton';
 import { browserHistory } from 'react-router';
+import CircularProgress from 'material-ui/CircularProgress';
 
 const container = {
   display: 'block',
@@ -35,9 +36,6 @@ class Home extends Component {
 
   componentWillMount() {
     this.props.getUser();
-  }
-
-  componentWillUnmount() {
   }
 
   onViewBoard(data) {
@@ -76,6 +74,15 @@ class Home extends Component {
   }
 
   render() {
+    if (this.props.user.isLoading) {
+      return (
+        <CircularProgress
+          size={3}
+          style={{ ...paper, marginTop: '200px' }}
+          color={this.context.muiTheme.palette.accent1Color}
+        />
+      );
+    }
     return (
       <Paper style={paper} zDepth={0}>
         <Paper zDepth={0}>

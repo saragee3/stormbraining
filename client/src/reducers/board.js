@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   messages: [],
   members: [],
   authorId: '',
+  isLoading: false,
 };
 
 export default function (state = INITIAL_STATE, action) {
