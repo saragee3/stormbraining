@@ -100,6 +100,17 @@ export default function (state = INITIAL_STATE, action) {
 
       return { ...state, ideas: arrayByContent };
 
+    case types.SORT_IDEAS_BY_TIME:
+      const arrayByTime = state.ideas.slice();
+      const orderTime = action.order;
+
+      arrayByTime.sort((a, b) => {
+        if (orderContent === 1) { return new Date(b.createdAt) - new Date(a.createdAt); }
+        if (orderContent === 0) { return new Date(a.createdAt) - new Date(b.createdAt); }
+      });
+
+      return { ...state, ideas: arrayByTime };
+
     case types.SYNC_COMMENT:
       const changedIdeas = state.ideas.map(idea => {
         if (idea.id === action.comment.ideaId) {
