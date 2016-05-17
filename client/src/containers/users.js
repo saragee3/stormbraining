@@ -29,10 +29,14 @@ class Users extends Component {
       this.socket.emit('subscribe', { board: this.props.params.board_id, check: 1, user: JSON.parse(localStorage.profile).name, email: JSON.parse(localStorage.profile).email });
     });
     this.socket.on('user', (data) => {
-      this.setState({ users: data });
+      if (data[this.props.params.board_id]) {
+        this.setState({ users: data[this.props.params.board_id] });
+      }
     });
     this.socket.on('left', (data) => {
-      this.setState({ users: data });
+      if (data[this.props.params.board_id]) {
+        this.setState({ users: data[this.props.params.board_id] });
+      }
     });
   }
 
