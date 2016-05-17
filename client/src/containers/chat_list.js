@@ -52,6 +52,7 @@ class ChatList extends Component {
 
   componentWillUnmount() {
     this.socket.emit('unsubscribe', this.props.params.board_id);
+    this.socket.disconnect();
   }
 
   onInputChange(event) {
