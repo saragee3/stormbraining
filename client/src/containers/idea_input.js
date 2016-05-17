@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { newIdea, joinBoard, leaveBoard } from '../actions/index';
 
+import Snackbar from 'material-ui/Snackbar';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import './styles/main.scss';
@@ -19,9 +20,13 @@ class IdeaInput extends Component {
     joined: PropTypes.bool.isRequired,
   }
 
+    static contextTypes = {
+      muiTheme: PropTypes.object.isRequired,
+    };
+
   constructor(props) {
     super(props);
-    this.state = { term: '' };
+    this.state = { term: '', open: false };
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.onJoinBoard = this.onJoinBoard.bind(this);
@@ -29,7 +34,7 @@ class IdeaInput extends Component {
   }
 
   onInputChange(event) {
-    this.setState({ term: event.target.value });
+    this.setState({ ...this.state, term: event.target.value });
   }
 
   onFormSubmit(event) {
@@ -38,7 +43,7 @@ class IdeaInput extends Component {
       this.props.newIdea(this.state.term, this.props.params.board_id);
     }
 
-    this.setState({ term: '' });
+    this.setState({ term: '', open: true });
   }
 
   onJoinBoard() {
@@ -47,6 +52,10 @@ class IdeaInput extends Component {
 
   onLeaveBoard() {
     this.props.leaveBoard(this.props.board.id);
+  }
+
+  handleRequestClose = () => {
+    this.setState({ ...this.state, open: false });
   }
 
   render() {
@@ -64,6 +73,13 @@ class IdeaInput extends Component {
               type="submit"
               className="idea-button"
               label="Submit"
+            />
+            <Snackbar
+              open={this.state.open}
+              message="Idea added"
+              autoHideDuration={3000}
+              onRequestClose={this.handleRequestClose}
+              bodyStyle={{ backgroundColor: this.context.muiTheme.palette.primary3Color }}
             />
             <RaisedButton
               type="button"
