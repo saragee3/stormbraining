@@ -4,96 +4,66 @@ import LoginButton from './login_button';
 
 import { muiTheme } from '../components/app.js';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
+import {
+  Step,
+  Stepper,
+  StepButton,
+  StepContent,
+} from 'material-ui/Stepper';
+import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
-import Avatar from 'material-ui/Avatar';
 import Idea from 'material-ui/svg-icons/action/lightbulb-outline';
 import Subject from 'material-ui/svg-icons/action/subject';
 import Group from 'material-ui/svg-icons/social/group';
 import './styles/main.scss';
 
 const style = {
-  nav: {
-    height: '15%',
-    minWidth: '100%',
-    top: 0,
-    position: 'fixed',
-    zIndex: '9999999',
-  },
   first: {
-    paddingTop: '5%',
-    height: '400px',
-    minWidth: '100%',
+    paddingTop: '45px',
+    paddingBottom: '45px',
+    width: '100%',
     textAlign: 'center',
     backgroundColor: muiTheme.palette.primary3Color,
     h1: {
       color: '#fff',
-      marginTop: '8%',
+      marginTop: 0,
       fontSize: '48px',
-      position: 'relative',
     },
   },
-  break: {
-    height: '15%',
-    minWidth: '100%',
-    marginTop: '-1.7%',
-    position: 'relative',
-    h1: {
-      textAlign: 'center',
-      top: 10,
-      position: 'relative',
-    },
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
   },
-  second: {
-    paddingTop: '3%',
-    marginTop: '-1.7%',
-    height: '650px',
-    minWidth: '100%',
-    backgroundColor: muiTheme.palette.primary3Color,
-    position: 'block',
-    subject: {
-      marginTop: '3%',
-      marginLeft: '5%',
-      width: '100px',
-      height: '100px',
-      backgroundColor: muiTheme.palette.accent1Color,
-    },
-    h1: {
-      marginTop: '-5%',
-      fontWeight: 500,
-      fontSize: '250%',
-      textAlign: 'right',
-      marginRight: '5%',
-    },
-    h2: {
-      fontWeight: 100,
-      fontSize: '100%',
-      textAlign: 'right',
-      marginRight: '5%',
-    },
+  gridList: {
+    width: '25%',
+    overflowY: 'auto',
+    marginBottom: '24px',
+    textAlign: 'center',
   },
-  third: {
-    paddingTop: '3%',
-    height: '600px',
-    minWidth: '100%',
-    backgroundColor: muiTheme.palette.primary3Color,
-    team: {
-      marginTop: '3%',
-      marginLeft: '7%',
-    },
-    text: {
-      textAlign: 'center',
-      marginLeft: '25%',
-      fontSize: '18px',
-    },
+  porthole: {
+    borderRadius: '100%',
+    width: '75%',
+    maxWidth: '250px',
+    margin: '15px auto',
+    display: 'block',
   },
-};
-
-const svgIcon = {
-  width: 60,
-  height: 60,
-  textAlign: 'center',
-  marginTop: 17,
+  logoList: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+  },
+  logos: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    boxSizing: 'border-box',
+    width: '18%',
+    maxWidth: '150px',
+    margin: '2px 10px',
+  },
 };
 
 class Login extends Component {
@@ -104,131 +74,187 @@ class Login extends Component {
     errorMessage: PropTypes.string,
   }
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      finished: false,
+      stepIndex: null,
+    };
+    this.handleNext = this.handleNext.bind(this);
+    this.handlePrev = this.handlePrev.bind(this);
+    this.renderStepActions = this.renderStepActions.bind(this);
+  }
+
+ handleNext = () => {
+   const { stepIndex } = this.state;
+   this.setState({
+     stepIndex: stepIndex + 1,
+     finished: stepIndex >= 2,
+   });
+ };
+
+ handlePrev = () => {
+   const { stepIndex } = this.state;
+   if (stepIndex > 0) {
+     this.setState({ stepIndex: stepIndex - 1 });
+   }
+ };
+
+ renderStepActions(step) {
+   const { stepIndex } = this.state;
+
+   return (
+     <div style={{ margin: '12px 0' }}>
+       <RaisedButton
+         label={stepIndex === 2 ? 'Finish' : 'Next'}
+         disableTouchRipple
+         disableFocusRipple
+         primary
+         onTouchTap={this.handleNext}
+         style={{ marginRight: 12 }}
+       />
+       {step > 0 && (
+         <FlatButton
+           label="Back"
+           disabled={stepIndex === 0}
+           disableTouchRipple
+           disableFocusRipple
+           onTouchTap={this.handlePrev}
+         />
+       )}
+     </div>
+   );
+ }
+
   render() {
     const { dispatch, isAuthenticated, errorMessage } = this.props;
+    const { finished, stepIndex } = this.state;
 
     return (
       <MuiThemeProvider muiTheme={ muiTheme }>
         <div>
-          <div>
-            <Paper style={style.nav} zDepth={2}>
-              <div className="login-title">
-              <span className="title">Stormbraining</span>
-              <LoginButton
-                isAuthenticated={isAuthenticated}
-                errorMessage={errorMessage}
-                dispatch={dispatch}
-              />
-              </div>
-            </Paper>
+          <Paper style={style.first} zDepth={2}>
+            <h1 style={style.first.h1}>Stormbraining</h1>
+            <img src="brainstorm.gif" style={{ width: '100px' }} alt="Stormbraining"/>
+            <h1>Make it brain.</h1>
+            <LoginButton
+              isAuthenticated={isAuthenticated}
+              errorMessage={errorMessage}
+              dispatch={dispatch}
+            />
+          </Paper>
+          <Paper zDepth={0} style={{ margin: '36px auto' }}>
+            <h2 style={{ textAlign: 'center' }}>Getting started is easy</h2>
+            <Stepper
+              activeStep={stepIndex}
+              orientation="vertical"
+              style={{ width: '80%', margin: '0px auto' }}
+            >
+             <Step>
+               <StepButton
+                 icon={<Subject color={muiTheme.palette.accent1Color} />}
+                 onClick={() => this.setState({ stepIndex: 0 })}
+               >
+                 Create a board
+               </StepButton>
+               <StepContent>
+                 <p>
+                   <img src="create-a-board.gif" alt=""/> <br />
+                   Log in to create a new board.
+                 </p>
+                 {this.renderStepActions(0)}
+               </StepContent>
+             </Step>
+             <Step>
+               <StepButton
+                 icon={<Group color={muiTheme.palette.accent1Color} />}
+                 onClick={() => this.setState({ stepIndex: 1 })}
+               >
+                 Invite your team
+               </StepButton>
+               <StepContent>
+                 <p>
+                   <img src="create-a-board.gif" alt=""/> <br />
+                   Send your team a link to your new board.
+                 </p>
+                 {this.renderStepActions(1)}
+               </StepContent>
+             </Step>
+             <Step>
+               <StepButton
+                 icon={<Idea color={muiTheme.palette.accent1Color} />}
+                 onClick={() => this.setState({ stepIndex: 2 })}
+               >
+                 Collaborate in real time
+               </StepButton>
+               <StepContent>
+                 <p>
+                   <img src="create-a-board.gif" alt=""/> <br />
+                   Get ideas with your team in real time.  Upvote, sort, comment, and chat to get bring the best ideas to the top.
+                 </p>
+                 {this.renderStepActions(2)}
+               </StepContent>
+             </Step>
+           </Stepper>
+           {finished && (
+             <p style={{ margin: '20px 0', textAlign: 'center' }}>
+               <a
+                 href="#"
+                 onClick={(event) => {
+                   event.preventDefault();
+                   this.setState({ stepIndex: 0, finished: false });
+                 }}
+               >
+                 Get started today!
+                 <br />
+                 <LoginButton
+                   isAuthenticated={isAuthenticated}
+                   errorMessage={errorMessage}
+                   dispatch={dispatch}
+                 />
+               </a>
+             </p>
+           )}
+         </Paper>
+         <Paper style={style.first}>
+          <h2> The team </h2>
+          <div style={style.root}>
+            <div style={style.gridList}>
+              <img src="./src/containers/styles/kevin.jpg" style={style.porthole} alt=""/>
+              Kevin Chen <br />
+              Product owner <br />
+              Full-stack software engineer <br />
+            </div>
+            <div style={style.gridList}>
+              <img src="./src/containers/styles/frances.jpg" style={style.porthole} alt=""/>
+              Frances Swiecki-Bernhardt <br />
+              Scrum master <br />
+              Full-stack software engineer <br />
+            </div>
+            <div style={style.gridList}>
+              <img src="./src/containers/styles/david.jpg" style={style.porthole} alt=""/>
+              David Nguyen <br />
+              Full-stack software engineer <br />
+            </div>
+            <div style={style.gridList}>
+              <img src="./src/containers/styles/sara.jpg" style={style.porthole} alt=""/>
+              Sara Gee <br />
+              Full-stack software engineer <br />
+            </div>
           </div>
-          <Paper style={style.first} zDepth={1}>
-            <h1 style={style.first.h1}>Make it. Brain.</h1>
-          </Paper>
-          <Paper style={style.break} zDepth={2}>
-            <h1 style={style.break.h1}>How To</h1>
-          </Paper>
-          <Paper style={style.second} zDepth={1}>
-            <div style={{ marginTop: '1.5%' }}>
-              <Avatar
-                style={style.second.subject}
-                icon={<Subject style={svgIcon}/>}
-              />
-              <h1 style={style.second.h1}>Create a Board</h1>
-              <h2 style={style.second.h2}> Pan friend pork dumpling. Deep fried bean curd skin rolls rice noodle roll deep fried crab claw soup dumpling cold chicken claw</h2>
-            </div>
-            <div style={{ marginTop: '1.5%' }}>
-              <Avatar
-                style={style.second.subject}
-                icon={<Group style={svgIcon}/>}
-              />
-              <h1 style={style.second.h1}>Invite a friend!</h1>
-              <h2 style={style.second.h2}> Pan friend pork dumpling. Deep fried bean curd skin rolls rice noodle roll deep fried crab claw soup dumpling cold chicken claw</h2>
-            </div>
-            <div style={{ marginTop: '1.5%' }}>
-              <Avatar
-                style={style.second.subject}
-                icon={<Idea style={svgIcon}/>}
-              />
-              <h1 style={style.second.h1}>Real-time collaborative thinking</h1>
-              <h2 style={style.second.h2}>Chicken feet Potstickers stir fried radish cake Steamed Bun with Butter Cream hot raw fish slices</h2>
-            </div>
-          </Paper>
-          <Paper style={style.break} zDepth={2}>
-            <h1 style={style.break.h1}>The Team</h1>
-          </Paper>
-          <Paper style={style.third} zDepth={1}>
-            <Table>
-              <TableBody style={style.third} displayRowCheckbox={false}>
-                <TableRow displayBorder={false}>
-                  <TableRowColumn>
-                    <Avatar
-                      src="./src/containers/styles/kevin.jpg"
-                      size={200}
-                      style={style.third.team}
-                    />
-                    <br />
-                    <span style={style.third.text}>Kevin Chen</span>
-                    <br />
-                    <span style={style.third.text}>Product Owner</span>
-                    <br />
-                    <span style={style.third.text}>Full-Stack Software Engineer</span>
-                  </TableRowColumn>
-                  <TableRowColumn>
-                    <Avatar
-                      src="./src/containers/styles/frances.jpg"
-                      size={200}
-                      style={style.third.team}
-                    />
-                    <br />
-                    <span style={style.third.text}>Frances Swiecki</span>
-                    <br />
-                    <span style={style.third.text}>Scrum Master</span>
-                    <br />
-                    <span style={style.third.text}>Full-Stack Software Engineer</span>
-                  </TableRowColumn>
-                  <TableRowColumn>
-                    <Avatar
-                      src="./src/containers/styles/david.jpg"
-                      size={200}
-                      style={style.third.team}
-                    />
-                    <br />
-                    <span style={style.third.text}>David Nguyen</span>
-                    <br />
-                    <br />
-                    <span style={style.third.text}>Full-Stack Software Engineer</span>
-                  </TableRowColumn>
-                  <TableRowColumn>
-                    <Avatar
-                      src="./src/containers/styles/sara.jpg"
-                      size={200}
-                      style={style.third.team}
-                    />
-                    <br />
-                    <span style={style.third.text}>Sara Gee</span>
-                    <br />
-                    <br />
-                    <span style={style.third.text}>Full-Stack Software Engineer</span>
-                  </TableRowColumn>
-                </TableRow>
-              </TableBody>
-            </Table>
-            <Table style={{ marginTop: '4%' }}>
-              <TableBody style={style.third} displayRowCheckbox={false}>
-                <TableRow>
-                  <img
-                    src="./src/containers/styles/react-logo.svg"
-                    style={{ marginLeft: '2%' }}
-                  />
-                  <img
-                    src="./src/containers/styles/express.png"
-                    style={{ marginLeft: '2%' }}
-                  />
-                </TableRow>
-              </TableBody>
-            </Table>
-          </Paper>
+            <h2>The tech</h2>
+          <div style={style.logoList}>
+            <a style={style.logos} href="https://facebook.github.io/react/"><img src="./images/react-logo.svg"/></a>
+            <a style={style.logos} href="http://redux.js.org/"><img src="./images/redux.png"/></a>
+            <a style={style.logos} href="https://www.rethinkdb.com/"><img src="./images/rethinkdb.png"/></a>
+            <a style={style.logos} href="http://socket.io/"><img src="./images/socketio.gif"/></a>
+            <a style={style.logos} href="https://nodejs.org/"><img src="./images/nodejs.png"/></a>
+            <a style={style.logos} href="http://expressjs.com/"><img src="./images/express.png"/></a>
+            <a style={style.logos} href="https://babeljs.io/"><img src="./images/babel.png"/></a>
+            <a style={style.logos} href="https://webpack.github.io/"><img src="./images/webpack.png"/></a>
+          </div>
+         </Paper>
         </div>
       </MuiThemeProvider>
     );

@@ -67,11 +67,10 @@ export default class LoginButton extends Component {
         <RaisedButton
           errorMessage={errorMessage}
           onClick={this.onLogin}
-          className="login-button"
+          // className="login-button"
           backgroundColor="#F50057"
-        >
-          Login/Signup
-        </RaisedButton>
+          label="Log in / Sign up"
+        />
       );
     } else {
       setTimeout(this.redirect, 1000);
