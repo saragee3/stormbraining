@@ -84,14 +84,14 @@ class IdeaList extends Component {
   render() {
     return (
       <div>
-        Sort ideas:
+        Sort Ideas:
         <DropDownMenu value={this.state.sort} onChange={this.handleChange}>
-          <MenuItem value={'contentDsc'} primaryText="Content, a-z" />
-          <MenuItem value={'contentAsc'} primaryText="Content, z-a" />
-          <MenuItem value={'votesDsc'} primaryText="Most votes" />
-          <MenuItem value={'votesAsc'} primaryText="Fewest votes" />
-          <MenuItem value={'oldest'} primaryText="Oldest first" />
-          <MenuItem value={'newest'} primaryText="Newest first" />
+          <MenuItem value={'contentDsc'} primaryText="Content, A-Z" />
+          <MenuItem value={'contentAsc'} primaryText="Content, Z-A" />
+          <MenuItem value={'votesDsc'} primaryText="Most Votes" />
+          <MenuItem value={'votesAsc'} primaryText="Fewest Votes" />
+          <MenuItem value={'oldest'} primaryText="Oldest First" />
+          <MenuItem value={'newest'} primaryText="Newest First" />
         </DropDownMenu>
         <RaisedButton
           type="button"
