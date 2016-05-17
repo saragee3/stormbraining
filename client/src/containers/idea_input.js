@@ -55,31 +55,26 @@ class IdeaInput extends Component {
     this.props.leaveBoard(this.props.board.id);
   }
 
+
   handleRequestClose = () => {
     this.setState({ ...this.state, open: false });
   }
 
-  render() {
+  renderInviteOrLeave() {
     if (this.props.board.authorId === JSON.parse(localStorage.profile).user_id) {
-      return (
-        <div className="idea-input-container">
-          <form onSubmit={this.onFormSubmit}>
-            <TextField
-              hintText="Submit an idea"
-              floatingLabelText="Great ideas start here..."
-              value={this.state.term}
-              onChange={this.onInputChange}
-            />
-            <RaisedButton
-              type="submit"
-              className="idea-button"
-              label="Submit"
-            />
-            <Invite {...this.props} />
-          </form>
-        </div>
-      );
+      return <Invite {...this.props} />;
     }
+    return (
+      <RaisedButton
+        type="button"
+        className="idea-button"
+        label="Leave Board"
+        onTouchTap={this.onLeaveBoard}
+      />
+    );
+  }
+
+  render() {
     if (this.props.joined) {
       return (
         <div className="idea-input-container">
@@ -102,12 +97,7 @@ class IdeaInput extends Component {
               onRequestClose={this.handleRequestClose}
               bodyStyle={{ backgroundColor: this.context.muiTheme.palette.primary3Color }}
             />
-            <RaisedButton
-              type="button"
-              className="idea-button"
-              label="Leave Board"
-              onTouchTap={this.onLeaveBoard}
-            />
+            {this.renderInviteOrLeave()}
           </form>
         </div>
       );
