@@ -34,7 +34,7 @@ export default class Chat extends Component {
   componentWillMount() {
     this.socket = io();
     this.socket.on('connect', () => {
-      this.socket.emit('subscribe', this.props.board.id);
+      this.socket.emit('subscribe', this.props.params.board_id);
       this.socket.on('message', () => {
         if (!this.state.open) {
           this.setState({ messageCount: this.state.messageCount += 1 });
@@ -45,7 +45,8 @@ export default class Chat extends Component {
   }
 
   componentWillUnmount() {
-    this.socket.emit('unsubscribe', this.props.board.id);
+    this.socket.emit('unsubscribe', this.props.params.board_id);
+    this.socket.disconnect();
   }
 
   handleChange(value) {

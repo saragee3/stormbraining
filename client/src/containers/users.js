@@ -33,17 +33,18 @@ class Users extends Component {
     this.props.getActiveUsers(this.props.params.board_id);
     this.socket = io();
     this.socket.on('connect', () => {
-      this.socket.emit('subscribe', this.props.board.id);
-      this.props.addActiveUser(this.props.board.id, JSON.parse(localStorage.profile).name);
-    });
-    this.socket.on('user', () => {
-      this.props.getActiveUsers(this.props.board.id);
+      this.socket.emit('subscribe', this.props.params.board_id);
+      this.props.addActiveUser(this.props.params.board_id, JSON.parse(localStorage.profile).name);
+      this.socket.on('user', () => {
+        this.props.getActiveUsers(this.props.params.board_id);
+      });
     });
   }
 
   componentWillUnmount() {
-    this.props.deleteActiveUser(this.props.board.id);
+    this.props.deleteActiveUser(this.props.params.board_id);
     this.socket.emit('unsubscribe', this.props.params.board_id);
+    this.socket.disconnect();
   }
 
   renderUsers(data) {

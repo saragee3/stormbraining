@@ -32,18 +32,19 @@ class Ideas extends Component {
         this.socket = io();
         this.socket.on('connect', () => {
           this.socket.emit('subscribe', this.props.params.board_id);
-        });
-        this.socket.on('idea', (ideaDoc) => {
-          this.props.refreshBoardView(ideaDoc);
-        });
-        this.socket.on('comment', (comment) => {
-          this.props.syncComment(comment);
+          this.socket.on('idea', (ideaDoc) => {
+            this.props.refreshBoardView(ideaDoc);
+          });
+          this.socket.on('comment', (comment) => {
+            this.props.syncComment(comment);
+          });
         });
       });
   }
 
   componentWillUnmount() {
     this.socket.emit('unsubscribe', this.props.params.board_id);
+    this.socket.disconnect();
     this.props.clearBoardView();
   }
 
