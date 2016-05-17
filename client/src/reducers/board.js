@@ -105,8 +105,8 @@ export default function (state = INITIAL_STATE, action) {
       const orderTime = action.order;
 
       arrayByTime.sort((a, b) => {
-        if (orderContent === 1) { return new Date(b.createdAt) - new Date(a.createdAt); }
-        if (orderContent === 0) { return new Date(a.createdAt) - new Date(b.createdAt); }
+        if (orderTime === 1) { return new Date(b.createdAt) - new Date(a.createdAt); }
+        if (orderTime === 0) { return new Date(a.createdAt) - new Date(b.createdAt); }
       });
 
       return { ...state, ideas: arrayByTime };
