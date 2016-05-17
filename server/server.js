@@ -53,7 +53,7 @@ io.on('connection', (socket) => {
       addUser(board);
     }
     if (userList[board.board]) {
-      io.emit('user', userList[board.board]);
+      io.emit('user', userList);
     }
   });
   socket.on('unsubscribe', (board) => {
@@ -62,7 +62,7 @@ io.on('connection', (socket) => {
       deleteUser(board);
     }
     if (userList[board.board]) {
-      io.emit('left', userList[board.board]);
+      io.emit('left', userList);
     }
   });
   socket.on('disconnect', () => {
