@@ -176,6 +176,13 @@ export function sortIdeasByContent(order) {
   };
 }
 
+export function sortIdeasByTime(order) {
+  return {
+    type: types.SORT_IDEAS_BY_TIME,
+    order,
+  };
+}
+
 export function addComment(content, userName, ideaId, boardId) {
   const request = axios.post(`${ROOT_URL}/boards/${boardId}/ideas/${ideaId}/comments`, { content, userName });
   return {
