@@ -1,6 +1,8 @@
 import path from 'path';
 import BoardController from '../orm/controllers/BoardController.js';
 import IdeaController from '../orm/controllers/IdeaController.js';
+import TimedBoardController from '../orm/controllers/TimedBoardController.js';
+import TimedIdeaController from '../orm/controllers/TimedBoardController.js';
 import CommentController from '../orm/controllers/CommentController.js';
 import UserController from '../orm/controllers/UserController.js';
 import MessageController from '../orm/controllers/MessageController.js';
@@ -38,6 +40,18 @@ export default function routes(app, express) {
   app.route('/api/boards/:board_id/ideas/:idea_id/comments/:comment_id')
     .put(CommentController.updateComment)
     .delete(CommentController.deleteComment);
+
+  app.route('/api/boards/:board_id/:timed_board_id')
+    .get(TimedBoardController.getTimedBoard)
+    .post(TimedBoardController.addTimedBoard);
+
+  app.route('/api/boards/:board_id/:timed_board_id/:timed_idea_id')
+    .post(TimedIdeaController.addTimedIdea)
+    .put(TimedIdeaController.updateTimedIdea)
+    .delete(TimedIdeaController.deleteTimedIdea);
+
+  app.route('/api/boards/:board_id/:timed_board_id/:timed_idea_id/toggle')
+    .put(TimedIdeaController.toggleTimedIdea);
 
   app.route('/api/users')
     .get(UserController.getUser)
