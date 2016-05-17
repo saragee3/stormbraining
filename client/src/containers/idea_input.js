@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { newIdea, joinBoard, leaveBoard } from '../actions/index';
+import Invite from './invite';
 
 import Snackbar from 'material-ui/Snackbar';
 import TextField from 'material-ui/TextField';
@@ -54,8 +55,23 @@ class IdeaInput extends Component {
     this.props.leaveBoard(this.props.board.id);
   }
 
+
   handleRequestClose = () => {
     this.setState({ ...this.state, open: false });
+  }
+
+  renderInviteOrLeave() {
+    if (this.props.board.authorId === JSON.parse(localStorage.profile).user_id) {
+      return <Invite {...this.props} />;
+    }
+    return (
+      <RaisedButton
+        type="button"
+        className="idea-button"
+        label="Leave Board"
+        onTouchTap={this.onLeaveBoard}
+      />
+    );
   }
 
   render() {
@@ -81,12 +97,7 @@ class IdeaInput extends Component {
               onRequestClose={this.handleRequestClose}
               bodyStyle={{ backgroundColor: this.context.muiTheme.palette.primary3Color }}
             />
-            <RaisedButton
-              type="button"
-              className="idea-button"
-              label="Leave Board"
-              onTouchTap={this.onLeaveBoard}
-            />
+            {this.renderInviteOrLeave()}
           </form>
         </div>
       );
