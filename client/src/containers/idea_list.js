@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getOneBoard, sortIdeasByVotes, sortIdeasByContent, sortIdeasByTime } from '../actions/index';
+import { getOneBoard, sortIdeasByVotes, sortIdeasByContent, sortIdeasByTime, shuffleIdeas } from '../actions/index';
 import Idea from './idea';
 
+import RaisedButton from 'material-ui/RaisedButton';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import FlipMove from 'react-flip-move';
@@ -19,6 +20,7 @@ class IdeaList extends Component {
     sortIdeasByVotes: PropTypes.func,
     sortIdeasByContent: PropTypes.func,
     sortIdeasByTime: PropTypes.func,
+    shuffleIdeas: PropTypes.func.isRequired,
     joined: PropTypes.bool.isRequired,
   }
 
@@ -27,6 +29,11 @@ class IdeaList extends Component {
     this.state = { sort: 'oldest' };
     this.renderIdea = this.renderIdea.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.onShuffle = this.onShuffle.bind(this);
+  }
+
+  onShuffle() {
+    this.props.shuffleIdeas();
   }
 
   handleChange(event, index, sort) {
@@ -86,6 +93,12 @@ class IdeaList extends Component {
           <MenuItem value={'oldest'} primaryText="Oldest first" />
           <MenuItem value={'newest'} primaryText="Newest first" />
         </DropDownMenu>
+        <RaisedButton
+          type="button"
+          className="idea-button"
+          label="Shuffle Ideas"
+          onTouchTap={this.onShuffle}
+        />
         <FlipMove enterAnimation="fade" leaveAnimation="fade" duration={300} staggerDurationBy={100}>
           {this.props.board.ideas.map(this.renderIdea)}
         </FlipMove>
@@ -95,7 +108,7 @@ class IdeaList extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getOneBoard, sortIdeasByVotes, sortIdeasByContent, sortIdeasByTime }, dispatch);
+  return bindActionCreators({ getOneBoard, sortIdeasByVotes, sortIdeasByContent, sortIdeasByTime, shuffleIdeas }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(IdeaList);

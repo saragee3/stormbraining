@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { newIdea, shuffleIdeas, joinBoard, leaveBoard } from '../actions/index';
+import { newIdea, joinBoard, leaveBoard } from '../actions/index';
 
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -12,7 +12,6 @@ class IdeaInput extends Component {
   static propTypes = {
     params: PropTypes.object.isRequired,
     newIdea: PropTypes.func.isRequired,
-    shuffleIdeas: PropTypes.func.isRequired,
     joinBoard: PropTypes.func.isRequired,
     leaveBoard: PropTypes.func.isRequired,
     userId: PropTypes.string.isRequired,
@@ -25,7 +24,6 @@ class IdeaInput extends Component {
     this.state = { term: '' };
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
-    this.onShuffle = this.onShuffle.bind(this);
     this.onJoinBoard = this.onJoinBoard.bind(this);
     this.onLeaveBoard = this.onLeaveBoard.bind(this);
   }
@@ -41,10 +39,6 @@ class IdeaInput extends Component {
     }
 
     this.setState({ term: '' });
-  }
-
-  onShuffle() {
-    this.props.shuffleIdeas();
   }
 
   onJoinBoard() {
@@ -74,12 +68,6 @@ class IdeaInput extends Component {
             <RaisedButton
               type="button"
               className="idea-button"
-              label="Shuffle Ideas"
-              onTouchTap={this.onShuffle}
-            />
-            <RaisedButton
-              type="button"
-              className="idea-button"
               label="Leave Board"
               onTouchTap={this.onLeaveBoard}
             />
@@ -102,7 +90,7 @@ class IdeaInput extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ newIdea, shuffleIdeas, joinBoard, leaveBoard }, dispatch);
+  return bindActionCreators({ newIdea, joinBoard, leaveBoard }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(IdeaInput);
