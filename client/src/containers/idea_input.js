@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { newIdea, joinBoard, leaveBoard } from '../actions/index';
+import Invite from './invite';
 
 import Snackbar from 'material-ui/Snackbar';
 import TextField from 'material-ui/TextField';
@@ -59,6 +60,26 @@ class IdeaInput extends Component {
   }
 
   render() {
+    if (this.props.board.authorId === JSON.parse(localStorage.profile).user_id) {
+      return (
+        <div className="idea-input-container">
+          <form onSubmit={this.onFormSubmit}>
+            <TextField
+              hintText="Submit an idea"
+              floatingLabelText="Great ideas start here..."
+              value={this.state.term}
+              onChange={this.onInputChange}
+            />
+            <RaisedButton
+              type="submit"
+              className="idea-button"
+              label="Submit"
+            />
+            <Invite {...this.props} />
+          </form>
+        </div>
+      );
+    }
     if (this.props.joined) {
       return (
         <div className="idea-input-container">
