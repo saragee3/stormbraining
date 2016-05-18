@@ -1,8 +1,43 @@
 import Board from '../models/Board.js';
 import User from '../models/User.js';
 import helper from './helper.js';
+import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+
+// Uncomment the following line for local development!
+// dotenv.load();
+
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: process.env.NODEMAILER_EMAIL,
+    pass: process.env.NODEMAILER_PASSWORD,
+  },
+});
+
+const mailOptions = {
+  from: 'stormbrainingapp@gmail.com',
+};
 
 export default {
+  email: (req, res) => {
+    const toEmail = req.body.email.replace(/ /g, '').split(',');
+    mailOptions.subject = req.body.name + ' has invited you to join a board on Stormbraining!';
+    mailOptions.to = toEmail;
+    mailOptions.html = '<h2><b>Topic: ' + req.body.title + '!</b></h2>' +
+                        '<h3>Join here:</h3>' +
+                        req.body.link +
+                        '<p>Make it brain!</p>';
+    transporter.sendMail(mailOptions, (error, info) => {
+      console.log('MAIL OPTIONS', mailOptions);
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Message sent:' + info.response);
+      }
+    });
+  },
+
   addBoard: (req, res) => {
     const { title } = req.body;
     const authorId = req.user.sub;
