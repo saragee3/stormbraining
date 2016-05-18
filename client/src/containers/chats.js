@@ -158,33 +158,6 @@ export default class Chat extends Component {
               </Tab>
               <Tab label="Chat" value="b">
                 <ChatList {...this.props} />
-                <div
-                  style={{
-                    position: 'fixed',
-                    bottom: '0px',
-                    backgroundColor: '#90A4AE',
-                    width: '400px',
-                    paddingLeft: '25px',
-                    paddingBottom: '0px',
-                    marginTop: '50px',
-                    height: '120px',
-                  }}
-                >
-                  <form onSubmit={this.onChatSubmit}>
-                    <TextField
-                      style={{ paddingTop: '35px' }}
-                      inputStyle={{ color: '#fff' }}
-                      hintText="Your message here..."
-                      value={this.state.term}
-                      onChange={this.onInputChange}
-                    />
-                    <RaisedButton
-                      type="submit"
-                      label="Send"
-                      className="board-button"
-                    />
-                  </form>
-                </div>
               </Tab>
             </Tabs>
           }
