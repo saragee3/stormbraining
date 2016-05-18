@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { sendEmail } from '../actions/index';
 
@@ -9,6 +9,11 @@ import TextField from 'material-ui/TextField';
 
 class Email extends Component {
 
+  static propTypes = {
+    params: PropTypes.object,
+    board: PropTypes.object,
+  }
+
   constructor(props) {
     super(props);
 
@@ -17,13 +22,17 @@ class Email extends Component {
     this.onInputChange = this.onInputChange.bind(this);
   }
 
+
   onInputChange(event) {
     this.setState({ term: event.target.value });
   }
 
   onFormSubmit(event) {
     event.preventDefault();
-    sendEmail(this.state.term, `https://storm-braining.herokuapp.com/boards/${this.props.params.board_id}`);
+    sendEmail(this.state.term,
+      this.props.board.title,
+      JSON.parse(localStorage.profile).name,
+      `https://storm-braining.herokuapp.com/boards/${this.props.params.board_id}`);
     this.setState({ term: '', open: false });
   }
 
@@ -58,7 +67,7 @@ class Email extends Component {
           <form onSubmit={this.onFormSubmit}>
             <TextField
               style={{ padding: '10px', height: '100px' }}
-              floatingLabelText="e.g., johndoe@gmail.com, davie@yahoo.com, user@user.com"
+              floatingLabelText="e.g., johndoe@gmail.com, user@user.com - separate with commas"
               hintText="Insert emails"
               value={this.state.term}
               onChange={this.onInputChange}
