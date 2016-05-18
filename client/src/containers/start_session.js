@@ -18,7 +18,7 @@ class StartSession extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { timerLength: 1, open: false };
+    this.state = { timerLength: 15, open: false };
     this.onStart = this.onStart.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -41,7 +41,7 @@ class StartSession extends Component {
   }
 
   handleClose = () => {
-    this.setState({ timerLength: 1, open: false });
+    this.setState({ timerLength: 15, open: false });
   }
 
   render() {

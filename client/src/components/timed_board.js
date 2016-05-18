@@ -30,13 +30,8 @@ class TimedBoard extends Component {
   }
 
   componentWillMount() {
-    this.props.getTimedBoard(this.props.params.timed_board_id)
-  }
-
-  componentDidMount() {
-    if (!this.props.timedBoard.completed) {
-      this.interval = setInterval(this.tick, 1000);
-    }
+    this.props.getTimedBoard(this.props.params.timed_board_id);
+    this.interval = setInterval(this.tick, 1000);
   }
 
   componentWillUnmount() {
@@ -47,10 +42,15 @@ class TimedBoard extends Component {
   }
 
   tick() {
-    const timeEnd = Date.parse(this.props.timedBoard.createdAt) + this.props.timedBoard.timerLength;
-    const timeNow = new Date().getTime();
-    const timeRemaining = timeEnd > timeNow ? timeEnd - timeNow : 0;
-    this.setState({ timeRemaining });
+    if (this.props.timedBoard.completed) {
+      clearInterval(this.interval);
+      this.setState({ timeRemaining: 0 });
+    } else {
+      const timeEnd = Date.parse(this.props.timedBoard.createdAt) + this.props.timedBoard.timerLength + 1500;
+      const timeNow = new Date().getTime();
+      const timeRemaining = timeEnd > timeNow ? timeEnd - timeNow : 0;
+      this.setState({ timeRemaining });
+    }
   }
 
   renderLoadingOrComplete() {
