@@ -29,7 +29,6 @@ export default {
                         req.body.link +
                         '<p>Make it brain!</p>';
     transporter.sendMail(mailOptions, (error, info) => {
-      console.log('MAIL OPTIONS', mailOptions);
       if (error) {
         console.log(error);
       } else {
