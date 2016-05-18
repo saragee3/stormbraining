@@ -298,3 +298,11 @@ export function leaveBoard(boardId) {
     payload: request,
   };
 }
+
+export function sendEmail(email, link) {
+  const request = axios.post(`${ROOT_URL}/boards/email`, { email, link });
+  return {
+    type: types.SEND_EMAIL,
+    payload: request,
+  };
+}
