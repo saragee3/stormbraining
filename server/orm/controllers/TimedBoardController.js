@@ -52,7 +52,11 @@ export default {
     const id = req.params.timed_board_id;
     const authorId = req.user.sub;
 
-    TimedBoard.get(id).getJoin({ timedIdeas: true }).run()
+    TimedBoard.get(id).getJoin({
+      timedIdeas: {
+        _apply: (sequence) => sequence.orderBy('createdAt'),
+      },
+    }).run()
       .then((timedBoard) => {
         if (authorId === timedBoard.authorId && !timedBoard.completed) {
           timedBoard.timedIdeas.forEach(idea => {
