@@ -24,7 +24,6 @@ class ChatList extends Component {
 
     this.state = {
       users: [],
-      height: 0,
     };
 
     this.renderChats = this.renderChats.bind(this);
