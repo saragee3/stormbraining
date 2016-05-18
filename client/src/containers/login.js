@@ -45,7 +45,7 @@ const style = {
   porthole: {
     borderRadius: '100%',
     width: '75%',
-    maxWidth: '250px',
+    maxWidth: '200px',
     margin: '15px auto',
     display: 'block',
   },
@@ -149,6 +149,7 @@ class Login extends Component {
             <Stepper
               activeStep={stepIndex}
               orientation="vertical"
+              linear={ false }
               style={{ width: '80%', margin: '0px auto' }}
             >
              <Step>
