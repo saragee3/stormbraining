@@ -15,13 +15,13 @@ import Drawer from 'material-ui/Drawer';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ChatBubble from 'material-ui/svg-icons/communication/chat-bubble-outline';
 
-const before = {
+const buttonBefore = {
   marginLeft: '30px',
   marginTop: '28px',
   position: 'absolute',
 };
 
-const after = {
+const buttonAfter = {
   marginLeft: '425px',
   marginTop: '28px',
   position: 'absolute',
@@ -40,19 +40,22 @@ export default class Chat extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       value: 'b',
       open: false,
       messageCount: 0,
       badgeDisplay: 'none',
       term: '',
-      current: before,
+      current: buttonBefore,
+      users: [],
     };
 
     this.onChatSubmit = this.onChatSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
+
   }
 
   componentWillMount() {
@@ -65,6 +68,16 @@ export default class Chat extends Component {
           this.setState({ badgeDisplay: this.state.badgeDisplay = 'inline' });
         }
       });
+    });
+    this.socket.on('user', (data) => {
+      if (data[this.props.params.board_id]) {
+        this.setState({ users: data[this.props.params.board_id] });
+      }
+    });
+    this.socket.on('left', (data) => {
+      if (data[this.props.params.board_id]) {
+        this.setState({ users: data[this.props.params.board_id] });
+      }
     });
   }
 
@@ -84,7 +97,7 @@ export default class Chat extends Component {
     const message = this.state.term;
     if (message) {
       this.props.addMessage(this.props.board.id, message, userName);
-      this.setState({ term: '' });
+      this.setState({ term: this.state.term = '' });
     }
   }
 
@@ -96,20 +109,16 @@ export default class Chat extends Component {
     this.setState({ badgeDisplay: this.state.badgeDisplay = 'none' });
     this.setState({ messageCount: this.state.messageCount = 0 });
     this.setState({ ...this.state, open: !this.state.open });
-    if (this.state.current === before) {
-      this.setState({ current: this.state.current = after });
+    if (this.state.current === buttonBefore) {
+      this.setState({ current: this.state.current = buttonAfter });
     } else {
-      this.setState({ current: this.state.current = before });
+      this.setState({ current: this.state.current = buttonBefore });
     }
-  }
-
-  handleChange(value) {
-    this.setState({ ...this.state, value });
   }
 
   render() {
     return (
-      <div>
+      <div style={{ scroll: 'hidden' }}>
         <Badge
           style={this.state.current}
           badgeStyle={{
@@ -135,7 +144,6 @@ export default class Chat extends Component {
             scroll: 'hidden',
             position: 'static',
           }}
-
           width={400}
           open={this.state.open}
           onRequestChange={(open) => this.setState({ ...this.state, open })}
@@ -144,7 +152,7 @@ export default class Chat extends Component {
             value={this.state.value}
             onChange={this.handleChange}
           >
-            <Tab label="Users" value="a" >
+            <Tab label={`Users (${this.state.users.length})`} value="a" >
               <div>
                 <Users {...this.props} />
               </div>
@@ -156,16 +164,18 @@ export default class Chat extends Component {
               <div
                 style={{
                   position: 'fixed',
-                  bottom: '0',
+                  bottom: '0px',
                   backgroundColor: '#90A4AE',
-                  width: '400',
+                  width: '400px',
                   paddingLeft: '25px',
-                  paddingBottom: '25px',
+                  paddingBottom: '0px',
+                  marginTop: '50px',
+                  height: '120px',
                 }}
               >
-                <Subheader>ESC to exit</Subheader>
                 <form onSubmit={this.onChatSubmit}>
                   <TextField
+                    style={{ paddingTop: '35px' }}
                     inputStyle={{ color: '#fff' }}
                     hintText="Your message here..."
                     value={this.state.term}
