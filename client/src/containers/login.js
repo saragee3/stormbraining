@@ -45,7 +45,7 @@ const style = {
   porthole: {
     borderRadius: '100%',
     width: '75%',
-    maxWidth: '250px',
+    maxWidth: '200px',
     margin: '15px auto',
     display: 'block',
   },
@@ -63,6 +63,10 @@ const style = {
     width: '18%',
     maxWidth: '150px',
     margin: '2px 10px',
+  },
+  instructions: {
+    width: '100%',
+    maxWidth: '640px',
   },
 };
 
@@ -149,6 +153,7 @@ class Login extends Component {
             <Stepper
               activeStep={stepIndex}
               orientation="vertical"
+              linear={ false }
               style={{ width: '80%', margin: '0px auto' }}
             >
              <Step>
@@ -160,7 +165,7 @@ class Login extends Component {
                </StepButton>
                <StepContent>
                  <p>
-                   <img src="create-a-board.gif" alt=""/> <br />
+                   <img src="create-a-board.gif" style={style.instructions} alt=""/> <br />
                    Log in to create a new board.
                  </p>
                  {this.renderStepActions(0)}
@@ -175,7 +180,7 @@ class Login extends Component {
                </StepButton>
                <StepContent>
                  <p>
-                   <img src="create-a-board.gif" alt=""/> <br />
+                   <img src="invite-your-team.gif" style={style.instructions} alt=""/> <br />
                    Send your team a link to your new board.
                  </p>
                  {this.renderStepActions(1)}
@@ -190,7 +195,7 @@ class Login extends Component {
                </StepButton>
                <StepContent>
                  <p>
-                   <img src="create-a-board.gif" alt=""/> <br />
+                   <img src="collaborate.gif" style={style.instructions} alt=""/> <br />
                    Get ideas with your team in real time.  Upvote, sort, comment, and chat to get bring the best ideas to the top.
                  </p>
                  {this.renderStepActions(2)}
