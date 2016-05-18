@@ -84,14 +84,15 @@ class ChatList extends Component {
   }
 
   render() {
+    let height;
+    if (document.querySelector('.ChatDrawer')) {
+      height = document.querySelector('.ChatDrawer').children[0].offsetHeight;
+    }
+    height = height - 184 + 'px';
     return (
-      <div style={{ overflowY: 'scroll', maxHeight: '850px' }}>
-        <List>
-          <div>
-            {this.props.chat.map(this.renderChats)}
-          </div>
-        </List>
-    </div>
+      <List style={{ overflowY: 'scroll', overflowX: 'hidden', height }}>
+        {this.props.chat.map(this.renderChats)}
+      </List>
     );
   }
 }
