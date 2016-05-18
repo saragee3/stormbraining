@@ -93,10 +93,11 @@ export default {
       comments: true,
       messages: true,
       activeUser: true,
+      timedBoards: true,
     }).run()
       .then((board) => {
         if (userId === board.authorId) {
-          board.deleteAll({ ideas: true, comments: true, messages: true })
+          board.deleteAll({ ideas: true, comments: true, messages: true, timedBoards: true })
             .then((board) => {
               res.status(201).json({ board });
             });
