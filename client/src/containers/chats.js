@@ -5,7 +5,6 @@ import io from 'socket.io-client';
 import { addMessage } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Subheader from 'material-ui/Subheader';
 
 import FlipMove from 'react-flip-move';
 import RaisedButton from 'material-ui/RaisedButton';
