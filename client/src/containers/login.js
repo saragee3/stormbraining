@@ -64,6 +64,10 @@ const style = {
     maxWidth: '150px',
     margin: '2px 10px',
   },
+  instructions: {
+    width: '100%',
+    maxWidth: '640px',
+  },
 };
 
 class Login extends Component {
@@ -161,7 +165,7 @@ class Login extends Component {
                </StepButton>
                <StepContent>
                  <p>
-                   <img src="create-a-board.gif" alt=""/> <br />
+                   <img src="create-a-board.gif" style={style.instructions} alt=""/> <br />
                    Log in to create a new board.
                  </p>
                  {this.renderStepActions(0)}
@@ -176,7 +180,7 @@ class Login extends Component {
                </StepButton>
                <StepContent>
                  <p>
-                   <img src="create-a-board.gif" alt=""/> <br />
+                   <img src="invite-your-team.gif" style={style.instructions} alt=""/> <br />
                    Send your team a link to your new board.
                  </p>
                  {this.renderStepActions(1)}
@@ -191,7 +195,7 @@ class Login extends Component {
                </StepButton>
                <StepContent>
                  <p>
-                   <img src="create-a-board.gif" alt=""/> <br />
+                   <img src="collaborate.gif" style={style.instructions} alt=""/> <br />
                    Get ideas with your team in real time.  Upvote, sort, comment, and chat to get bring the best ideas to the top.
                  </p>
                  {this.renderStepActions(2)}
