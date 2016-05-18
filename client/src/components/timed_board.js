@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { clearBoardView } from '../actions/index';
+import { getTimedBoard, clearTimedBoardView } from '../actions/timed_board_actions';
 import AppBar from 'material-ui/AppBar';
 
 import Paper from 'material-ui/Paper';
 import { paper } from './app.js';
-import TimedIdeaInput from '../containers/idea_input';
-import TimedIdeaList from '../containers/idea_list';
+import TimedIdeaInput from '../containers/timed_idea_input';
+import TimedIdeaList from '../containers/timed_idea_list';
+import CircularProgress from 'material-ui/CircularProgress';
 
 class TimedBoard extends Component {
 
@@ -23,10 +24,9 @@ class TimedBoard extends Component {
 
   constructor(props) {
     super(props);
-    const timeEnd = Date.now(this.props.timedBoard.createdAt) + this.props.timedBoard.timerLength;
-    const timeNow = Date.now();
-    const timeRemaining = timeEnd > timeNow ? timeEnd - timeNow : 0;
+    const timeRemaining = this.props.timedBoard.timerLength;
     this.state = { timeRemaining };
+    this.tick = this.tick.bind(this);
   }
 
   componentWillMount() {
@@ -43,27 +43,44 @@ class TimedBoard extends Component {
   }
 
   tick() {
-    const timeEnd = Date.now(this.props.timedBoard.createdAt) + this.props.timedBoard.timerLength;
-    const timeNow = Date.now();
+    const timeEnd = Date.parse(this.props.timedBoard.createdAt) + this.props.timedBoard.timerLength;
+    const timeNow = new Date().getTime();
     const timeRemaining = timeEnd > timeNow ? timeEnd - timeNow : 0;
-    this.setState({secondsElapsed: this.state.secondsElapsed + 1});
+    this.setState({ timeRemaining });
+  }
+
+  renderLoadingOrComplete() {
+    if (this.props.timedBoard.isLoading) {
+      return (
+        <CircularProgress
+          style={{ ...paper, marginTop: '150px' }}
+          color={this.context.muiTheme.palette.accent1Color}
+          size={3}
+        />
+      );
+    }
+    return (
+      <Paper style={paper} zDepth={0}>
+        <TimedIdeaInput {...this.props} timeRemaining={this.state.timeRemaining}/>
+        <TimedIdeaList {...this.props} />
+      </Paper>
+    );
   }
 
   render() {
     return (
       <div>
         <AppBar
-          title={<span style={{ color: this.context.muiTheme.palette.textColor }}>
-              {this.props.board.title}
-            </span>}
+          title={
+            <span style={{ color: this.context.muiTheme.palette.textColor }}>
+              {this.props.timedBoard.title}
+            </span>
+          }
           iconElementLeft={<div />}
           zDepth={3}
           style={{ backgroundColor: this.context.muiTheme.palette.primary3Color, textAlign: 'center' }}
         />
-        <Paper style={paper} zDepth={0}>
-          <TimedIdeaInput {...this.props} />
-          <TimedIdeaList {...this.props} />
-        </Paper>
+        {this.renderLoadingOrComplete()}
       </div>
     );
   }
@@ -73,4 +90,4 @@ function mapStateToProps({ timedBoard }) {
   return { timedBoard };
 }
 
-export default connect(mapStateToProps, { getOneBoard, refreshBoardView, clearBoardView, syncComment })(Timer);
+export default connect(mapStateToProps, { getTimedBoard, clearTimedBoardView })(TimedBoard);
