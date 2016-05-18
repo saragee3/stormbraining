@@ -2,7 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { newIdea, joinBoard, leaveBoard } from '../actions/index';
+import { newTimedBoard } from '../actions/timed_board_actions';
 import Invite from './invite';
+import StartSession from './start_session';
 
 import Snackbar from 'material-ui/Snackbar';
 import TextField from 'material-ui/TextField';
@@ -16,6 +18,7 @@ class IdeaInput extends Component {
     newIdea: PropTypes.func.isRequired,
     joinBoard: PropTypes.func.isRequired,
     leaveBoard: PropTypes.func.isRequired,
+    newTimedBoard: PropTypes.func.isRequired,
     userId: PropTypes.string.isRequired,
     board: PropTypes.object.isRequired,
     joined: PropTypes.bool.isRequired,
@@ -98,6 +101,7 @@ class IdeaInput extends Component {
               bodyStyle={{ backgroundColor: this.context.muiTheme.palette.primary3Color }}
             />
             {this.renderInviteOrLeave()}
+            <StartSession {...this.props} />
           </form>
         </div>
       );
@@ -117,7 +121,7 @@ class IdeaInput extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ newIdea, joinBoard, leaveBoard }, dispatch);
+  return bindActionCreators({ newIdea, joinBoard, leaveBoard, newTimedBoard }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(IdeaInput);
