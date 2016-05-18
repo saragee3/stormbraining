@@ -96,9 +96,9 @@ export default class Chat extends Component {
     event.preventDefault();
     const userName = JSON.parse(localStorage.profile).name;
     const message = this.state.term;
+    this.setState({ term: this.state.term = '' });
     if (message) {
       this.props.addMessage(this.props.board.id, message, userName);
-      this.setState({ term: this.state.term = '' });
     }
   }
 
