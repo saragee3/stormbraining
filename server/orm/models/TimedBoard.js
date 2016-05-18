@@ -9,6 +9,7 @@ const TimedBoard = thinky.createModel('TimedBoard', {
   authorId: type.string().required(),
   boardId: type.string().required(),
   title: type.string().required(),
+  completed: type.boolean().default(false),
   timerLength: type.number().default(600000),
   createdAt: type.date().default(r.now),
 });

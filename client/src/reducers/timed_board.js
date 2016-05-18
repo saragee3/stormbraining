@@ -3,11 +3,12 @@ import * as types from '../actions/action_types';
 const INITIAL_STATE = {
   id: '',
   title: '',
-  ideas: [],
+  timedIdeas: [],
   authorId: '',
   boardId: '',
   timerLength: 0,
   createdAt: '',
+  completed: false,
   isLoading: false,
 };
 
@@ -23,17 +24,17 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, isLoading: false };
 
     case types.NEW_TIMED_IDEA:
-      return { ...state, ideas: [...state.ideas, action.payload.idea] };
+      return { ...state, timedIdeas: [...state.timedIdeas, action.payload.data.idea] };
 
     case types.UPDATE_TIMED_IDEA:
-      const toggledIdeas = state.ideas.map(idea => {
-        return idea.id === action.payload.idea.id ? action.payload.idea : idea;
+      const updatedIdeas = state.timedIdeas.map(idea => {
+        return idea.id === action.payload.data.idea.id ? action.payload.data.idea : idea;
       });
-      return { ...state, ideas: toggledIdeas };
+      return { ...state, timedIdeas: updatedIdeas };
 
     case types.DELETE_TIMED_IDEA:
-      const filteredIdeas = state.ideas.filter(idea => idea.id !== action.payload.idea.id);
-      return { ...state, ideas: filteredIdeas };
+      const filteredIdeas = state.timedIdeas.filter(idea => idea.id !== action.payload.data.idea.id);
+      return { ...state, timedIdeas: filteredIdeas };
 
     case types.CLEAR_TIMED_BOARD_VIEW:
       return INITIAL_STATE;
@@ -42,7 +43,7 @@ export default function (state = INITIAL_STATE, action) {
       let i = 0;
       let j = 0;
       let temp = null;
-      const arrayRandom = state.ideas.slice();
+      const arrayRandom = state.timedIdeas.slice();
 
       for (i = arrayRandom.length - 1; i > 0; i -= 1) {
         j = Math.floor(Math.random() * (i + 1));
@@ -51,10 +52,10 @@ export default function (state = INITIAL_STATE, action) {
         arrayRandom[j] = temp;
       }
 
-      return { ...state, ideas: arrayRandom };
+      return { ...state, timedIdeas: arrayRandom };
 
     case types.SORT_TIMED_IDEAS_BY_CONTENT:
-      const arrayByContent = state.ideas.slice();
+      const arrayByContent = state.timedIdeas.slice();
       const orderContent = action.order;
 
       arrayByContent.sort((a, b) => {
@@ -65,10 +66,10 @@ export default function (state = INITIAL_STATE, action) {
         return new Date(a.createdAt) - new Date(b.createdAt);
       });
 
-      return { ...state, ideas: arrayByContent };
+      return { ...state, timedIdeas: arrayByContent };
 
     case types.SORT_TIMED_IDEAS_BY_TIME:
-      const arrayByTime = state.ideas.slice();
+      const arrayByTime = state.timedIdeas.slice();
       const orderTime = action.order;
 
       arrayByTime.sort((a, b) => {
@@ -76,7 +77,7 @@ export default function (state = INITIAL_STATE, action) {
         if (orderTime === 0) { return new Date(a.createdAt) - new Date(b.createdAt); }
       });
 
-      return { ...state, ideas: arrayByTime };
+      return { ...state, timedIdeas: arrayByTime };
 
     default:
       return state;

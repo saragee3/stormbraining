@@ -25,6 +25,14 @@ export function deleteTimedIdea(id, ideaId) {
   };
 }
 
+export function toggleTimedIdea(id, ideaId) {
+  const request = axios.post(`${ROOT_URL}/timed/${id}/${ideaId}`);
+  return {
+    type: types.UPDATE_TIMED_IDEA,
+    payload: request,
+  };
+}
+
 export function updateTimedIdea(idea, id, ideaId) {
   const request = axios.put(`${ROOT_URL}/timed/${id}/${ideaId}`, { content: idea });
   return {

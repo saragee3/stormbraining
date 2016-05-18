@@ -2,7 +2,7 @@ import path from 'path';
 import BoardController from '../orm/controllers/BoardController.js';
 import IdeaController from '../orm/controllers/IdeaController.js';
 import TimedBoardController from '../orm/controllers/TimedBoardController.js';
-import TimedIdeaController from '../orm/controllers/TimedBoardController.js';
+import TimedIdeaController from '../orm/controllers/TimedIdeaController.js';
 import CommentController from '../orm/controllers/CommentController.js';
 import UserController from '../orm/controllers/UserController.js';
 import MessageController from '../orm/controllers/MessageController.js';
