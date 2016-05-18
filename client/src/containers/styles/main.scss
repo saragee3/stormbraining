@@ -68,3 +68,14 @@ a > img {
   position: relative;
   vertical-align: top;
 }
+
+.chat{
+  margin-left: '30px';
+  margin-top: '28px';
+  position: 'absolute';
+  transition: margin-left 0.5s;
+};
+
+.chat.toggle{
+  margin-left: '425px';
+};
