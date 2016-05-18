@@ -47,6 +47,7 @@ export default function routes(app, express) {
   app.route('/api/timed/:timed_board_id')
     .get(TimedBoardController.getTimedBoard)
     .post(TimedIdeaController.addTimedIdea)
+    .put(TimedBoardController.pushTimedBoard)
     .delete(TimedBoardController.deleteTimedBoard);
 
   app.route('/api/timed/:timed_board_id/:timed_idea_id')

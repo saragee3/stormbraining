@@ -24,7 +24,7 @@ class TimedBoard extends Component {
 
   constructor(props) {
     super(props);
-    const timeRemaining = this.props.timedBoard.timerLength;
+    const timeRemaining = this.props.timedBoard.completed ? 0 : this.props.timedBoard.timerLength;
     this.state = { timeRemaining };
     this.tick = this.tick.bind(this);
   }
@@ -34,12 +34,16 @@ class TimedBoard extends Component {
   }
 
   componentDidMount() {
-    this.interval = setInterval(this.tick, 1000);
+    if (!this.props.timedBoard.completed) {
+      this.interval = setInterval(this.tick, 1000);
+    }
   }
 
   componentWillUnmount() {
     this.props.clearTimedBoardView();
-    clearInterval(this.interval);
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
   }
 
   tick() {

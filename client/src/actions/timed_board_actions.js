@@ -49,6 +49,14 @@ export function newTimedBoard(title, timerLength, id) {
   };
 }
 
+export function pushTimedBoard(id) {
+  const request = axios.put(`${ROOT_URL}/timed/${id}`);
+  return {
+    type: types.PUSH_TIMED_BOARD,
+    payload: request,
+  };
+}
+
 export function getTimedBoard(id) {
   return dispatch => {
     dispatch(getTimedBoardRequest());

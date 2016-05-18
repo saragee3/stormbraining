@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { newTimedIdea } from '../actions/timed_board_actions';
-import { browserHistory } from 'react-router';
+import { newTimedIdea, pushTimedBoard } from '../actions/timed_board_actions';
 
+import PushToBoard from './push_to_board';
 import Snackbar from 'material-ui/Snackbar';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -14,6 +14,7 @@ class TimedIdeaInput extends Component {
   static propTypes = {
     params: PropTypes.object.isRequired,
     newTimedIdea: PropTypes.func.isRequired,
+    pushTimedBoard: PropTypes.func.isRequired,
     timedBoard: PropTypes.object.isRequired,
     timeRemaining: PropTypes.number.isRequired,
   }
@@ -72,6 +73,7 @@ class TimedIdeaInput extends Component {
             onRequestClose={this.handleRequestClose}
             bodyStyle={{ backgroundColor: this.context.muiTheme.palette.primary3Color }}
           />
+          <PushToBoard {...this.props} />
         </form>
       </div>
     );
@@ -79,7 +81,7 @@ class TimedIdeaInput extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ newTimedIdea }, dispatch);
+  return bindActionCreators({ newTimedIdea, pushTimedBoard }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(TimedIdeaInput);
