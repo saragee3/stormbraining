@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Email from './email';
 import CopyToClipBoard from 'react-copy-to-clipboard';
 
 import Dialog from 'material-ui/Dialog';
@@ -42,10 +43,7 @@ class Invite extends Component {
         label="Cancel"
         onTouchTap={this.handleClose}
       />,
-      <FlatButton
-        label="Email"
-        onTouchTap={this.handleClose}
-      />,
+      <Email {...this.props} />,
       <CopyToClipBoard
         text={this.state.value}
         onCopy={this.onCopyToClipboard}
