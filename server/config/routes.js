@@ -41,17 +41,18 @@ export default function routes(app, express) {
     .put(CommentController.updateComment)
     .delete(CommentController.deleteComment);
 
-  app.route('/api/boards/:board_id/:timed_board_id')
-    .get(TimedBoardController.getTimedBoard)
+  app.route('/api/boards/:board_id/timed')
     .post(TimedBoardController.addTimedBoard);
 
-  app.route('/api/boards/:board_id/:timed_board_id/:timed_idea_id')
+  app.route('/api/timed/:timed_board_id')
+    .get(TimedBoardController.getTimedBoard)
     .post(TimedIdeaController.addTimedIdea)
+    .delete(TimedBoardController.deleteTimedBoard);
+
+  app.route('/api/timed/:timed_board_id/:timed_idea_id')
+    .post(TimedIdeaController.toggleTimedIdea)
     .put(TimedIdeaController.updateTimedIdea)
     .delete(TimedIdeaController.deleteTimedIdea);
-
-  app.route('/api/boards/:board_id/:timed_board_id/:timed_idea_id/toggle')
-    .put(TimedIdeaController.toggleTimedIdea);
 
   app.route('/api/users')
     .get(UserController.getUser)

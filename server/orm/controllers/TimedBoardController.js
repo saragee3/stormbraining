@@ -28,4 +28,22 @@ export default {
       })
       .error(helper.handleError(res));
   },
+
+  deleteTimedBoard: (req, res) => {
+    const id = req.params.timed_board_id;
+    const userId = req.user.sub;
+
+    TimedBoard.get(id).getJoin({ timedIdeas: true }).run()
+      .then((board) => {
+        if (userId === board.authorId) {
+          board.deleteAll({ timedIdeas: true })
+            .then((board) => {
+              res.status(201).json({ board });
+            });
+        } else {
+          console.log('Permission denied.');
+        }
+      })
+      .error(helper.handleError(res));
+  },
 };

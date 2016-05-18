@@ -49,7 +49,7 @@ export default {
   },
 
   updateTimedIdea: (req, res) => {
-    const id = req.params.idea_id;
+    const id = req.params.timed_idea_id;
     const update = req.body;
     const userId = req.user.sub;
 
