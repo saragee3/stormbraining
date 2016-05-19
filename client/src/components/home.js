@@ -32,14 +32,16 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.renderBoardListing = this.renderBoardListing.bind(this);
+    this.renderTimedSessions = this.renderTimedSessions.bind(this);
   }
 
   componentWillMount() {
     this.props.getUser();
   }
 
-  onViewBoard(data) {
-    browserHistory.push(`boards/${data.id}`);
+  onViewBoard(data, timed) {
+    const rootUrl = timed ? 'timed' : 'boards';
+    browserHistory.push(`${rootUrl}/${data.id}`);
   }
 
   deleteButton(data) {
@@ -59,18 +61,45 @@ class Home extends Component {
   }
 
   renderDeleteBoard(data) {
-    this.props.deleteBoard(data.id);
+    if (data.timerLength > 0) {
+      this.props.deleteTimedBoard(data.id);
+    } else {
+      this.props.deleteBoard(data.id);
+    }
   }
 
   renderBoardListing(data) {
+    const timed = data.timerLength > 0;
+    const timeEnded = data.createdAt + data.timerLength < Date.now();
+    const timedStatus = timeEnded ? 'Not Pushed' : 'Ongoing';
     return (
       <ListItem {...this.props}
         key={data.id}
         primaryText={data.title}
-        onTouchTap={this.onViewBoard.bind(this, data)}
+        secondaryText={timed ? timedStatus : ''}
+        onTouchTap={this.onViewBoard.bind(this, data, timed)}
         rightIconButton={this.deleteButton(data)}
       />
     );
+  }
+
+  renderTimedSessions() {
+    if (this.props.user.timedBoards.length) {
+      return (
+        <Paper style={container} zDepth={2}>
+        <List
+          style={{
+            display: 'block',
+            margin: '0 auto',
+            textAlign: 'left',
+          }}
+        >
+          <Subheader style={{ color: this.context.muiTheme.palette.accent1Color }}>Your Timed Sessions</Subheader>
+          {this.props.user.timedBoards.map(this.renderBoardListing)}
+        </List>
+        </Paper>
+      );
+    }
   }
 
   render() {
@@ -113,6 +142,7 @@ class Home extends Component {
           {this.props.user.boards.map(this.renderBoardListing)}
         </List>
         </Paper>
+        {this.renderTimedSessions()}
       </Paper>
     );
   }

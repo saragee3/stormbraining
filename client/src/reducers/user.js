@@ -1,6 +1,6 @@
 import * as types from '../actions/action_types';
 
-const INITIAL_STATE = { email: '', id: '', name: '', authoredBoards: [], boards: [], isLoading: false };
+const INITIAL_STATE = { email: '', id: '', name: '', authoredBoards: [], boards: [], timedBoards: [], isLoading: false };
 
 export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
