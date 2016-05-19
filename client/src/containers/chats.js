@@ -143,7 +143,6 @@ export default class Chat extends Component {
       </FlipMove>
 
         <Drawer
-          className="ChatDrawer"
           width={400}
           open={this.state.open}
           onRequestChange={(open) => this.setState({ ...this.state, open })}
