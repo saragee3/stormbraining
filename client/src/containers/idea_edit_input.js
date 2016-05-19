@@ -65,6 +65,7 @@ class IdeaEditInput extends Component {
             multiLine
             underlineFocusStyle={{ borderColor: this.context.muiTheme.palette.accent1Color }}
             floatingLabelFocusStyle={{ color: this.context.muiTheme.palette.accent1Color }}
+            style={{ lineHeight: 1.4 }}
           />
           <FlatButton
             type="submit"
