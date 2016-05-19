@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getUser, deleteBoard } from '../actions/index';
+import { deleteTimedBoard } from '../actions/timed_board_actions';
 
 import BoardInput from '../containers/board_input';
 import { List, ListItem } from 'material-ui/List';
@@ -22,6 +23,7 @@ class Home extends Component {
   static propTypes = {
     getUser: PropTypes.func.isRequired,
     deleteBoard: PropTypes.func.isRequired,
+    deleteTimedBoard: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
   }
 
@@ -149,7 +151,7 @@ class Home extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getUser, deleteBoard }, dispatch);
+  return bindActionCreators({ getUser, deleteBoard, deleteTimedBoard }, dispatch);
 }
 
 function mapStateToProps({ user }) {

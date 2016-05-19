@@ -22,6 +22,11 @@ export default function (state = INITIAL_STATE, action) {
       const remainingBoards = state.authoredBoards.filter((board) => board.id !== idToDelete);
       return { ...state, authoredBoards: remainingBoards };
 
+    case types.DELETE_TIMED_BOARD:
+      const id = action.payload.data.board.id;
+      const remaining = state.timedBoards.filter((board) => board.id !== id);
+      return { ...state, timedBoards: remaining };
+
     default:
       return state;
   }
