@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { deleteTimedIdea, toggleTimedIdea } from '../actions/timed_board_actions';
 
-import { Card, CardHeader, CardText } from 'material-ui/Card';
-import ThumbsUp from 'material-ui/svg-icons/action/thumb-up';
+import { Card, CardHeader } from 'material-ui/Card';
 import DeleteForever from 'material-ui/svg-icons/action/delete-forever';
-import Done from 'material-ui/svg-icons/action/done';
+import CheckCircle from 'material-ui/svg-icons/action/check-circle';
 import IconButton from 'material-ui/IconButton';
 
 class TimedIdea extends Component {
@@ -18,6 +17,7 @@ class TimedIdea extends Component {
     authorId: PropTypes.string.isRequired,
     selected: PropTypes.bool.isRequired,
     deleteTimedIdea: PropTypes.func.isRequired,
+    toggleTimedIdea: PropTypes.func.isRequired,
   }
 
   static contextTypes = {
@@ -35,10 +35,11 @@ class TimedIdea extends Component {
     return (
       <IconButton
         onClick={this.renderToggleTimedIdea}
+        tooltip="favorite this idea"
         touch
         tooltipPosition="bottom-center"
       >
-        <Done color={selectedColor} hoverColor={this.context.muiTheme.palette.accent1Color} />
+        <CheckCircle color={selectedColor} hoverColor={this.context.muiTheme.palette.accent1Color} />
       </IconButton>
     );
   }
