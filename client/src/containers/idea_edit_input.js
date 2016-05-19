@@ -17,6 +17,10 @@ class IdeaEditInput extends Component {
     joined: PropTypes.bool.isRequired,
   }
 
+  static contextTypes = {
+    muiTheme: PropTypes.object.isRequired,
+  }
+
   constructor(props) {
     super(props);
 
@@ -59,6 +63,8 @@ class IdeaEditInput extends Component {
             onChange={this.onInputChange}
             fullWidth
             multiLine
+            underlineFocusStyle={{ borderColor: this.context.muiTheme.palette.accent1Color }}
+            floatingLabelFocusStyle={{ color: this.context.muiTheme.palette.accent1Color }}
           />
           <FlatButton
             type="submit"

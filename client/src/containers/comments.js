@@ -28,7 +28,7 @@ class Comments extends Component {
 
   static contextTypes = {
     muiTheme: PropTypes.object.isRequired,
-  };
+  }
 
   constructor(props) {
     super(props);
@@ -86,25 +86,19 @@ class Comments extends Component {
         <CardText expandable>
           {this.props.comments.map(this.renderComments)}
           <form onSubmit={this.onFormSubmit}>
-            <span style={{
-              width: '75%',
-              display: 'inline-block' }}
-            >
-              <TextField
-                fullWidth
-                hintText={'Type your comment here'}
-                floatingLabelText="Add a comment"
-                value={this.state.input}
-                onChange={this.onInputChange}
-              />
-            </span>
-            <span>
-              <RaisedButton
-                type="submit"
-              >
-              Submit
-              </RaisedButton>
-            </span>
+            <TextField
+              hintText={'Type your comment here'}
+              floatingLabelText="Add a comment"
+              value={this.state.input}
+              onChange={this.onInputChange}
+              fullWidth
+              underlineFocusStyle={{ borderColor: this.context.muiTheme.palette.accent1Color }}
+              floatingLabelFocusStyle={{ color: this.context.muiTheme.palette.accent1Color }}
+            />
+            <FlatButton
+              type="submit"
+              label="Submit"
+            />
           </form>
         </CardText>
       );
