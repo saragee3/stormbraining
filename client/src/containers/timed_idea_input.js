@@ -51,6 +51,10 @@ class TimedIdeaInput extends Component {
       <div className="idea-input-container">
         <div style= {{ color: this.context.muiTheme.palette.accent1Color }}>
           Time Remaining: {moment(this.props.timeRemaining).format('mm:ss')}
+          {
+            !this.props.timeRemaining &&
+            <p>Time is up! Select your favorite ideas and push them back to the board.</p>
+          }
         </div>
         <form onSubmit={this.onFormSubmit}>
           <TextField
