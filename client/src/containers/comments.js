@@ -46,7 +46,9 @@ class Comments extends Component {
 
   onFormSubmit(event) {
     event.preventDefault();
-    this.props.addComment(this.state.input, this.props.userName, this.props.id, this.props.boardId);
+    if (this.state.input) {
+      this.props.addComment(this.state.input, this.props.userName, this.props.id, this.props.boardId);
+    }
     this.setState({ input: '' });
   }
 
@@ -90,13 +92,14 @@ class Comments extends Component {
       return (
         <div style={{ paddingTop: '0px' }}>
           {this.props.comments.map(this.renderComments)}
-          <form onSubmit={this.onFormSubmit}>
+          <form onSubmit={this.onFormSubmit} style={{ textAlign: 'center' }}>
             <TextField
               hintText={'Type your comment here'}
               floatingLabelText="Add a comment"
               value={this.state.input}
               onChange={this.onInputChange}
               fullWidth
+              style={{ width: '82%' }}
               underlineFocusStyle={{ borderColor: this.context.muiTheme.palette.accent1Color }}
               floatingLabelFocusStyle={{ color: this.context.muiTheme.palette.accent1Color }}
             />
