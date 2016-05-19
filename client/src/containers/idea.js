@@ -135,6 +135,7 @@ class Idea extends Component {
           />
           <CardText
             expandable
+            style={{ paddingTop: '0px' }}
             children={<Comments {...this.props} userId={userId} joined={joined} userName={userName} />}
           />
         </Card>
