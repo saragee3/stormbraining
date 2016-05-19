@@ -198,4 +198,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ addMessage }, dispatch);
 }
 
-export default connect(mapDispatchToProps)(Chat);
+export default connect(null, mapDispatchToProps)(Chat);
