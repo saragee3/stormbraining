@@ -24,12 +24,17 @@ class ChatList extends Component {
 
     this.state = {
       users: [],
+      height: '',
     };
 
     this.renderChats = this.renderChats.bind(this);
+    this.handleResize = this.handleResize.bind(this);
   }
 
   componentWillMount() {
+    window.addEventListener('resize', this.handleResize);
+    const height = window.innerHeight - 184 + 'px';
+    this.setState({ ...this.state, height });
     this.props.getMessages(this.props.params.board_id)
       .then(() => {
         this.socket = io();
@@ -48,8 +53,14 @@ class ChatList extends Component {
   }
 
   componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
     this.socket.emit('unsubscribe', this.props.params.board_id);
     this.socket.disconnect();
+  }
+
+  handleResize() {
+    const height = window.innerHeight - 184 + 'px';
+    this.setState({ ...this.state, height });
   }
 
   renderChats(data) {
@@ -84,11 +95,7 @@ class ChatList extends Component {
   }
 
   render() {
-    let height;
-    if (document.querySelector('.ChatDrawer')) {
-      height = document.querySelector('.ChatDrawer').children[0].offsetHeight;
-    }
-    height = height - 184 + 'px';
+    const height = this.state.height;
     return (
       <List style={{ overflowY: 'scroll', overflowX: 'hidden', height }}>
         {this.props.chat.map(this.renderChats)}
