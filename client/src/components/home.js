@@ -29,20 +29,37 @@ class Home extends Component {
 
   static contextTypes = {
     muiTheme: PropTypes.object.isRequired,
-  };
+  }
 
   constructor(props) {
     super(props);
+    this.state = { timeRemaining: [] };
+    this.tick = this.tick.bind(this);
     this.renderBoardListing = this.renderBoardListing.bind(this);
     this.renderTimedSessions = this.renderTimedSessions.bind(this);
   }
 
   componentWillMount() {
     this.props.getUser();
+    this.interval = setInterval(this.tick, 1000);
   }
 
-  onViewBoard(data, timed) {
-    const rootUrl = timed ? 'timed' : 'boards';
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  tick() {
+    const timeRemaining = this.props.user.timedBoards.map(board => {
+      const end = board.createdAt + board.timerLength + 1500;
+      const now = new Date().getTime();
+      const remaining = end > now ? end - now : 0;
+      return remaining;
+    });
+    this.setState({ timeRemaining });
+  }
+
+  onViewBoard(data, isTimed) {
+    const rootUrl = isTimed ? 'timed' : 'boards';
     browserHistory.push(`${rootUrl}/${data.id}`);
   }
 
@@ -70,16 +87,18 @@ class Home extends Component {
     }
   }
 
-  renderBoardListing(data) {
-    const timed = data.timerLength > 0;
+  renderBoardListing(data, i) {
+    const isTimed = data.timerLength > 0;
+    const isLoaded = !!this.state.timeRemaining.length;
     const timeEnded = data.createdAt + data.timerLength < Date.now();
-    const timedStatus = timeEnded ? 'Not Pushed' : 'Ongoing';
+    const timeDisplay = isLoaded ? moment(this.state.timeRemaining[i]).format('mm:ss') : '';
+    const timedStatus = timeEnded ? 'Not Pushed' : `Time Remaining: ${timeDisplay}`;
     return (
       <ListItem {...this.props}
         key={data.id}
         primaryText={data.title}
-        secondaryText={timed ? timedStatus : ''}
-        onTouchTap={this.onViewBoard.bind(this, data, timed)}
+        secondaryText={isTimed ? timedStatus : ''}
+        onTouchTap={this.onViewBoard.bind(this, data, isTimed)}
         rightIconButton={this.deleteButton(data)}
       />
     );
