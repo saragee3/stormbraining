@@ -16,7 +16,7 @@ class TimedIdeaInput extends Component {
     newTimedIdea: PropTypes.func.isRequired,
     pushTimedBoard: PropTypes.func.isRequired,
     timedBoard: PropTypes.object.isRequired,
-    timeRemaining: PropTypes.number.isRequired,
+    timeRemaining: PropTypes.number,
   }
 
   static contextTypes = {
@@ -47,12 +47,14 @@ class TimedIdeaInput extends Component {
   }
 
   render() {
+    const isLoaded = this.props.timeRemaining !== null;
+    const timeEnded = isLoaded && !this.props.timeRemaining;
     return (
       <div className="idea-input-container">
-        <div style= {{ color: this.context.muiTheme.palette.accent1Color }}>
-          Time Remaining: {moment(this.props.timeRemaining).format('mm:ss')}
+        <div style= {{ color: timeEnded ? this.context.muiTheme.palette.accent1Color : '' }}>
+          Time Remaining: {isLoaded && moment(this.props.timeRemaining).format('mm:ss')}
           {
-            !this.props.timeRemaining &&
+            timeEnded &&
             <p>Time is up! Select your favorite ideas and push them back to the board.</p>
           }
         </div>
@@ -62,13 +64,13 @@ class TimedIdeaInput extends Component {
             floatingLabelText="Great ideas start here..."
             value={this.state.term}
             onChange={this.onInputChange}
-            disabled={this.props.timedBoard.completed || !this.props.timeRemaining}
+            disabled={this.props.timedBoard.completed || isLoaded && !this.props.timeRemaining}
           />
           <RaisedButton
             type="submit"
             className="idea-button"
             label="Submit"
-            disabled={this.props.timedBoard.completed || !this.props.timeRemaining}
+            disabled={this.props.timedBoard.completed || isLoaded && !this.props.timeRemaining}
           />
           <Snackbar
             open={this.state.open}
