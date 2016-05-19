@@ -17,13 +17,13 @@ import ChatBubble from 'material-ui/svg-icons/communication/chat-bubble-outline'
 
 const buttonBefore = {
   marginLeft: '30px',
-  marginTop: '28px',
+  marginTop: '5px',
   position: 'absolute',
 };
 
 const buttonAfter = {
   marginLeft: '355px',
-  marginTop: '28px',
+  marginTop: '5px',
   position: 'absolute',
   zIndex: 9999,
 };
@@ -198,4 +198,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ addMessage }, dispatch);
 }
 
-export default connect(mapDispatchToProps)(Chat);
+export default connect(null, mapDispatchToProps)(Chat);

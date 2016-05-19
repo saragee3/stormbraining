@@ -5,7 +5,8 @@ import { deleteTimedIdea, toggleTimedIdea } from '../actions/timed_board_actions
 
 import { Card, CardHeader } from 'material-ui/Card';
 import DeleteForever from 'material-ui/svg-icons/action/delete-forever';
-import CheckCircle from 'material-ui/svg-icons/action/check-circle';
+import CheckBox from 'material-ui/svg-icons/toggle/check-box';
+import CheckBoxOutlineBlank from 'material-ui/svg-icons/toggle/check-box-outline-blank';
 import IconButton from 'material-ui/IconButton';
 
 class TimedIdea extends Component {
@@ -31,15 +32,17 @@ class TimedIdea extends Component {
   }
 
   selectButton() {
-    const selectedColor = this.props.selected ? this.context.muiTheme.palette.accent1Color : '';
+    const icon = this.props.selected ?
+      <CheckBox color={this.context.muiTheme.palette.accent1Color} hoverColor={this.context.muiTheme.palette.accent1Color}/> :
+      <CheckBoxOutlineBlank hoverColor={this.context.muiTheme.palette.accent1Color} />;
     return (
       <IconButton
         onClick={this.renderToggleTimedIdea}
-        tooltip="favorite this idea"
+        tooltip= "select this idea"
         touch
         tooltipPosition="bottom-center"
       >
-        <CheckCircle color={selectedColor} hoverColor={this.context.muiTheme.palette.accent1Color} />
+        {icon}
       </IconButton>
     );
   }
