@@ -52,11 +52,13 @@ class IdeaEditInput extends Component {
   render() {
     if (this.state.showEditInput && this.props.joined) {
       return (
-        <form onSubmit={this.onFormSubmit} style={{ display: 'inline-block', float: 'left' }}>
+        <form onSubmit={this.onFormSubmit}>
           <TextField
             id={this.props.id}
             value={this.state.input}
             onChange={this.onInputChange}
+            fullWidth
+            multiLine
           />
           <FlatButton
             type="submit"
@@ -71,9 +73,9 @@ class IdeaEditInput extends Component {
       );
     }
     return (
-      <span style={{ float: 'left', paddingTop: '14px' }} onClick={this.onShowEdit}>
+      <div style={{ paddingTop: '16px', lineHeight: 1.4 }} onClick={this.onShowEdit}>
         {this.props.content}
-      </span>
+      </div>
     );
   }
 }
