@@ -18,13 +18,13 @@ import ChatBubble from 'material-ui/svg-icons/communication/chat-bubble-outline'
 const buttonBefore = {
   marginLeft: '30px',
   marginTop: '5px',
-  position: 'absolute',
+  position: 'fixed',
 };
 
 const buttonAfter = {
   marginLeft: '355px',
   marginTop: '5px',
-  position: 'absolute',
+  position: 'fixed',
   zIndex: 9999,
 };
 
