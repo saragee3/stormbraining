@@ -126,11 +126,10 @@ class Idea extends Component {
           <span>
           <IconButton
             onClick={this.branch}
-            hoverColor={this.context.muiTheme.palette.primary1Color}
             tooltip="make a board from this idea"
             tooltipPosition="bottom-center"
           >
-          <Branch />
+          <Branch hoverColor={this.context.muiTheme.palette.accent1Color}/>
           </IconButton>
           {this.voteButton()}
           <span style={{ position: 'relative', top: '-5px' }}>{this.props.upvotes.length}</span>
